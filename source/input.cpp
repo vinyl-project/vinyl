@@ -58,11 +58,11 @@ namespace vinyl
 
 			this->obtainMouseCapture(std::make_shared<MSWInputMouse>());
 			this->obtainKeyboardCapture(std::make_shared<MSWInputKeyboard>());
-#elif defined(VINYL_FEATURE_INPUT_API_GLFW)
-			inputDevice_ = device ? device : std::make_shared<GLFWInputDevice>();
+#elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
+			inputDevice_ = device ? device : std::make_shared<NDKInputDevice>();
 
-			this->obtainMouseCapture(std::make_shared<GLFWInputMouse>());
-			this->obtainKeyboardCapture(std::make_shared<GLFWInputKeyboard>());
+			this->obtainMouseCapture(std::make_shared<NDKInputTouch>());
+			this->obtainKeyboardCapture(std::make_shared<NDKInputKeyboard>());
 #else
 			inputDevice_ = device ? device : std::make_shared<DefaultInputDevice>();
 
@@ -81,10 +81,10 @@ namespace vinyl
 			this->obtainMouseCapture(std::make_shared<MSWInputMouse>());
 			this->obtainKeyboardCapture(std::make_shared<MSWInputKeyboard>());
 #elif defined(VINYL_FEATURE_INPUT_API_GLFW)
-			inputDevice_ = device ? std::move(device) : std::make_shared<GLFWInputDevice>();
+			inputDevice_ = device ? std::move(device) : std::make_shared<NDKInputDevice>();
 
-			this->obtainMouseCapture(std::make_shared<GLFWInputMouse>());
-			this->obtainKeyboardCapture(std::make_shared<GLFWInputKeyboard>());
+			this->obtainMouseCapture(std::make_shared<NDKInputTouch>());
+			this->obtainKeyboardCapture(std::make_shared<NDKInputKeyboard>());
 #else
 			inputDevice_ = device ? std::move(device) : std::make_shared<DefaultInputDevice>();
 

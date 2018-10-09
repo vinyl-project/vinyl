@@ -9,6 +9,7 @@ SET(VINYL_PATH_DEPENDENCIES ${VINYL_PATH}/contrib CACHE STRING "Adds a path to v
 SET(VINYL_PATH_INCLUDE ${VINYL_PATH}/include CACHE STRING "Adds a path to vinyl header" FORCE)
 SET(VINYL_PATH_HEADER ${VINYL_PATH_INCLUDE}/vinyl CACHE STRING "Adds a path to vinyl header" FORCE)
 SET(VINYL_PATH_SOURCE ${VINYL_PATH}/source CACHE STRING "Adds a path to vinyl source" FORCE)
+SET(VINYL_PATH_SAMPLES ${VINYL_PATH}/samples CACHE STRING "Adds a path to octoon samples" FORCE)
 
 OPTION(VINYL_BUILD_DOCUMENT "ON to enable document generation" ON)
 OPTION(VINYL_BUILD_SSE "ON for use OFF for ignore" OFF)
@@ -258,3 +259,6 @@ ENDIF()
 
 # 添加项目
 ADD_SUBDIRECTORY(source)
+
+# 添加示例
+ADD_SUBDIRECTORY(samples)

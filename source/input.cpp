@@ -88,134 +88,18 @@ namespace vinyl
 			return nullptr;
 		}
 
-		float
-		DefaultInput::getAxis(InputAxis::Code axis) const noexcept
-		{
-			if (mouseCaptureDevice_)
-				return mouseCaptureDevice_->getAxis(axis);
-			return 0.0f;
-		}
-
-		void
-		DefaultInput::setMousePos(InputButton::Type x, InputButton::Type y) noexcept
-		{
-			if (mouseCaptureDevice_)
-				mouseCaptureDevice_->setPosition(x, y);
-		}
-
-		void
-		DefaultInput::getMousePos(InputButton::Type& x, InputButton::Type& y) const noexcept
-		{
-			if (mouseCaptureDevice_)
-				mouseCaptureDevice_->getPosition(x, y);
-		}
-
-		bool
-		DefaultInput::isKeyDown(InputKey::Code key) const noexcept
-		{
-			if (keyboardCaptureDevice_)
-				return keyboardCaptureDevice_->isKeyDown(key);
-
-			return false;
-		}
-
-		bool
-		DefaultInput::isKeyUp(InputKey::Code key) const noexcept
-		{
-			if (keyboardCaptureDevice_)
-				return keyboardCaptureDevice_->isKeyUp(key);
-
-			return false;
-		}
-
-		bool
-		DefaultInput::isKeyPressed(InputKey::Code key) const noexcept
-		{
-			if (keyboardCaptureDevice_)
-				return keyboardCaptureDevice_->isKeyPressed(key);
-
-			return false;
-		}
-
-		bool
-		DefaultInput::isButtonDown(InputButton::Code key) const noexcept
-		{
-			if (mouseCaptureDevice_)
-				return mouseCaptureDevice_->isButtonDown(key);
-
-			return false;
-		}
-
-		bool
-		DefaultInput::isButtonUp(InputButton::Code key) const noexcept
-		{
-			if (mouseCaptureDevice_)
-				return mouseCaptureDevice_->isButtonUp(key);
-
-			return false;
-		}
-
-		bool
-		DefaultInput::isButtonPressed(InputButton::Code key) const noexcept
-		{
-			if (mouseCaptureDevice_)
-				return mouseCaptureDevice_->isButtonPressed(key);
-
-			return false;
-		}
-
-		void
-		DefaultInput::showCursor(bool show) noexcept
-		{
-			if (mouseCaptureDevice_)
-			{
-				if (show)
-					mouseCaptureDevice_->showMouse();
-				else
-					mouseCaptureDevice_->hideMouse();
-			}
-		}
-
-		bool
-		DefaultInput::isShowCursor() const noexcept
-		{
-			if (mouseCaptureDevice_)
-				return mouseCaptureDevice_->isShowMouse();
-			return false;
-		}
-
-		void
-		DefaultInput::lockCursor(bool lock) noexcept
-		{
-			if (mouseCaptureDevice_)
-			{
-				if (lock)
-					mouseCaptureDevice_->lockMouse();
-				else
-					mouseCaptureDevice_->unlockMouse();
-			}
-		}
-
-		bool
-		DefaultInput::isLockedCursor() const noexcept
-		{
-			if (mouseCaptureDevice_)
-				return mouseCaptureDevice_->isLockedMouse();
-			return false;
-		}
-
 		void
 		DefaultInput::obtainMouseCapture() noexcept
 		{
 			if (mouseCaptureDevice_ && !mouseCaptureDevice_->capture())
-				mouseCaptureDevice_->obtainCapture();
+				mouseCaptureDevice_->obtainCaptures();
 		}
 
 		void
 		DefaultInput::obtainKeyboardCapture() noexcept
 		{
 			if (keyboardCaptureDevice_ && !keyboardCaptureDevice_->capture())
-				keyboardCaptureDevice_->obtainCapture();
+				keyboardCaptureDevice_->obtainCaptures();
 		}
 
 		void
@@ -235,7 +119,7 @@ namespace vinyl
 
 				if (mouseCaptureDevice_)
 				{
-					mouseCaptureDevice_->obtainCapture();
+					mouseCaptureDevice_->obtainCaptures();
 
 					if (inputDevice_)
 						inputDevice_->addInputListener(mouseCaptureDevice_);
@@ -260,7 +144,7 @@ namespace vinyl
 
 				if (mouseCaptureDevice_)
 				{
-					mouseCaptureDevice_->obtainCapture();
+					mouseCaptureDevice_->obtainCaptures();
 
 					if (inputDevice_)
 						inputDevice_->addInputListener(mouseCaptureDevice_);
@@ -285,7 +169,7 @@ namespace vinyl
 
 				if (keyboardCaptureDevice_)
 				{
-					keyboardCaptureDevice_->obtainCapture();
+					keyboardCaptureDevice_->obtainCaptures();
 
 					if (inputDevice_)
 						inputDevice_->addInputListener(keyboardCaptureDevice_);
@@ -310,7 +194,7 @@ namespace vinyl
 
 				if (keyboardCaptureDevice_)
 				{
-					keyboardCaptureDevice_->obtainCapture();
+					keyboardCaptureDevice_->obtainCaptures();
 
 					if (inputDevice_)
 						inputDevice_->addInputListener(keyboardCaptureDevice_);
@@ -319,7 +203,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::obtainCapture() noexcept
+		DefaultInput::obtainCaptures() noexcept
 		{
 			this->obtainMouseCapture();
 			this->obtainKeyboardCapture();

@@ -15,25 +15,6 @@ namespace vinyl
 			IInput() = default;
 			virtual ~IInput() = default;
 
-			virtual float getAxis(InputAxis::Code axis) const noexcept = 0;
-
-			virtual void setMousePos(InputButton::Type x, InputButton::Type y) noexcept = 0;
-			virtual void getMousePos(InputButton::Type& x, InputButton::Type& y) const noexcept = 0;
-
-			virtual bool isKeyDown(InputKey::Code key) const noexcept = 0;
-			virtual bool isKeyUp(InputKey::Code key) const noexcept = 0;
-			virtual bool isKeyPressed(InputKey::Code key) const noexcept = 0;
-
-			virtual bool isButtonDown(InputButton::Code key) const noexcept = 0;
-			virtual bool isButtonUp(InputButton::Code key) const noexcept = 0;
-			virtual bool isButtonPressed(InputButton::Code key) const noexcept = 0;
-
-			virtual void showCursor(bool show) noexcept = 0;
-			virtual bool isShowCursor() const noexcept = 0;
-
-			virtual void lockCursor(bool lock) noexcept = 0;
-			virtual bool isLockedCursor() const noexcept = 0;
-
 			virtual void obtainMouseCapture() noexcept = 0;
 			virtual void obtainKeyboardCapture() noexcept = 0;
 
@@ -41,7 +22,7 @@ namespace vinyl
 			virtual void obtainMouseCapture(IInputMousePtr&& mouse) noexcept = 0;
 			virtual void obtainKeyboardCapture(const IInputKeyboardPtr& key) noexcept = 0;
 			virtual void obtainKeyboardCapture(IInputKeyboardPtr&& key) noexcept = 0;
-			virtual void obtainCapture() noexcept = 0;
+			virtual void obtainCaptures() noexcept = 0;
 
 			virtual void releaseMouseCapture() noexcept = 0;
 			virtual void releaseKeyboardCapture() noexcept = 0;

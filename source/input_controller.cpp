@@ -14,7 +14,7 @@ namespace vinyl
 		}
 
 		void
-		InputController::obtainCapture() noexcept
+		InputController::obtainCaptures() noexcept
 		{
 			if (!capture_)
 			{

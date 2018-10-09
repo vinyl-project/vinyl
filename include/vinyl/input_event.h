@@ -71,6 +71,16 @@ namespace vinyl
 			std::uint64_t windowID;
 		};
 
+		struct ScreenshotEvent
+		{
+			std::uint64_t timestamp;
+			std::uint64_t windowID;
+			std::uint32_t x;
+			std::uint32_t y;
+			std::uint32_t w;
+			std::uint32_t h;
+		};
+
 		struct DropEvent
 		{
 			std::uint64_t timestamp;
@@ -109,6 +119,8 @@ namespace vinyl
 				TouchMotionUp,
 				TouchMotionCancel,
 
+				Screenshot,
+
 				SizeChange,
 				SizeChangeDPI,
 
@@ -138,22 +150,24 @@ namespace vinyl
 				SizeChangeEvent change;
 				WindowEvent window;
 				DropEvent drop;
+				ScreenshotEvent shot;
 			};
 
-			void makeWindowResize(WindHandle window_, std::uint32_t w, std::uint32_t h, std::uint64_t timestamp) noexcept;
-			void makeWindowFramebufferResize(WindHandle window_, std::uint32_t w, std::uint32_t h, std::uint64_t timestamp) noexcept;
-			void makeWindowClose(WindHandle window_, std::uint64_t timestamp) noexcept;
-			void makeWindowFocus(WindHandle window_, bool focus, std::uint64_t timestamp) noexcept;
-			void makeWindowKeyDown(WindHandle window_, InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods, std::uint64_t timestamp) noexcept;
-			void makeWindowKeyUp(WindHandle window_, InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods, std::uint64_t timestamp) noexcept;
-			void makeWindowKeyPress(WindHandle window_, InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods, std::uint64_t timestamp) noexcept;
-			void makeWindowKeyChar(WindHandle window_, std::uint16_t unicode, std::uint16_t mods, std::uint64_t timestamp) noexcept;
-			void makeWindowMouseButtonDown(WindHandle window_, InputButton::Code input_button, float x, float y, std::uint64_t timestamp) noexcept;
-			void makeWindowMouseButtonUp(WindHandle window_, InputButton::Code input_button, float x, float y, std::uint64_t timestamp) noexcept;
-			void makeWindowMouseButtonDoubleClick(WindHandle window_, InputButton::Code input_button, float x, float y, std::uint64_t timestamp) noexcept;
-			void makeWindowMouseMotion(WindHandle window_, float x, float y, std::uint64_t timestamp) noexcept;
-			void makeWindowScrool(WindHandle window_, float x, float y, std::uint64_t timestamp) noexcept;
-			void makeWindowDrop(WindHandle window_, std::uint32_t count, const char** file_utf8, std::uint64_t timestamp) noexcept;
+			static InputEvent makeWindowResize(std::uint32_t w, std::uint32_t h) noexcept;
+			static InputEvent makeWindowFramebufferResize(std::uint32_t w, std::uint32_t h) noexcept;
+			static InputEvent makeWindowClose() noexcept;
+			static InputEvent makeWindowFocus(bool focus) noexcept;
+			static InputEvent makeWindowKeyDown(InputKey::Code key, std::uint16_t scancode = 0, std::uint16_t mods = 0) noexcept;
+			static InputEvent makeWindowKeyUp(InputKey::Code key, std::uint16_t scancode = 0, std::uint16_t mods = 0) noexcept;
+			static InputEvent makeWindowKeyPress(InputKey::Code key, std::uint16_t scancode = 0, std::uint16_t mods = 0) noexcept;
+			static InputEvent makeWindowKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept;
+			static InputEvent makeWindowMouseButtonDown(InputButton::Code button, float x, float y) noexcept;
+			static InputEvent makeWindowMouseButtonUp(InputButton::Code button, float x, float y) noexcept;
+			static InputEvent makeWindowMouseButtonDoubleClick(InputButton::Code button, float x, float y) noexcept;
+			static InputEvent makeWindowMouseMotion(float x, float y) noexcept;
+			static InputEvent makeWindowScrool(float x, float y) noexcept;
+			static InputEvent makeWindowDrop(std::uint32_t count, const char** file_utf8) noexcept;
+			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept;
 		};
 	}
 }

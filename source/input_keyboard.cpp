@@ -101,7 +101,7 @@ namespace vinyl
 			}
 			break;
 			case InputEvent::GetFocus:
-				this->obtainCapture();
+				this->obtainCaptures();
 				break;
 			case InputEvent::LostFocus:
 				this->releaseCapture();

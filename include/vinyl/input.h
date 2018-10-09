@@ -19,25 +19,6 @@ namespace vinyl
 			virtual void setCaptureObject(WindHandle window) noexcept;
 			virtual WindHandle getCaptureObject() const noexcept;
 
-			virtual float getAxis(InputAxis::Code axis) const noexcept override;
-
-			virtual void setMousePos(InputButton::Type x, InputButton::Type y) noexcept override;
-			virtual void getMousePos(InputButton::Type& x, InputButton::Type& y) const noexcept override;
-
-			virtual bool isKeyDown(InputKey::Code key) const noexcept override;
-			virtual bool isKeyUp(InputKey::Code key) const noexcept override;
-			virtual bool isKeyPressed(InputKey::Code key) const noexcept override;
-
-			virtual bool isButtonDown(InputButton::Code key) const noexcept override;
-			virtual bool isButtonUp(InputButton::Code key) const noexcept override;
-			virtual bool isButtonPressed(InputButton::Code key) const noexcept override;
-
-			virtual void showCursor(bool show) noexcept override;
-			virtual bool isShowCursor() const noexcept override;
-
-			virtual void lockCursor(bool lock) noexcept override;
-			virtual bool isLockedCursor() const noexcept override;
-
 			virtual void obtainMouseCapture() noexcept override;
 			virtual void obtainKeyboardCapture() noexcept override;
 
@@ -45,7 +26,7 @@ namespace vinyl
 			virtual void obtainMouseCapture(IInputMousePtr&& mouse) noexcept override;
 			virtual void obtainKeyboardCapture(const IInputKeyboardPtr& key) noexcept override;
 			virtual void obtainKeyboardCapture(IInputKeyboardPtr&& key) noexcept override;
-			virtual void obtainCapture() noexcept override;
+			virtual void obtainCaptures() noexcept override;
 
 			virtual void releaseMouseCapture() noexcept override;
 			virtual void releaseKeyboardCapture() noexcept override;

@@ -13,7 +13,7 @@ namespace vinyl
 			InputController() noexcept;
 			virtual ~InputController() noexcept;
 
-			virtual void obtainCapture() noexcept;
+			virtual void obtainCaptures() noexcept;
 			virtual void releaseCapture() noexcept;
 			virtual bool capture() const noexcept;
 

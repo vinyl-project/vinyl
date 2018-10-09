@@ -4,177 +4,219 @@ namespace vinyl
 {
 	namespace input
 	{
-		void
-		InputEvent::makeWindowResize(WindHandle window_, std::uint32_t w, std::uint32_t h, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowResize(std::uint32_t w, std::uint32_t h) noexcept
 		{
-			this->event = vinyl::input::InputEvent::SizeChange;
-			this->change.w = w;
-			this->change.h = h;
-			this->change.windowID = (std::uint64_t)window_;
-			this->change.timestamp = timestamp;
+			InputEvent event;
+			event.event = InputEvent::SizeChange;
+			event.change.w = w;
+			event.change.h = h;
+			event.change.windowID = 0;
+			event.change.timestamp = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowFramebufferResize(WindHandle window_, std::uint32_t w, std::uint32_t h, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowFramebufferResize(std::uint32_t w, std::uint32_t h) noexcept
 		{
-			this->event = vinyl::input::InputEvent::SizeChangeDPI;
-			this->change.w = w;
-			this->change.h = h;
-			this->change.windowID = (std::uint64_t)window_;
-			this->change.timestamp = timestamp;
+			InputEvent event;
+			event.event = InputEvent::SizeChangeDPI;
+			event.change.w = w;
+			event.change.h = h;
+			event.change.windowID = 0;
+			event.change.timestamp = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowClose(WindHandle window_, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowClose() noexcept
 		{
-			this->event = vinyl::input::InputEvent::AppQuit;
-			this->window.windowID = (std::uint64_t)window_;
-			this->window.timestamp = timestamp;
+			InputEvent event;
+			event.event = InputEvent::AppQuit;
+			event.window.windowID = 0;
+			event.window.timestamp = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowFocus(WindHandle window_, bool focus, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowFocus(bool focus) noexcept
 		{
-			this->event = focus ? vinyl::input::InputEvent::GetFocus : vinyl::input::InputEvent::LostFocus;
-			this->window.windowID = (std::uint64_t)window_;
-			this->window.timestamp = timestamp;
+			InputEvent event;
+			event.event = focus ? InputEvent::GetFocus : InputEvent::LostFocus;
+			event.window.windowID = 0;
+			event.window.timestamp = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowKeyDown(WindHandle window_, InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowKeyDown(InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods) noexcept
 		{
-			this->event = vinyl::input::InputEvent::KeyDown;
-			this->key.windowID = (std::uint64_t)window_;
-			this->key.timestamp = timestamp;
-			this->key.padding2 = 0;
-			this->key.padding3 = 0;
-			this->key.repeat = false;
-			this->key.state = true;
-			this->key.keysym.raw = scancode;
-			this->key.keysym.sym = input_key;
-			this->key.keysym.mod = mods;
-			this->key.keysym.unicode = 0;
+			InputEvent event;
+			event.event = InputEvent::KeyDown;
+			event.key.windowID = 0;
+			event.key.timestamp = 0;
+			event.key.padding2 = 0;
+			event.key.padding3 = 0;
+			event.key.repeat = false;
+			event.key.state = true;
+			event.key.keysym.raw = scancode;
+			event.key.keysym.sym = input_key;
+			event.key.keysym.mod = mods;
+			event.key.keysym.unicode = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowKeyUp(WindHandle window_, InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowKeyUp(InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods) noexcept
 		{
-			this->event = vinyl::input::InputEvent::KeyUp;
-			this->key.windowID = (std::uint64_t)window_;
-			this->key.timestamp = timestamp;
-			this->key.padding2 = 0;
-			this->key.padding3 = 0;
-			this->key.repeat = false;
-			this->key.state = false;
-			this->key.keysym.raw = scancode;
-			this->key.keysym.sym = input_key;
-			this->key.keysym.mod = mods;
-			this->key.keysym.unicode = 0;
+			InputEvent event;
+			event.event = InputEvent::KeyUp;
+			event.key.windowID = 0;
+			event.key.timestamp = 0;
+			event.key.padding2 = 0;
+			event.key.padding3 = 0;
+			event.key.repeat = false;
+			event.key.state = false;
+			event.key.keysym.raw = scancode;
+			event.key.keysym.sym = input_key;
+			event.key.keysym.mod = mods;
+			event.key.keysym.unicode = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowKeyPress(WindHandle window_, InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowKeyPress(InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods) noexcept
 		{
-			this->event = vinyl::input::InputEvent::KeyDown;
-			this->key.windowID = (std::uint64_t)window_;
-			this->key.timestamp = timestamp;
-			this->key.padding2 = 0;
-			this->key.padding3 = 0;
-			this->key.repeat = true;
-			this->key.state = false;
-			this->key.keysym.raw = scancode;
-			this->key.keysym.sym = input_key;
-			this->key.keysym.mod = mods;
-			this->key.keysym.unicode = 0;
+			InputEvent event;
+			event.event = InputEvent::KeyDown;
+			event.key.windowID = 0;
+			event.key.timestamp = 0;
+			event.key.padding2 = 0;
+			event.key.padding3 = 0;
+			event.key.repeat = true;
+			event.key.state = false;
+			event.key.keysym.raw = scancode;
+			event.key.keysym.sym = input_key;
+			event.key.keysym.mod = mods;
+			event.key.keysym.unicode = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowKeyChar(WindHandle window_, std::uint16_t unicode, std::uint16_t mods, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept
 		{
-			this->event = vinyl::input::InputEvent::Character;
-			this->key.windowID = (std::uint64_t)window_;
-			this->key.timestamp = timestamp;
-			this->key.padding2 = 0;
-			this->key.padding3 = 0;
-			this->key.repeat = 0;
-			this->key.state = true;
-			this->key.keysym.raw = 0;
-			this->key.keysym.sym = 0;
-			this->key.keysym.mod = mods;
-			this->key.keysym.unicode = unicode;
+			InputEvent event;
+			event.event = InputEvent::Character;
+			event.key.windowID = 0;
+			event.key.timestamp = 0;
+			event.key.padding2 = 0;
+			event.key.padding3 = 0;
+			event.key.repeat = 0;
+			event.key.state = true;
+			event.key.keysym.raw = 0;
+			event.key.keysym.sym = 0;
+			event.key.keysym.mod = mods;
+			event.key.keysym.unicode = unicode;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowMouseButtonDown(WindHandle window_, InputButton::Code input_button, float x, float y, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowMouseButtonDown(InputButton::Code input_button, float x, float y) noexcept
 		{
-			this->event = vinyl::input::InputEvent::MouseButtonDown;
-			this->button.button = input_button;
-			this->button.clicks = true;
-			this->button.x = x;
-			this->button.y = y;
-			this->button.timestamp = timestamp;
-			this->button.windowID = (std::uint64_t)window_;
-			this->button.padding1 = 0;
-			this->button.which = 0;
+			InputEvent event;
+			event.event = InputEvent::MouseButtonDown;
+			event.button.button = input_button;
+			event.button.clicks = true;
+			event.button.x = x;
+			event.button.y = y;
+			event.button.timestamp = 0;
+			event.button.windowID = 0;
+			event.button.padding1 = 0;
+			event.button.which = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowMouseButtonUp(WindHandle window_, InputButton::Code input_button, float x, float y, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowMouseButtonUp(InputButton::Code input_button, float x, float y) noexcept
 		{
-			this->event = vinyl::input::InputEvent::MouseButtonUp;
-			this->button.button = input_button;
-			this->button.clicks = false;
-			this->button.x = x;
-			this->button.y = y;
-			this->button.timestamp = timestamp;
-			this->button.windowID = (std::uint64_t)window_;
-			this->button.padding1 = 0;
-			this->button.which = 0;
+			InputEvent event;
+			event.event = InputEvent::MouseButtonUp;
+			event.button.button = input_button;
+			event.button.clicks = false;
+			event.button.x = x;
+			event.button.y = y;
+			event.button.timestamp = 0;
+			event.button.windowID = 0;
+			event.button.padding1 = 0;
+			event.button.which = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowMouseButtonDoubleClick(WindHandle window_, InputButton::Code input_button, float x, float y, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowMouseButtonDoubleClick(InputButton::Code input_button, float x, float y) noexcept
 		{
-			this->event = vinyl::input::InputEvent::MouseButtonDoubleClick;
-			this->button.button = input_button;
-			this->button.clicks = true;
-			this->button.x = x;
-			this->button.y = y;
-			this->button.timestamp = timestamp;
-			this->button.windowID = (std::uint64_t)window_;
-			this->button.padding1 = 0;
-			this->button.which = 0;
+			InputEvent event;
+			event.event = InputEvent::MouseButtonDoubleClick;
+			event.button.button = input_button;
+			event.button.clicks = true;
+			event.button.x = x;
+			event.button.y = y;
+			event.button.timestamp = 0;
+			event.button.windowID = 0;
+			event.button.padding1 = 0;
+			event.button.which = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowMouseMotion(WindHandle window_, float x, float y, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowMouseMotion(float x, float y) noexcept
 		{
-			this->event = vinyl::input::InputEvent::MouseMotion;
-			this->motion.x = x;
-			this->motion.y = y;
-			this->motion.xrel = (std::uint32_t)x;
-			this->motion.yrel = (std::uint32_t)y;
-			this->motion.timestamp = timestamp;
-			this->motion.state = false;
-			this->motion.windowID = (std::uint64_t)window_;
+			InputEvent event;
+			event.event = InputEvent::MouseMotion;
+			event.motion.x = x;
+			event.motion.y = y;
+			event.motion.xrel = (std::uint32_t)x;
+			event.motion.yrel = (std::uint32_t)y;
+			event.motion.timestamp = 0;
+			event.motion.state = false;
+			event.motion.windowID = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowScrool(WindHandle window_, float x, float y, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowScrool(float x, float y) noexcept
 		{
-			this->event = y > 0 ? vinyl::input::InputEvent::MouseWheelUp : vinyl::input::InputEvent::MouseWheelDown;
-			this->wheel.timestamp = timestamp;
-			this->wheel.windowID = (std::uint64_t)window_;
+			InputEvent event;
+			event.event = y > 0 ? InputEvent::MouseWheelUp : InputEvent::MouseWheelDown;
+			event.wheel.timestamp = 0;
+			event.wheel.windowID = 0;
+			return event;
 		}
 
-		void
-		InputEvent::makeWindowDrop(WindHandle window_, std::uint32_t count, const char** file_utf8, std::uint64_t timestamp) noexcept
+		InputEvent
+		InputEvent::makeWindowDrop(std::uint32_t count, const char** file_utf8) noexcept
 		{
-			this->event = vinyl::input::InputEvent::Drop;
-			this->drop.timestamp = timestamp;
-			this->drop.count = count;
-			this->drop.files = file_utf8;
-			this->drop.windowID = (std::uint64_t)window_;
+			InputEvent event;
+			event.event = InputEvent::Drop;
+			event.drop.timestamp = 0;
+			event.drop.count = count;
+			event.drop.files = file_utf8;
+			event.drop.windowID = 0;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::Screenshot;
+			event.shot.windowID = 0;
+			event.shot.timestamp = 0;
+			event.shot.x = x;
+			event.shot.y = y;
+			event.shot.w = w;
+			event.shot.h = h;
+			return event;
 		}
 	}
 }

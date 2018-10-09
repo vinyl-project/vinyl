@@ -15,14 +15,6 @@ namespace vinyl
 			IInput() = default;
 			virtual ~IInput() = default;
 
-			virtual bool open() noexcept = 0;
-			virtual bool open(const IInputDevicePtr& device) noexcept = 0;
-			virtual bool open(IInputDevicePtr&& device) noexcept = 0;
-			virtual void close() noexcept = 0;
-
-			virtual void setCaptureObject(WindHandle window) noexcept = 0;
-			virtual WindHandle getCaptureObject() const noexcept = 0;
-
 			virtual float getAxis(InputAxis::Code axis) const noexcept = 0;
 
 			virtual void setMousePos(InputButton::Type x, InputButton::Type y) noexcept = 0;

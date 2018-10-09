@@ -13,13 +13,11 @@ namespace vinyl
 			DefaultInput() noexcept;
 			virtual ~DefaultInput() noexcept;
 
-			virtual bool open() noexcept override;
-			virtual bool open(const IInputDevicePtr& device) noexcept override;
-			virtual bool open(IInputDevicePtr&& device) noexcept override;
-			virtual void close() noexcept override;
+			virtual void open() noexcept(false);
+			virtual void close() noexcept;
 
-			virtual void setCaptureObject(WindHandle window) noexcept override;
-			virtual WindHandle getCaptureObject() const noexcept override;
+			virtual void setCaptureObject(WindHandle window) noexcept;
+			virtual WindHandle getCaptureObject() const noexcept;
 
 			virtual float getAxis(InputAxis::Code axis) const noexcept override;
 

@@ -28,8 +28,8 @@ namespace vinyl
 			this->close();
 		}
 
-		bool
-		DefaultInput::open() noexcept
+		void
+		DefaultInput::open() noexcept(false)
 		{
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
 			inputDevice_ = std::make_shared<MSWInputDevice>();
@@ -47,51 +47,6 @@ namespace vinyl
 			this->obtainMouseCapture(std::make_shared<DefaultInputMouse>());
 			this->obtainKeyboardCapture(std::make_shared<DefaultInputKeyboard>());
 #endif
-			return true;
-		}
-
-		bool
-		DefaultInput::open(const IInputDevicePtr& device) noexcept
-		{
-#if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
-			inputDevice_ = device ? device : std::make_shared<MSWInputDevice>();
-
-			this->obtainMouseCapture(std::make_shared<MSWInputMouse>());
-			this->obtainKeyboardCapture(std::make_shared<MSWInputKeyboard>());
-#elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
-			inputDevice_ = device ? device : std::make_shared<NDKInputDevice>();
-
-			this->obtainMouseCapture(std::make_shared<NDKInputTouch>());
-			this->obtainKeyboardCapture(std::make_shared<NDKInputKeyboard>());
-#else
-			inputDevice_ = device ? device : std::make_shared<DefaultInputDevice>();
-
-			this->obtainMouseCapture(std::make_shared<DefaultInputMouse>());
-			this->obtainKeyboardCapture(std::make_shared<DefaultInputKeyboard>());
-#endif
-			return true;
-		}
-
-		bool
-		DefaultInput::open(IInputDevicePtr&& device) noexcept
-		{
-#if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
-			inputDevice_ = device ? std::move(device) : std::make_shared<MSWInputDevice>();
-
-			this->obtainMouseCapture(std::make_shared<MSWInputMouse>());
-			this->obtainKeyboardCapture(std::make_shared<MSWInputKeyboard>());
-#elif defined(VINYL_FEATURE_INPUT_API_GLFW)
-			inputDevice_ = device ? std::move(device) : std::make_shared<NDKInputDevice>();
-
-			this->obtainMouseCapture(std::make_shared<NDKInputTouch>());
-			this->obtainKeyboardCapture(std::make_shared<NDKInputKeyboard>());
-#else
-			inputDevice_ = device ? std::move(device) : std::make_shared<DefaultInputDevice>();
-
-			this->obtainMouseCapture(std::make_shared<DefaultInputMouse>());
-			this->obtainKeyboardCapture(std::make_shared<DefaultInputKeyboard>());
-#endif
-			return true;
 		}
 
 		void
@@ -470,9 +425,7 @@ namespace vinyl
 
 			InputEvent event;
 			while (inputDevice_->pollEvents(event))
-			{
 				this->sendInputEvent(event);
-			}
 		}
 
 		void
@@ -489,8 +442,7 @@ namespace vinyl
 		DefaultInput::clone() const noexcept
 		{
 			auto input = std::make_shared<DefaultInput>();
-			if (inputDevice_)
-				input->open(inputDevice_->clone());
+			input->open();
 
 			if (keyboardCaptureDevice_)
 				input->obtainKeyboardCapture(keyboardCaptureDevice_->clone());

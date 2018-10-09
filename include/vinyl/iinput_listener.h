@@ -11,7 +11,7 @@ namespace vinyl
 		{
 		public:
 			IInputListener() noexcept;
-			virtual ~IInputListener();
+			virtual ~IInputListener() noexcept;
 
 			virtual void onAttach() noexcept;
 			virtual void onDetach() noexcept;

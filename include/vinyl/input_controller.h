@@ -1,7 +1,7 @@
 #ifndef VINYL_INPUT_CONTROLLER_H_
 #define VINYL_INPUT_CONTROLLER_H_
 
-#include <vinyl/iinput_controller.h>
+#include <vinyl/iinput_listener.h>
 
 namespace vinyl
 {

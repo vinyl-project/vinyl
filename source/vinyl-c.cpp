@@ -1,5 +1,6 @@
 #include <vinyl/vinyl-c.h>
 #include <vinyl/input.h>
+#include <thread>
 
 vinyl::input::IInputPtr input_;
 
@@ -120,6 +121,11 @@ void VINYL_C_CALL VinylWheelDown() noexcept
 
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseWheelDown());
+}
+
+VINYL_C_LINKAGE void VINYL_C_CALL VinylSleep(float milliseconds) noexcept
+{
+	std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(milliseconds));
 }
 
 void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept

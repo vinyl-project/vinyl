@@ -19,17 +19,17 @@ namespace vinyl
 {
 	namespace input
 	{
-		DefaultInput::DefaultInput() noexcept
+		Input::Input() noexcept
 		{
 		}
 
-		DefaultInput::~DefaultInput() noexcept
+		Input::~Input() noexcept
 		{
 			this->close();
 		}
 
 		void
-		DefaultInput::open() noexcept(false)
+		Input::open() noexcept(false)
 		{
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
 			inputDevice_ = std::make_shared<MSWInputDevice>();
@@ -50,7 +50,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::close() noexcept
+		Input::close() noexcept
 		{
 			if (inputDevice_)
 			{
@@ -74,14 +74,14 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::setCaptureObject(WindHandle window) noexcept
+		Input::setCaptureObject(WindHandle window) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->setCaptureObject(window);
 		}
 
 		WindHandle
-		DefaultInput::getCaptureObject() const noexcept
+		Input::getCaptureObject() const noexcept
 		{
 			if (inputDevice_)
 				return inputDevice_->getCaptureObject();
@@ -89,21 +89,21 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::obtainMouseCapture() noexcept
+		Input::obtainMouseCapture() noexcept
 		{
 			if (mouseCaptureDevice_ && !mouseCaptureDevice_->capture())
 				mouseCaptureDevice_->obtainCaptures();
 		}
 
 		void
-		DefaultInput::obtainKeyboardCapture() noexcept
+		Input::obtainKeyboardCapture() noexcept
 		{
 			if (keyboardCaptureDevice_ && !keyboardCaptureDevice_->capture())
 				keyboardCaptureDevice_->obtainCaptures();
 		}
 
 		void
-		DefaultInput::obtainMouseCapture(const IInputMousePtr& mouse) noexcept
+		Input::obtainMouseCapture(const IInputMousePtr& mouse) noexcept
 		{
 			if (mouseCaptureDevice_ != mouse)
 			{
@@ -128,7 +128,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::obtainMouseCapture(IInputMousePtr&& mouse) noexcept
+		Input::obtainMouseCapture(IInputMousePtr&& mouse) noexcept
 		{
 			if (mouseCaptureDevice_ != mouse)
 			{
@@ -153,7 +153,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::obtainKeyboardCapture(const IInputKeyboardPtr& keyboard) noexcept
+		Input::obtainKeyboardCapture(const IInputKeyboardPtr& keyboard) noexcept
 		{
 			if (keyboardCaptureDevice_ != keyboard)
 			{
@@ -178,7 +178,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::obtainKeyboardCapture(IInputKeyboardPtr&& keyboard) noexcept
+		Input::obtainKeyboardCapture(IInputKeyboardPtr&& keyboard) noexcept
 		{
 			if (keyboardCaptureDevice_ != keyboard)
 			{
@@ -203,35 +203,35 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::obtainCaptures() noexcept
+		Input::obtainCaptures() noexcept
 		{
 			this->obtainMouseCapture();
 			this->obtainKeyboardCapture();
 		}
 
 		void
-		DefaultInput::releaseMouseCapture() noexcept
+		Input::releaseMouseCapture() noexcept
 		{
 			if (mouseCaptureDevice_ && mouseCaptureDevice_->capture())
 				mouseCaptureDevice_->releaseCapture();
 		}
 
 		void
-		DefaultInput::releaseKeyboardCapture() noexcept
+		Input::releaseKeyboardCapture() noexcept
 		{
 			if (keyboardCaptureDevice_ && keyboardCaptureDevice_->capture())
 				keyboardCaptureDevice_->releaseCapture();
 		}
 
 		void
-		DefaultInput::releaseCapture() noexcept
+		Input::releaseCapture() noexcept
 		{
 			this->releaseMouseCapture();
 			this->releaseKeyboardCapture();
 		}
 
 		void
-		DefaultInput::reset() noexcept
+		Input::reset() noexcept
 		{
 			if (mouseCaptureDevice_)
 				mouseCaptureDevice_->reset();
@@ -241,42 +241,42 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::addInputListener(const IInputControllerPtr& listener) noexcept
+		Input::addInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->addInputListener(listener);
 		}
 
 		void
-		DefaultInput::addInputListener(IInputControllerPtr&& listener) noexcept
+		Input::addInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->addInputListener(std::move(listener));
 		}
 
 		void
-		DefaultInput::removeInputListener(const IInputControllerPtr& listener) noexcept
+		Input::removeInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->removeInputListener(listener);
 		}
 
 		void
-		DefaultInput::removeInputListener(IInputControllerPtr&& listener) noexcept
+		Input::removeInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->removeInputListener(std::move(listener));
 		}
 
 		void
-		DefaultInput::clearInputListener() noexcept
+		Input::clearInputListener() noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->clearInputListener();
 		}
 
 		bool
-		DefaultInput::sendInputEvent(const InputEvent& event) noexcept
+		Input::sendInputEvent(const InputEvent& event) noexcept
 		{
 			if (inputDevice_)
 				return inputDevice_->sendEvent(event);
@@ -284,9 +284,9 @@ namespace vinyl
 		}
 
 		IInputPtr
-		DefaultInput::clone() const noexcept
+		Input::clone() const noexcept
 		{
-			auto input = std::make_shared<DefaultInput>();
+			auto input = std::make_shared<Input>();
 			input->open();
 
 			if (keyboardCaptureDevice_)

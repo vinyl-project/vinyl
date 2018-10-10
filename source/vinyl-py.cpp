@@ -1,5 +1,3 @@
-
-
 #undef _DEBUG
 #include <python.h>
 #include <vinyl/input.h>
@@ -72,6 +70,7 @@ PyInit_vinyl(void)
     if (m == NULL) {
         return NULL;
     }
+
     // Set up all exceptions.
     /*
     BaseErrorObj = PyErr_NewException("spam.BaseError", NULL, NULL);
@@ -99,7 +98,7 @@ PyObject* vinyl_init(PyObject* self, PyObject* args)
 	{
 		if (!input_)
 		{
-			auto input = std::make_shared<vinyl::input::DefaultInput>();
+			auto input = std::make_shared<vinyl::input::Input>();
 			input->open();
 
 			input_ = std::move(input);

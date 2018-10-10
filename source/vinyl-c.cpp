@@ -9,7 +9,7 @@ bool VINYL_C_CALL VinylInit(const char* profile) noexcept
 	{
 		if (!input_)
 		{
-			auto input = std::make_shared<vinyl::input::DefaultInput>();
+			auto input = std::make_shared<vinyl::input::Input>();
 			input->open();
 
 			input_ = std::move(input);
@@ -34,32 +34,26 @@ void VINYL_C_CALL VinylWindowKeyDown(vinyl::input::InputKey::Code key) noexcept
 
 void VINYL_C_CALL VinylWindowKeyUp(vinyl::input::InputKey::Code key) noexcept
 {
-
 }
 
 void VINYL_C_CALL VinylWindowKeyPress(vinyl::input::InputKey::Code key) noexcept
 {
-
 }
 
 void VINYL_C_CALL VinylWindowKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept
 {
-
 }
 
 void VINYL_C_CALL VinylWindowMouseButtonDown(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
-
 }
 
 void VINYL_C_CALL VinylWindowMouseButtonUp(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
-
 }
 
 void VINYL_C_CALL VinylWindowMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
-
 }
 
 void VINYL_C_CALL VinylWindowMouseMotion(float x, float y) noexcept
@@ -72,5 +66,4 @@ void VINYL_C_CALL VinylWindowMouseMotion(float x, float y) noexcept
 
 void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept
 {
-
 }

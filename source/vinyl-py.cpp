@@ -1,7 +1,10 @@
 
 
+#undef _DEBUG
 #include <python.h>
 #include <vinyl/input.h>
+
+extern vinyl::input::IInputPtr input_;
 
 PyObject* vinyl_init(PyObject* self, PyObject* args);
 PyObject* vinyl_left_click(PyObject* self, PyObject* args);
@@ -100,17 +103,15 @@ PyObject* vinyl_init(PyObject* self, PyObject* args)
 			input->open();
 
 			input_ = std::move(input);
-			return true;
+			return PyBool_FromLong(true);
 		}
 
-		return false;
+		return PyBool_FromLong(false);
 	}
 	catch (const std::exception&)
 	{
-		return false;
+		return PyBool_FromLong(false);
 	}
-
-    return PyBool_FromLong(1);
 }
 
 PyObject* vinyl_left_click(PyObject* self, PyObject* args)

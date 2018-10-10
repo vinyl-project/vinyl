@@ -60,7 +60,7 @@ void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, flo
 		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
 }
 
-void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept
+void VINYL_C_CALL VinylMouseButtonClick(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
 	assert(input_);
 
@@ -68,9 +68,13 @@ void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code bu
 	{
 		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(button, x, y));
 		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(button, x, y));
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
 	}
+}
+
+void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept
+{
+	VinylMouseButtonClick(button, x, y);
+	VinylMouseButtonClick(button, x, y);
 }
 
 void VINYL_C_CALL VinylMouseMotion(float x, float y) noexcept

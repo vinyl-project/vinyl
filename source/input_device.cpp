@@ -5,41 +5,41 @@ namespace vinyl
 {
 	namespace input
 	{
-		DefaultInputDevice::DefaultInputDevice() noexcept
+		InputDevice::InputDevice() noexcept
 			: enableEventPosting_(true)
 		{
 		}
 
-		DefaultInputDevice::~DefaultInputDevice() noexcept
+		InputDevice::~InputDevice() noexcept
 		{
 			this->clearInputListener();
 		}
 
 		void
-		DefaultInputDevice::setCaptureObject(WindHandle window) noexcept
+		InputDevice::setCaptureObject(WindHandle window) noexcept
 		{
 		}
 
 		WindHandle
-		DefaultInputDevice::getCaptureObject() const noexcept
+		InputDevice::getCaptureObject() const noexcept
 		{
 			return nullptr;
 		}
 
 		void
-		DefaultInputDevice::enableEventPosting(bool enable) noexcept
+		InputDevice::enableEventPosting(bool enable) noexcept
 		{
 			enableEventPosting_ = enable;
 		}
 
 		bool
-		DefaultInputDevice::enableEventPosting() const noexcept
+		InputDevice::enableEventPosting() const noexcept
 		{
 			return enableEventPosting_;
 		}
 
 		void
-		DefaultInputDevice::addInputListener(const IInputControllerPtr& listener) noexcept
+		InputDevice::addInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
@@ -51,7 +51,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::addInputListener(IInputControllerPtr&& listener) noexcept
+		InputDevice::addInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
@@ -63,7 +63,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::removeInputListener(const IInputControllerPtr& listener) noexcept
+		InputDevice::removeInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
@@ -75,7 +75,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::removeInputListener(IInputControllerPtr&& listener) noexcept
+		InputDevice::removeInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
@@ -87,7 +87,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::clearInputListener() noexcept
+		InputDevice::clearInputListener() noexcept
 		{
 			for (auto& listener : inputListeners_)
 				listener->onDetach();
@@ -95,7 +95,7 @@ namespace vinyl
 		}
 
 		bool
-		DefaultInputDevice::sendEvent(const InputEvent& event) noexcept
+		InputDevice::sendEvent(const InputEvent& event) noexcept
 		{
 			try
 			{
@@ -110,7 +110,7 @@ namespace vinyl
 		}
 
 		bool
-		DefaultInputDevice::postEvent(const InputEvent& event) noexcept
+		InputDevice::postEvent(const InputEvent& event) noexcept
 		{
 			if (enableEventPosting_)
 			{
@@ -125,13 +125,13 @@ namespace vinyl
 		}
 
 		bool
-		DefaultInputDevice::peekEvents(InputEvent& event) noexcept
+		InputDevice::peekEvents(InputEvent& event) noexcept
 		{
 			return true;
 		}
 
 		bool
-		DefaultInputDevice::pollEvents(InputEvent& event) noexcept
+		InputDevice::pollEvents(InputEvent& event) noexcept
 		{
 			std::unique_lock<std::mutex> lock(mutex_);
 			if (lock)
@@ -148,7 +148,7 @@ namespace vinyl
 		}
 
 		bool
-		DefaultInputDevice::waitEvents(InputEvent& event) noexcept
+		InputDevice::waitEvents(InputEvent& event) noexcept
 		{
 			std::unique_lock<std::mutex> lock(mutex_);
 			if (events_.empty())
@@ -160,7 +160,7 @@ namespace vinyl
 		}
 
 		bool
-		DefaultInputDevice::waitEvents(InputEvent& event, int timeout) noexcept
+		InputDevice::waitEvents(InputEvent& event, int timeout) noexcept
 		{
 			std::unique_lock<std::mutex> lock(mutex_);
 			if (events_.empty())
@@ -172,7 +172,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::flushEvent() noexcept
+		InputDevice::flushEvent() noexcept
 		{
 			mutex_.lock();
 			events_ = std::queue<InputEvent>();
@@ -180,9 +180,9 @@ namespace vinyl
 		}
 
 		IInputDevicePtr
-		DefaultInputDevice::clone() const noexcept
+		InputDevice::clone() const noexcept
 		{
-			return std::make_shared<DefaultInputDevice>();
+			return std::make_shared<InputDevice>();
 		}
 	}
 }

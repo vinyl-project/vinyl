@@ -7,7 +7,7 @@ namespace vinyl
 {
 	namespace input
 	{
-		class VINYL_EXPORT NDKInputDevice : public DefaultInputDevice
+		class VINYL_EXPORT NDKInputDevice : public InputDevice
 		{
 		public:
 			NDKInputDevice() noexcept;

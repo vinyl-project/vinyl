@@ -42,10 +42,10 @@ namespace vinyl
 			this->obtainMouseCapture(std::make_shared<NDKInputTouch>());
 			this->obtainKeyboardCapture(std::make_shared<NDKInputKeyboard>());
 #else
-			inputDevice_ = std::make_shared<DefaultInputDevice>();
+			inputDevice_ = std::make_shared<InputDevice>();
 
-			this->obtainMouseCapture(std::make_shared<DefaultInputMouse>());
-			this->obtainKeyboardCapture(std::make_shared<DefaultInputKeyboard>());
+			this->obtainMouseCapture(std::make_shared<InputMouse>());
+			this->obtainKeyboardCapture(std::make_shared<InputKeyboard>());
 #endif
 		}
 
@@ -234,10 +234,10 @@ namespace vinyl
 		DefaultInput::reset() noexcept
 		{
 			if (mouseCaptureDevice_)
-				mouseCaptureDevice_->onReset();
+				mouseCaptureDevice_->reset();
 
 			if (keyboardCaptureDevice_)
-				keyboardCaptureDevice_->onReset();
+				keyboardCaptureDevice_->reset();
 		}
 
 		void
@@ -281,45 +281,6 @@ namespace vinyl
 			if (inputDevice_)
 				return inputDevice_->sendEvent(event);
 			return false;
-		}
-
-		bool
-		DefaultInput::postInputEvent(const InputEvent& event) noexcept
-		{
-			if (inputDevice_)
-				return inputDevice_->postEvent(event);
-			return true;
-		}
-
-		void
-		DefaultInput::updateBegin() noexcept
-		{
-			if (mouseCaptureDevice_)
-				mouseCaptureDevice_->onFrameBegin();
-
-			if (keyboardCaptureDevice_)
-				keyboardCaptureDevice_->onFrameBegin();
-		}
-
-		void
-		DefaultInput::update() noexcept
-		{
-			if (!inputDevice_)
-				return;
-
-			InputEvent event;
-			while (inputDevice_->pollEvents(event))
-				this->sendInputEvent(event);
-		}
-
-		void
-		DefaultInput::updateEnd() noexcept
-		{
-			if (mouseCaptureDevice_ && mouseCaptureDevice_->capture())
-				mouseCaptureDevice_->onFrameEnd();
-
-			if (keyboardCaptureDevice_ && keyboardCaptureDevice_->capture())
-				keyboardCaptureDevice_->onFrameEnd();
 		}
 
 		IInputPtr

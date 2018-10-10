@@ -17,9 +17,9 @@ namespace vinyl
 			virtual void releaseCapture() noexcept;
 			virtual bool capture() const noexcept;
 
-			virtual void onFrameBegin() noexcept;
-			virtual void onFrameEnd() noexcept;
+			virtual void reset() noexcept;
 
+		protected:
 			virtual void onReset() noexcept;
 
 			virtual void onObtainCapture() noexcept;

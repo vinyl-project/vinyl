@@ -40,13 +40,9 @@ namespace vinyl
 		}
 
 		void
-		InputController::onFrameBegin() noexcept
+		InputController::reset() noexcept
 		{
-		}
-
-		void
-		InputController::onFrameEnd() noexcept
-		{
+			this->onReset();
 		}
 
 		void

@@ -153,10 +153,25 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseMotion(float x, float y) noexcept
+		InputEvent::makeWindowMouseMove(float x, float y) noexcept
 		{
 			InputEvent event;
-			event.event = InputEvent::MouseMotion;
+			event.event = InputEvent::MouseMove;
+			event.motion.x = x;
+			event.motion.y = y;
+			event.motion.xrel = (std::uint32_t)x;
+			event.motion.yrel = (std::uint32_t)y;
+			event.motion.timestamp = 0;
+			event.motion.state = false;
+			event.motion.windowID = 0;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeWindowMouseMoveTo(float x, float y) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::MouseMoveTo;
 			event.motion.x = x;
 			event.motion.y = y;
 			event.motion.xrel = (std::uint32_t)x;

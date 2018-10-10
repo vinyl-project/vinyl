@@ -35,11 +35,13 @@ VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyUp(vinyl::input::InputK
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyPress(vinyl::input::InputKey::Code key) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept;
 
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept;
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseMoveTo(float x, float y) noexcept;
+
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonDown(vinyl::input::InputButton::Code button, float x, float y) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, float x, float y) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonClick(vinyl::input::InputButton::Code button, float x, float y) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept;
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseMotion(float x, float y) noexcept;
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept;
 

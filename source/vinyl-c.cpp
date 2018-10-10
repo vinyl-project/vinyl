@@ -44,6 +44,22 @@ void VINYL_C_CALL VinylKeyChar(std::uint16_t unicode, std::uint16_t mods) noexce
 {
 }
 
+void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept
+{
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMove(x, y));
+}
+
+void VINYL_C_CALL VinylMouseMoveTo(float x, float y) noexcept
+{
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMoveTo(x, y));
+}
+
 void VINYL_C_CALL VinylMouseButtonDown(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
 	assert(input_);
@@ -75,14 +91,6 @@ void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code bu
 {
 	VinylMouseButtonClick(button, x, y);
 	VinylMouseButtonClick(button, x, y);
-}
-
-void VINYL_C_CALL VinylMouseMotion(float x, float y) noexcept
-{
-	assert(input_);
-
-	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMotion(x, y));
 }
 
 void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept

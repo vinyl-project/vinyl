@@ -1,6 +1,6 @@
 SET(LIB_NAME vinyl)
 
-SET(VINYL_FEATURE_INPUT_API 0 CACHE STRING
+SET(VINYL_FEATURE_INPUT_API 1 CACHE STRING
 "Specify the native api. Possible values:
   0 - Null
   1 - Windows

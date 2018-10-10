@@ -123,7 +123,7 @@ void VINYL_C_CALL VinylWheelDown() noexcept
 		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseWheelDown());
 }
 
-VINYL_C_LINKAGE void VINYL_C_CALL VinylSleep(float milliseconds) noexcept
+void VINYL_C_CALL VinylSleep(float milliseconds) noexcept
 {
 	std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(milliseconds));
 }

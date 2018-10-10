@@ -17,6 +17,9 @@ namespace vinyl
 			virtual IInputKeyboardPtr clone() const noexcept override;
 
 		private:
+			virtual void onInputEvent(const InputEvent& event) noexcept;
+
+		private:
 			MSWInputKeyboard(const MSWInputKeyboard&) noexcept = delete;
 			MSWInputKeyboard& operator=(const MSWInputKeyboard&) noexcept = delete;
 		};

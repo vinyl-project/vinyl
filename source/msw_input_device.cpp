@@ -149,8 +149,8 @@ namespace vinyl
 			case VK_SCROLL:        return InputKey::Code::ScrollLock;
 			case VK_PAUSE:         return InputKey::Code::Pause;
 
-			case VK_LWIN:          return InputKey::Code::Menu;
-			case VK_RWIN:          return InputKey::Code::Menu;
+			case VK_LWIN:          return InputKey::Code::LeftMenu;
+			case VK_RWIN:          return InputKey::Code::RightMenu;
 			case VK_APPS:          return InputKey::Code::None;
 			}
 

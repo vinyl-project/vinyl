@@ -2,7 +2,9 @@
 
 int main(int argc, const char* argv[])
 {
-	VinylWindowKeyDown(vinyl::input::InputKey::A);
+	VinylInit(nullptr);
+	VinylMouseMoveTo(20, 20);
+	VinylMouseButtonDoubleClick(vinyl::input::InputButton::Left, 0, 0);
 
 	return 0;
 }

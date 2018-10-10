@@ -8,15 +8,11 @@ namespace vinyl
 {
 	namespace input
 	{
-		class VINYL_EXPORT MSWInputKeyboard final : public DefaultInputKeyboard
+		class VINYL_EXPORT MSWInputKeyboard final : public InputKeyboard
 		{
 		public:
 			MSWInputKeyboard() noexcept;
 			virtual ~MSWInputKeyboard() noexcept;
-
-			virtual bool isKeyDown(InputKey::Code key) const noexcept override;
-			virtual bool isKeyUp(InputKey::Code key) const noexcept override;
-			virtual bool isKeyPressed(InputKey::Code key) const noexcept override;
 
 			virtual IInputKeyboardPtr clone() const noexcept override;
 

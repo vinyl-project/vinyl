@@ -104,10 +104,10 @@ namespace vinyl
 				KeyUp,
 				Character,
 
-				MouseMotion,
+				MouseMove,
+				MouseMoveTo,
 				MouseButtonDown,
 				MouseButtonUp,
-				MouseButtonDoubleClick,
 				MouseWheelUp,
 				MouseWheelDown,
 
@@ -163,9 +163,10 @@ namespace vinyl
 			static InputEvent makeWindowKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept;
 			static InputEvent makeWindowMouseButtonDown(InputButton::Code button, float x, float y) noexcept;
 			static InputEvent makeWindowMouseButtonUp(InputButton::Code button, float x, float y) noexcept;
-			static InputEvent makeWindowMouseButtonDoubleClick(InputButton::Code button, float x, float y) noexcept;
-			static InputEvent makeWindowMouseMotion(float x, float y) noexcept;
-			static InputEvent makeWindowScrool(float x, float y) noexcept;
+			static InputEvent makeWindowMouseMove(float x, float y) noexcept;
+			static InputEvent makeWindowMouseMoveTo(float x, float y) noexcept;
+			static InputEvent makeWindowMouseWheelUp() noexcept;
+			static InputEvent makeWindowMouseWheelDown() noexcept;
 			static InputEvent makeWindowDrop(std::uint32_t count, const char** file_utf8) noexcept;
 			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept;
 		};

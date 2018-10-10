@@ -11,11 +11,11 @@ namespace vinyl
 {
 	namespace input
 	{
-		class VINYL_EXPORT DefaultInputDevice : public IInputDevice
+		class VINYL_EXPORT InputDevice : public IInputDevice
 		{
 		public:
-			DefaultInputDevice() noexcept;
-			virtual ~DefaultInputDevice() noexcept;
+			InputDevice() noexcept;
+			virtual ~InputDevice() noexcept;
 
 			virtual void setCaptureObject(WindHandle window) noexcept override;
 			virtual WindHandle getCaptureObject() const noexcept override;
@@ -41,8 +41,8 @@ namespace vinyl
 			virtual IInputDevicePtr clone() const noexcept override;
 
 		private:
-			DefaultInputDevice(const DefaultInputDevice&) noexcept = delete;
-			DefaultInputDevice& operator=(const DefaultInputDevice&) noexcept = delete;
+			InputDevice(const InputDevice&) noexcept = delete;
+			InputDevice& operator=(const InputDevice&) noexcept = delete;
 
 		private:
 			typedef std::queue<InputEvent>  InputEvents;

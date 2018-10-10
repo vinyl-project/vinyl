@@ -7,11 +7,11 @@ namespace vinyl
 {
 	namespace input
 	{
-		class VINYL_EXPORT DefaultInput : public IInput
+		class VINYL_EXPORT Input : public IInput
 		{
 		public:
-			DefaultInput() noexcept;
-			virtual ~DefaultInput() noexcept;
+			Input() noexcept;
+			virtual ~Input() noexcept;
 
 			virtual void open() noexcept(false);
 			virtual void close() noexcept;
@@ -41,17 +41,12 @@ namespace vinyl
 			virtual void clearInputListener() noexcept override;
 
 			virtual bool sendInputEvent(const InputEvent& event) noexcept override;
-			virtual bool postInputEvent(const InputEvent& event) noexcept override;
-
-			virtual void updateBegin() noexcept override;
-			virtual void update() noexcept override;
-			virtual void updateEnd() noexcept override;
 
 			virtual IInputPtr clone() const noexcept override;
 
 		private:
-			DefaultInput(const DefaultInput&) noexcept = delete;
-			DefaultInput& operator=(const DefaultInput&) noexcept = delete;
+			Input(const Input&) noexcept = delete;
+			Input& operator=(const Input&) noexcept = delete;
 
 		private:
 			IInputDevicePtr inputDevice_;

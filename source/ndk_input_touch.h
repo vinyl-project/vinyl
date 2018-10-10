@@ -7,7 +7,7 @@ namespace vinyl
 {
 	namespace input
 	{
-		class VINYL_EXPORT NDKInputTouch : public DefaultInputMouse
+		class VINYL_EXPORT NDKInputTouch : public InputMouse
 		{
 		public:
 			NDKInputTouch() noexcept;

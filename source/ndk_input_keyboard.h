@@ -8,7 +8,7 @@ namespace vinyl
 {
 	namespace input
 	{
-		class VINYL_EXPORT NDKInputKeyboard : public DefaultInputKeyboard
+		class VINYL_EXPORT NDKInputKeyboard : public InputKeyboard
 		{
 		public:
 			NDKInputKeyboard() noexcept;

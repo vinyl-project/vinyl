@@ -37,11 +37,6 @@ namespace vinyl
 			virtual void clearInputListener() noexcept = 0;
 
 			virtual bool sendInputEvent(const InputEvent& event) noexcept = 0;
-			virtual bool postInputEvent(const InputEvent& event) noexcept = 0;
-
-			virtual void updateBegin() noexcept = 0;
-			virtual void update() noexcept = 0;
-			virtual void updateEnd() noexcept = 0;
 
 			virtual IInputPtr clone() const noexcept = 0;
 

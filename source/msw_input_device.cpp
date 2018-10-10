@@ -231,25 +231,11 @@ namespace vinyl
 		}
 
 		MSWInputDevice::MSWInputDevice() noexcept
-			: window_(nullptr)
 		{
 		}
 
 		MSWInputDevice::~MSWInputDevice() noexcept
 		{
-		}
-
-		void
-		MSWInputDevice::setCaptureObject(WindHandle window) noexcept
-		{
-			assert(::IsWindow((HWND)window));
-			window_ = window;
-		}
-
-		WindHandle
-		MSWInputDevice::getCaptureObject() const noexcept
-		{
-			return window_;
 		}
 
 		IInputDevicePtr

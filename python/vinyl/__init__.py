@@ -8,4 +8,4 @@ from vinyl.mouse import (left_click, right_click, middle_click,
 
 from vinyl.time import(sleep)
 
-from vinyl.screen import(get_screenshot)
+from vinyl.screen import(screenshot)

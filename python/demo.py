@@ -1,6 +1,7 @@
 import vinyl
 
 vinyl.left_click()
+'''
 vinyl.right_click()
 vinyl.middle_click()
 
@@ -28,3 +29,4 @@ c='a'
 vinyl.key_press(c)
 vinyl.key_up(c)
 vinyl.key_down(c)
+'''

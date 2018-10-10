@@ -93,6 +93,22 @@ void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code bu
 	VinylMouseButtonClick(button, x, y);
 }
 
+void VINYL_C_CALL VinylWheelUp() noexcept
+{
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseWheelUp());
+}
+
+void VINYL_C_CALL VinylWheelDown() noexcept
+{
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseWheelDown());
+}
+
 void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept
 {
 }

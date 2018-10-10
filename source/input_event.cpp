@@ -183,10 +183,20 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowScrool(float x, float y) noexcept
+		InputEvent::makeWindowMouseWheelUp() noexcept
 		{
 			InputEvent event;
-			event.event = y > 0 ? InputEvent::MouseWheelUp : InputEvent::MouseWheelDown;
+			event.event = InputEvent::MouseWheelUp;
+			event.wheel.timestamp = 0;
+			event.wheel.windowID = 0;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeWindowMouseWheelDown() noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::MouseWheelDown;
 			event.wheel.timestamp = 0;
 			event.wheel.windowID = 0;
 			return event;

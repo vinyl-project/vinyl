@@ -1,7 +1,11 @@
 import vinyl
 
+vinyl.init("")
 
-print(vinyl.init(""))
+vinyl.move_to(20, 20)
+
+vinyl.left_double_click()
+
 '''
 vinyl.left_click()
 vinyl.right_click()

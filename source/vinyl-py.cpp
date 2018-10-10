@@ -78,7 +78,6 @@ PyInit_vinyl(void)
     }
 
     // Set up all exceptions.
-    
 	StdErrorObj = PyErr_NewException("vinyl.StdError", NULL, NULL);
     Py_INCREF(StdErrorObj);
     PyModule_AddObject(m, "StdError", StdErrorObj);
@@ -116,16 +115,49 @@ PyObject* vinyl_init(PyObject* self, PyObject* args)
 
 PyObject* vinyl_left_click(PyObject* self, PyObject* args)
 {
+	if (input_)
+	{
+		// TODO need sleep
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(vinyl::input::InputButton::Code::Left, 0, 0));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(vinyl::input::InputButton::Code::Left, 0, 0));
+	}
+	else
+	{
+		PyErr_SetString(StdErrorObj, "Vinyl does not initialized.");
+	}
+
 	Py_RETURN_NONE;
 }
 
 PyObject* vinyl_right_click(PyObject* self, PyObject* args)
 {
+	if (input_)
+	{
+		// TODO need sleep
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(vinyl::input::InputButton::Code::Right, 0, 0));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(vinyl::input::InputButton::Code::Right, 0, 0));
+	}
+	else
+	{
+		PyErr_SetString(StdErrorObj, "Vinyl does not initialized.");
+	}
+
 	Py_RETURN_NONE;
 }
 
 PyObject* vinyl_middle_click(PyObject* self, PyObject* args)
 {
+	if (input_)
+	{
+		// TODO need sleep
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(vinyl::input::InputButton::Code::Middle, 0, 0));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(vinyl::input::InputButton::Code::Middle, 0, 0));
+	}
+	else
+	{
+		PyErr_SetString(StdErrorObj, "Vinyl does not initialized.");
+	}
+
 	Py_RETURN_NONE;
 }
 
@@ -190,10 +222,18 @@ PyObject* vinyl_middle_down(PyObject* self, PyObject* args)
 PyObject* vinyl_left_double_click(PyObject* self, PyObject* args)
 {
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDoubleClick(vinyl::input::InputButton::Code::Left, 0, 0));
+	{
+		// TODO need sleep
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(vinyl::input::InputButton::Code::Left, 0, 0));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(vinyl::input::InputButton::Code::Left, 0, 0));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(vinyl::input::InputButton::Code::Left, 0, 0));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(vinyl::input::InputButton::Code::Left, 0, 0));
+	}
 	else
+	{
 		PyErr_SetString(StdErrorObj, "Vinyl does not initialized.");
-
+	}
+	
 	Py_RETURN_NONE;
 }
 
@@ -206,7 +246,7 @@ PyObject* vinyl_move_to(PyObject* self, PyObject* args)
 	}
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMotion(x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMoveTo(x, y));
 	else
 		PyErr_SetString(StdErrorObj, "Vinyl does not initialized.");
 
@@ -222,7 +262,7 @@ PyObject* vinyl_move(PyObject* self, PyObject* args)
 	}
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMotion(x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMove(x, y));
 	else
 		PyErr_SetString(StdErrorObj, "Vinyl does not initialized.");
 

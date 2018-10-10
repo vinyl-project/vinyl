@@ -23,10 +23,10 @@ namespace vinyl
 			virtual void enableEventPosting(bool enable) noexcept override;
 			virtual bool enableEventPosting() const noexcept override;
 
-			virtual void addInputListener(const IInputListenerPtr& listener) noexcept override;
-			virtual void addInputListener(IInputListenerPtr&& listener) noexcept override;
-			virtual void removeInputListener(const IInputListenerPtr& listener) noexcept override;
-			virtual void removeInputListener(IInputListenerPtr&& listener) noexcept override;
+			virtual void addInputListener(const IInputControllerPtr& listener) noexcept override;
+			virtual void addInputListener(IInputControllerPtr&& listener) noexcept override;
+			virtual void removeInputListener(const IInputControllerPtr& listener) noexcept override;
+			virtual void removeInputListener(IInputControllerPtr&& listener) noexcept override;
 			virtual void clearInputListener() noexcept override;
 
 			virtual bool sendEvent(const InputEvent& event) noexcept override;
@@ -46,7 +46,7 @@ namespace vinyl
 
 		private:
 			typedef std::queue<InputEvent>  InputEvents;
-			typedef std::vector<IInputListenerPtr> InputListeners;
+			typedef std::vector<IInputControllerPtr> InputListeners;
 
 			InputEvents events_;
 			InputListeners inputListeners_;

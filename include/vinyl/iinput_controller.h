@@ -7,6 +7,21 @@ namespace vinyl
 {
 	namespace input
 	{
+		class VINYL_EXPORT IInputController
+		{
+		public:
+			IInputController() noexcept;
+			virtual ~IInputController() noexcept;
+
+			virtual void onAttach() noexcept;
+			virtual void onDetach() noexcept;
+
+			virtual void onInputEvent(const InputEvent& event) noexcept(false) = 0;
+
+		private:
+			IInputController(const IInputController&) noexcept = delete;
+			IInputController& operator=(const IInputController&)noexcept = delete;
+		};
 	}
 }
 

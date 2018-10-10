@@ -241,28 +241,28 @@ namespace vinyl
 		}
 
 		void
-		DefaultInput::addInputListener(const IInputListenerPtr& listener) noexcept
+		DefaultInput::addInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->addInputListener(listener);
 		}
 
 		void
-		DefaultInput::addInputListener(IInputListenerPtr&& listener) noexcept
+		DefaultInput::addInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->addInputListener(std::move(listener));
 		}
 
 		void
-		DefaultInput::removeInputListener(const IInputListenerPtr& listener) noexcept
+		DefaultInput::removeInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->removeInputListener(listener);
 		}
 
 		void
-		DefaultInput::removeInputListener(IInputListenerPtr&& listener) noexcept
+		DefaultInput::removeInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->removeInputListener(std::move(listener));

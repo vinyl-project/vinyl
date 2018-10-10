@@ -34,10 +34,10 @@ namespace vinyl
 
 			virtual void reset() noexcept override;
 
-			virtual void addInputListener(const IInputListenerPtr& listener) noexcept override;
-			virtual void addInputListener(IInputListenerPtr&& listener) noexcept override;
-			virtual void removeInputListener(const IInputListenerPtr& listener) noexcept override;
-			virtual void removeInputListener(IInputListenerPtr&& listener) noexcept override;
+			virtual void addInputListener(const IInputControllerPtr& listener) noexcept override;
+			virtual void addInputListener(IInputControllerPtr&& listener) noexcept override;
+			virtual void removeInputListener(const IInputControllerPtr& listener) noexcept override;
+			virtual void removeInputListener(IInputControllerPtr&& listener) noexcept override;
 			virtual void clearInputListener() noexcept override;
 
 			virtual bool sendInputEvent(const InputEvent& event) noexcept override;

@@ -57,7 +57,7 @@ namespace vinyl
 {
 	namespace input
 	{
-		typedef std::shared_ptr<class IInputListener> IInputListenerPtr;
+		typedef std::shared_ptr<class IInputController> IInputControllerPtr;
 		typedef std::shared_ptr<class IInputKeyboard> IInputKeyboardPtr;
 		typedef std::shared_ptr<class IInputMouse> IInputMousePtr;
 		typedef std::shared_ptr<class IInputDevice> IInputDevicePtr;

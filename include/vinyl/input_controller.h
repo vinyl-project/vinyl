@@ -1,13 +1,13 @@
 #ifndef VINYL_INPUT_CONTROLLER_H_
 #define VINYL_INPUT_CONTROLLER_H_
 
-#include <vinyl/iinput_listener.h>
+#include <vinyl/iinput_controller.h>
 
 namespace vinyl
 {
 	namespace input
 	{
-		class VINYL_EXPORT InputController : public IInputListener
+		class VINYL_EXPORT InputController : public IInputController
 		{
 		public:
 			InputController() noexcept;

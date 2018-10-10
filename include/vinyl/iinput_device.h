@@ -16,10 +16,10 @@ namespace vinyl
 			virtual void setCaptureObject(WindHandle window) noexcept = 0;
 			virtual WindHandle getCaptureObject() const noexcept = 0;
 
-			virtual void addInputListener(const IInputListenerPtr& listener) noexcept = 0;
-			virtual void addInputListener(IInputListenerPtr&& listener) noexcept = 0;
-			virtual void removeInputListener(const IInputListenerPtr& listener) noexcept = 0;
-			virtual void removeInputListener(IInputListenerPtr&& listener) noexcept = 0;
+			virtual void addInputListener(const IInputControllerPtr& listener) noexcept = 0;
+			virtual void addInputListener(IInputControllerPtr&& listener) noexcept = 0;
+			virtual void removeInputListener(const IInputControllerPtr& listener) noexcept = 0;
+			virtual void removeInputListener(IInputControllerPtr&& listener) noexcept = 0;
 			virtual void clearInputListener() noexcept = 0;
 
 			virtual void enableEventPosting(bool enable) noexcept = 0;

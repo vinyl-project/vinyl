@@ -44,8 +44,6 @@ SET(INPUT_INTERFACE_LIST
 	${SOURCE_PATH}/iinput_keyboard.cpp
 	${HEADER_PATH}/iinput_mouse.h
 	${SOURCE_PATH}/iinput_mouse.cpp
-	${HEADER_PATH}/iinput_listener.h
-	${SOURCE_PATH}/iinput_listener.cpp
 	${HEADER_PATH}/iinput.h
 	${SOURCE_PATH}/iinput.cpp
 )

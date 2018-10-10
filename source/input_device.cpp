@@ -39,7 +39,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::addInputListener(const IInputListenerPtr& listener) noexcept
+		DefaultInputDevice::addInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
@@ -51,7 +51,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::addInputListener(IInputListenerPtr&& listener) noexcept
+		DefaultInputDevice::addInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
@@ -63,7 +63,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::removeInputListener(const IInputListenerPtr& listener) noexcept
+		DefaultInputDevice::removeInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
@@ -75,7 +75,7 @@ namespace vinyl
 		}
 
 		void
-		DefaultInputDevice::removeInputListener(IInputListenerPtr&& listener) noexcept
+		DefaultInputDevice::removeInputListener(IInputControllerPtr&& listener) noexcept
 		{
 			assert(listener);
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);

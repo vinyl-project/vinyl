@@ -30,10 +30,10 @@ namespace vinyl
 
 			virtual void reset() noexcept = 0;
 
-			virtual void addInputListener(const IInputListenerPtr& listener) noexcept = 0;
-			virtual void addInputListener(IInputListenerPtr&& listener) noexcept = 0;
-			virtual void removeInputListener(const IInputListenerPtr& listener) noexcept = 0;
-			virtual void removeInputListener(IInputListenerPtr&& listener) noexcept = 0;
+			virtual void addInputListener(const IInputControllerPtr& listener) noexcept = 0;
+			virtual void addInputListener(IInputControllerPtr&& listener) noexcept = 0;
+			virtual void removeInputListener(const IInputControllerPtr& listener) noexcept = 0;
+			virtual void removeInputListener(IInputControllerPtr&& listener) noexcept = 0;
 			virtual void clearInputListener() noexcept = 0;
 
 			virtual bool sendInputEvent(const InputEvent& event) noexcept = 0;

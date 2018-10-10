@@ -3,16 +3,16 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "auto-vinyl",
-    version = "0.0.1",
-    keywords = ("pip", "automation"),
+    name = "PyVinyl",
+    version = "0.1.0",
+    keywords = ("pip", "automation", "gui", "test"),
     description = "GUI automation utility",
     long_description = "GUI automation utility",
     license = "MIT Licence",
 
     url = "https://github.com/vinyl-project/vinyl",
-    author = "JasonWang",
-    author_email = "jstzwj@aliyun.com",
+    author = "VinylProject",
+    author_email = "admin@octoon.org",
 
     packages = find_packages(),
     include_package_data = True,

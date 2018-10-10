@@ -1,3 +1,3 @@
 
-def get_screenshot():
+def screenshot():
     pass

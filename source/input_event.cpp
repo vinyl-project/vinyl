@@ -153,22 +153,6 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseButtonDoubleClick(InputButton::Code input_button, float x, float y) noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::MouseButtonDoubleClick;
-			event.button.button = input_button;
-			event.button.clicks = true;
-			event.button.x = x;
-			event.button.y = y;
-			event.button.timestamp = 0;
-			event.button.windowID = 0;
-			event.button.padding1 = 0;
-			event.button.which = 0;
-			return event;
-		}
-
-		InputEvent
 		InputEvent::makeWindowMouseMotion(float x, float y) noexcept
 		{
 			InputEvent event;

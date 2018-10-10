@@ -24,7 +24,7 @@ bool VINYL_C_CALL VinylInit(const char* profile) noexcept
 	}
 }
 
-void VINYL_C_CALL VinylWindowKeyDown(vinyl::input::InputKey::Code key) noexcept
+void VINYL_C_CALL VinylKeyDown(vinyl::input::InputKey::Code key) noexcept
 {
 	assert(input_);
 
@@ -32,31 +32,48 @@ void VINYL_C_CALL VinylWindowKeyDown(vinyl::input::InputKey::Code key) noexcept
 		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyDown(key, 0, 0));
 }
 
-void VINYL_C_CALL VinylWindowKeyUp(vinyl::input::InputKey::Code key) noexcept
+void VINYL_C_CALL VinylKeyUp(vinyl::input::InputKey::Code key) noexcept
 {
 }
 
-void VINYL_C_CALL VinylWindowKeyPress(vinyl::input::InputKey::Code key) noexcept
+void VINYL_C_CALL VinylKeyPress(vinyl::input::InputKey::Code key) noexcept
 {
 }
 
-void VINYL_C_CALL VinylWindowKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept
+void VINYL_C_CALL VinylKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept
 {
 }
 
-void VINYL_C_CALL VinylWindowMouseButtonDown(vinyl::input::InputButton::Code button, float x, float y) noexcept
+void VINYL_C_CALL VinylMouseButtonDown(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(button, x, y));
 }
 
-void VINYL_C_CALL VinylWindowMouseButtonUp(vinyl::input::InputButton::Code button, float x, float y) noexcept
+void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
 }
 
-void VINYL_C_CALL VinylWindowMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept
+void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept
 {
+	assert(input_);
+
+	if (input_)
+	{
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(button, x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(button, x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
+	}
 }
 
-void VINYL_C_CALL VinylWindowMouseMotion(float x, float y) noexcept
+void VINYL_C_CALL VinylMouseMotion(float x, float y) noexcept
 {
 	assert(input_);
 

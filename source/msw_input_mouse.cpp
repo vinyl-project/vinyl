@@ -28,6 +28,82 @@ namespace vinyl
 		{
 			switch (event.event)
 			{
+			case InputEvent::MouseMotion:
+			{
+				auto x = event.motion.xrel;
+				auto y = event.motion.xrel;
+
+				SetCursorPos(x, y);
+			}
+			break;
+			case InputEvent::MouseButtonDown:
+			{
+				auto x = event.motion.xrel;
+				auto y = event.motion.xrel;
+
+				switch (event.button.button)
+				{
+				case InputButton::Code::Left:
+				{
+					mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+				}
+				break;
+				case InputButton::Code::Right:
+				{
+					mouse_event(MOUSEEVENTF_RIGHTDOWN, x, y, 0, 0);
+				}
+				break;
+				case InputButton::Code::Middle:
+				{
+					mouse_event(MOUSEEVENTF_MIDDLEDOWN, x, y, 0, 0);
+				}
+				break;
+				default:
+					break;
+				}
+			}
+			break;
+			case InputEvent::MouseButtonUp:
+			{
+				auto x = event.motion.xrel;
+				auto y = event.motion.xrel;
+
+				switch (event.button.button)
+				{
+				case InputButton::Code::Left:
+				{
+					mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+				}
+				break;
+				case InputButton::Code::Right:
+				{
+					mouse_event(MOUSEEVENTF_RIGHTUP, x, y, 0, 0);
+				}
+				break;
+				case InputButton::Code::Middle:
+				{
+					mouse_event(MOUSEEVENTF_MIDDLEUP, x, y, 0, 0);
+				}
+				break;
+				default:
+				break;
+				}
+			}
+			break;
+			case InputEvent::MouseWheelUp:
+			{
+				auto x = event.motion.xrel;
+				auto y = event.motion.xrel;
+				mouse_event(MOUSEEVENTF_WHEEL, x, y, WHEEL_DELTA, 0);
+			}
+			break;
+			case InputEvent::MouseWheelDown:
+			{
+				auto x = event.motion.xrel;
+				auto y = event.motion.xrel;
+				mouse_event(MOUSEEVENTF_WHEEL, x, y, -WHEEL_DELTA, 0);
+			}
+			break;
 			case InputEvent::GetFocus:
 			{
 				window_ = (WindHandle)event.window.windowID;

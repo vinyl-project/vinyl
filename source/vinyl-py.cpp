@@ -82,6 +82,15 @@ PyInit_vinyl(void)
     Py_INCREF(StdErrorObj);
     PyModule_AddObject(m, "StdError", StdErrorObj);
 
+	// vinyl init
+	if (!input_)
+	{
+		auto input = std::make_shared<vinyl::input::Input>();
+		input->open();
+
+		input_ = std::move(input);
+	}
+
     return m;
 }
 

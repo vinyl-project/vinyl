@@ -128,3 +128,17 @@ ENDIF()
 TARGET_LINK_LIBRARIES(${LIB_NAME} PRIVATE ${PYTHON_LIBRARIES})
 
 SET_TARGET_ATTRIBUTE(${LIB_NAME} "core")
+
+# copy python pyd files
+IF(VINYL_FEATURE_INPUT_API_WINDOWS)
+	file(COPY ${VINYL_LIBRARY_OUTPUT_PATH_RELEASE}/vinyl.dll DESTINATION ${VINYL_PATH}/python/pyvinyl)
+	file(RENAME ${VINYL_PATH}/python/pyvinyl/vinyl.dll ${VINYL_PATH}/python/pyvinyl/vinyl.pyd)
+ELSEIF(VINYL_FEATURE_INPUT_API_ANDROID)
+	file(COPY ${VINYL_LIBRARY_OUTPUT_PATH_RELEASE}/vinyl.so DESTINATION ${VINYL_PATH}/python/pyvinyl)
+	file(RENAME ${VINYL_PATH}/python/pyvinyl/vinyl.so ${VINYL_PATH}/python/pyvinyl/vinyl.pyd)
+ELSEIF(VINYL_FEATURE_INPUT_API_NULL)
+	file(COPY ${VINYL_LIBRARY_OUTPUT_PATH_RELEASE}/vinyl.so DESTINATION ${VINYL_PATH}/python/pyvinyl)
+	file(RENAME ${VINYL_PATH}/python/pyvinyl/vinyl.so ${VINYL_PATH}/python/pyvinyl/vinyl.pyd)
+ELSE()
+	MESSAGE("Not supported yet")
+ENDIF()

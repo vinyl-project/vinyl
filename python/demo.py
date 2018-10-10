@@ -1,10 +1,8 @@
-import vinyl
+import pyvinyl
 
-vinyl.init("")
+pyvinyl.move_to(20, 20)
 
-vinyl.move_to(20, 20)
-
-vinyl.left_double_click()
+pyvinyl.left_double_click()
 
 '''
 vinyl.left_click()

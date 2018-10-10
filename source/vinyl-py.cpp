@@ -2,21 +2,11 @@
 
 #include <python.h>
 
-PyObject* VinylInit(PyObject* profile);
-void VinylWindowKeyDown(vinyl::input::InputKey::Code key);
-void VinylWindowKeyDown(vinyl::input::InputKey::Code key);
-void VinylWindowKeyUp(vinyl::input::InputKey::Code key);
-void VinylWindowKeyPress(vinyl::input::InputKey::Code key);
-void VinylWindowKeyChar(std::uint16_t unicode, std::uint16_t mods);
-void VinylWindowMouseButtonDown(vinyl::input::InputButton::Code button, float x, float y);
-void VinylWindowMouseButtonUp(vinyl::input::InputButton::Code button, float x, float y);
-void VinylWindowMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y);
-void VinylWindowMouseMotion(float x, float y);
-void VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h);
+PyObject* vinyl_init(PyObject* self, PyObject* args);
 
 static PyMethodDef VinylMethods[] = {
-    {"VinylInit", VinylInit, METH_VARARGS,
-     "A function that prints a list of strings."},
+    {"init", vinyl_init, METH_VARARGS,
+     "A function that inits vinyl."},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
@@ -52,11 +42,12 @@ PyInit_vinyl(void)
 
 
 
-PyObject* VinylInit(PyObject* self, PyObject* args)
+PyObject* vinyl_init(PyObject* self, PyObject* args)
 {
     char *profile;
-    if (!(PyArg_ParseTuple(args, "s", &orignal))) {
+    if (!(PyArg_ParseTuple(args, "s", &profile))) {
         return NULL;
     }
-    Py_RETURN_NONE;
+    // Py_RETURN_NONE;
+    return PyBool_FromLong(1);
 }

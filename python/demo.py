@@ -1,7 +1,9 @@
 import vinyl
 
-vinyl.left_click()
+
+print(vinyl.init(""))
 '''
+vinyl.left_click()
 vinyl.right_click()
 vinyl.middle_click()
 

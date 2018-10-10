@@ -34,14 +34,27 @@ void VINYL_C_CALL VinylKeyDown(vinyl::input::InputKey::Code key) noexcept
 
 void VINYL_C_CALL VinylKeyUp(vinyl::input::InputKey::Code key) noexcept
 {
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyUp(key, 0, 0));
 }
 
-void VINYL_C_CALL VinylKeyPress(vinyl::input::InputKey::Code key) noexcept
+void VINYL_C_CALL VinylKeyClick(vinyl::input::InputKey::Code key) noexcept
 {
+	assert(input_);
+
+	if (input_)
+	{
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyDown(key, 0, 0));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyUp(key, 0, 0));
+	}
 }
 
-void VINYL_C_CALL VinylKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept
+void VINYL_C_CALL VinylKeyDoubleClick(vinyl::input::InputKey::Code key) noexcept
 {
+	VinylKeyClick(key);
+	VinylKeyClick(key);
 }
 
 void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept

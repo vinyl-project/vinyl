@@ -134,7 +134,8 @@ namespace vinyl
 				RightControl = 345,
 				RightAlt = 346,
 				RightSuper = 347,
-				Menu = 348,
+				LeftMenu = 348,
+				RightMenu = 349,
 
 				NumKeyCodes,
 			};

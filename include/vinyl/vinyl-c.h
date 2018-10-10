@@ -29,11 +29,11 @@
 #endif
 
 VINYL_C_LINKAGE VINYL_C_EXPORT bool VINYL_C_CALL VinylInit(const char* profile) noexcept;
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyDown(vinyl::input::InputKey::Code key) noexcept;
+
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyDown(vinyl::input::InputKey::Code key) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyUp(vinyl::input::InputKey::Code key) noexcept;
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyPress(vinyl::input::InputKey::Code key) noexcept;
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept;
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyClick(vinyl::input::InputKey::Code key) noexcept;
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyDoubleClick(vinyl::input::InputKey::Code key) noexcept;
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseMoveTo(float x, float y) noexcept;

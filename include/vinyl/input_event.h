@@ -71,6 +71,18 @@ namespace vinyl
 			std::uint64_t windowID;
 		};
 
+		struct SleepEvent
+		{
+			std::uint64_t timestamp;
+			std::uint32_t milliseconds;
+		};
+
+		struct MessageEvent
+		{
+			std::uint64_t timestamp;
+			const char* message;
+		};
+
 		struct ScreenshotEvent
 		{
 			std::uint64_t timestamp;
@@ -79,14 +91,6 @@ namespace vinyl
 			std::uint32_t y;
 			std::uint32_t w;
 			std::uint32_t h;
-		};
-
-		struct DropEvent
-		{
-			std::uint64_t timestamp;
-			std::uint64_t windowID;
-			std::uint32_t count;
-			const char** files;
 		};
 
 		struct JoyAxisEvent {};
@@ -102,7 +106,9 @@ namespace vinyl
 			{
 				KeyDown,
 				KeyUp,
-				Character,
+				WaitKey,
+				GetLastKey,
+				SetSimMode,
 
 				MouseMove,
 				MouseMoveTo,
@@ -110,6 +116,10 @@ namespace vinyl
 				MouseButtonUp,
 				MouseWheelUp,
 				MouseWheelDown,
+
+				LockMouse,
+				UnlockMouse,
+				WaitMouse,
 
 				GamePadButtonDown,
 				GamePadButtonUp,
@@ -119,6 +129,9 @@ namespace vinyl
 				TouchMotionUp,
 				TouchMotionCancel,
 
+				Sleep,
+				Alert,
+
 				Screenshot,
 
 				SizeChange,
@@ -127,11 +140,7 @@ namespace vinyl
 				GetFocus,
 				LostFocus,
 
-				Drop,
-
-				Reset,
-
-				AppQuit
+				Reset
 			};
 
 			Type event;
@@ -147,27 +156,24 @@ namespace vinyl
 				JoyHatEvent  jhat;
 				JoyButtonEvent jbutton;
 				JoyDeviceEvent jdevice;
-				SizeChangeEvent change;
+				SleepEvent sleep;
+				MessageEvent message;
 				WindowEvent window;
-				DropEvent drop;
 				ScreenshotEvent shot;
 			};
 
-			static InputEvent makeWindowResize(std::uint32_t w, std::uint32_t h) noexcept;
-			static InputEvent makeWindowFramebufferResize(std::uint32_t w, std::uint32_t h) noexcept;
-			static InputEvent makeWindowClose() noexcept;
 			static InputEvent makeWindowFocus(bool focus) noexcept;
 			static InputEvent makeWindowKeyDown(InputKey::Code key, std::uint16_t scancode = 0, std::uint16_t mods = 0) noexcept;
 			static InputEvent makeWindowKeyUp(InputKey::Code key, std::uint16_t scancode = 0, std::uint16_t mods = 0) noexcept;
-			static InputEvent makeWindowKeyPress(InputKey::Code key, std::uint16_t scancode = 0, std::uint16_t mods = 0) noexcept;
-			static InputEvent makeWindowKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept;
+			static InputEvent makeWindowWaitKey(InputKey::Code key) noexcept;
 			static InputEvent makeWindowMouseButtonDown(InputButton::Code button, float x, float y) noexcept;
 			static InputEvent makeWindowMouseButtonUp(InputButton::Code button, float x, float y) noexcept;
 			static InputEvent makeWindowMouseMove(float x, float y) noexcept;
 			static InputEvent makeWindowMouseMoveTo(float x, float y) noexcept;
 			static InputEvent makeWindowMouseWheelUp() noexcept;
 			static InputEvent makeWindowMouseWheelDown() noexcept;
-			static InputEvent makeWindowDrop(std::uint32_t count, const char** file_utf8) noexcept;
+			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
+			static InputEvent makeMessageBox(const char* message) noexcept;
 			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept;
 		};
 	}

@@ -10,11 +10,11 @@ namespace vinyl
 		class VINYL_EXPORT IInputController
 		{
 		public:
-			IInputController() noexcept;
-			virtual ~IInputController() noexcept;
+			IInputController() noexcept = default;
+			virtual ~IInputController() noexcept = default;
 
-			virtual void onAttach() noexcept;
-			virtual void onDetach() noexcept;
+			virtual void onAttach() noexcept {};
+			virtual void onDetach() noexcept {};
 
 			virtual void onInputEvent(const InputEvent& event) noexcept(false) = 0;
 

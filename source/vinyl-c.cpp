@@ -142,10 +142,18 @@ void VINYL_C_CALL VinylWheelDown() noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylSleep(float milliseconds) noexcept(false)
+void VINYL_C_CALL VinylSleep(std::uint32_t milliseconds) noexcept(false)
 {
 	if (input_)
-		std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(milliseconds));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeSleep(milliseconds));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
+void VINYL_C_CALL VinylMessageBox(const char* message) noexcept(false)
+{
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMessageBox(message));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }

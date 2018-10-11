@@ -36,14 +36,11 @@ SET(INPUT_CORE_LIST
 SOURCE_GROUP("input\\core" FILES ${INPUT_CORE_LIST})
 
 SET(INPUT_INTERFACE_LIST
-	${SOURCE_PATH}/iinput_controller.cpp
 	${HEADER_PATH}/iinput_controller.h
-	${SOURCE_PATH}/iinput_device.cpp
 	${HEADER_PATH}/iinput_device.h
 	${HEADER_PATH}/iinput_keyboard.h
-	${SOURCE_PATH}/iinput_keyboard.cpp
 	${HEADER_PATH}/iinput_mouse.h
-	${SOURCE_PATH}/iinput_mouse.cpp
+	${HEADER_PATH}/iinput_user.h
 	${HEADER_PATH}/iinput.h
 	${SOURCE_PATH}/iinput.cpp
 )
@@ -58,6 +55,8 @@ SET(INPUT_DEFAULT_LIST
 	${SOURCE_PATH}/input_keyboard.cpp
 	${HEADER_PATH}/input_mouse.h
 	${SOURCE_PATH}/input_mouse.cpp
+	${HEADER_PATH}/input_user.h
+	${SOURCE_PATH}/input_user.cpp
 	${HEADER_PATH}/input.h
 	${SOURCE_PATH}/input.cpp
 )
@@ -70,6 +69,8 @@ SET(INPUT_MSW_LIST
 	${SOURCE_PATH}/msw_input_keyboard.cpp
 	${SOURCE_PATH}/msw_input_mouse.h
 	${SOURCE_PATH}/msw_input_mouse.cpp
+	${SOURCE_PATH}/msw_input_user.h
+	${SOURCE_PATH}/msw_input_user.cpp
 )
 SOURCE_GROUP("input\\msw" FILES ${INPUT_MSW_LIST})
 

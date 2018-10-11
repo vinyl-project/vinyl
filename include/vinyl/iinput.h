@@ -17,15 +17,19 @@ namespace vinyl
 
 			virtual void obtainMouseCapture() noexcept = 0;
 			virtual void obtainKeyboardCapture() noexcept = 0;
+			virtual void obtainUserCapture() noexcept = 0;
 
 			virtual void obtainMouseCapture(const IInputMousePtr& mouse) noexcept = 0;
 			virtual void obtainMouseCapture(IInputMousePtr&& mouse) noexcept = 0;
 			virtual void obtainKeyboardCapture(const IInputKeyboardPtr& key) noexcept = 0;
 			virtual void obtainKeyboardCapture(IInputKeyboardPtr&& key) noexcept = 0;
+			virtual void obtainUserCapture(const IInputUserPtr& user) noexcept = 0;
+			virtual void obtainUserCapture(IInputUserPtr&& user) noexcept = 0;
 			virtual void obtainCaptures() noexcept = 0;
 
 			virtual void releaseMouseCapture() noexcept = 0;
 			virtual void releaseKeyboardCapture() noexcept = 0;
+			virtual void releaseUserCapture() noexcept = 0;
 			virtual void releaseCapture() noexcept = 0;
 
 			virtual void reset() noexcept = 0;

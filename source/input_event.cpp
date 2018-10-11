@@ -5,40 +5,6 @@ namespace vinyl
 	namespace input
 	{
 		InputEvent
-		InputEvent::makeWindowResize(std::uint32_t w, std::uint32_t h) noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::SizeChange;
-			event.change.w = w;
-			event.change.h = h;
-			event.change.windowID = 0;
-			event.change.timestamp = 0;
-			return event;
-		}
-
-		InputEvent
-		InputEvent::makeWindowFramebufferResize(std::uint32_t w, std::uint32_t h) noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::SizeChangeDPI;
-			event.change.w = w;
-			event.change.h = h;
-			event.change.windowID = 0;
-			event.change.timestamp = 0;
-			return event;
-		}
-
-		InputEvent
-		InputEvent::makeWindowClose() noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::AppQuit;
-			event.window.windowID = 0;
-			event.window.timestamp = 0;
-			return event;
-		}
-
-		InputEvent
 		InputEvent::makeWindowFocus(bool focus) noexcept
 		{
 			InputEvent event;
@@ -85,28 +51,10 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowKeyPress(InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods) noexcept
+		InputEvent::makeWindowWaitKey(InputKey::Code input_key) noexcept
 		{
 			InputEvent event;
-			event.event = InputEvent::KeyDown;
-			event.key.windowID = 0;
-			event.key.timestamp = 0;
-			event.key.padding2 = 0;
-			event.key.padding3 = 0;
-			event.key.repeat = true;
-			event.key.state = false;
-			event.key.keysym.raw = scancode;
-			event.key.keysym.sym = input_key;
-			event.key.keysym.mod = mods;
-			event.key.keysym.unicode = 0;
-			return event;
-		}
-
-		InputEvent
-		InputEvent::makeWindowKeyChar(std::uint16_t unicode, std::uint16_t mods) noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::Character;
+			event.event = InputEvent::WaitKey;
 			event.key.windowID = 0;
 			event.key.timestamp = 0;
 			event.key.padding2 = 0;
@@ -114,9 +62,8 @@ namespace vinyl
 			event.key.repeat = 0;
 			event.key.state = true;
 			event.key.keysym.raw = 0;
-			event.key.keysym.sym = 0;
-			event.key.keysym.mod = mods;
-			event.key.keysym.unicode = unicode;
+			event.key.keysym.sym = input_key;
+
 			return event;
 		}
 
@@ -203,14 +150,22 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowDrop(std::uint32_t count, const char** file_utf8) noexcept
+		InputEvent::makeSleep(std::uint32_t ms) noexcept
 		{
 			InputEvent event;
-			event.event = InputEvent::Drop;
-			event.drop.timestamp = 0;
-			event.drop.count = count;
-			event.drop.files = file_utf8;
-			event.drop.windowID = 0;
+			event.event = InputEvent::Sleep;
+			event.sleep.timestamp = 0;
+			event.sleep.milliseconds = ms;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeMessageBox(const char* message) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::Alert;
+			event.message.timestamp = 0;
+			event.message.message = message;
 			return event;
 		}
 

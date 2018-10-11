@@ -141,10 +141,6 @@ namespace vinyl
 				keybd_event(ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym), 0, KEYEVENTF_KEYUP, 0);
 			}
 			break;
-			case InputEvent::Character:
-			{
-			}
-			break;
 			default:
 				break;
 			}

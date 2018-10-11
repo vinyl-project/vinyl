@@ -5,6 +5,7 @@
 #	include "msw_input_device.h"
 #	include "msw_input_keyboard.h"
 #	include "msw_input_mouse.h"
+#	include "msw_input_user.h"
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
 #	include "ndk_input_device.h"
 #	include "ndk_input_keyboard.h"
@@ -34,6 +35,7 @@ namespace vinyl
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
 			inputDevice_ = std::make_shared<MSWInputDevice>();
 
+			this->obtainUserCapture(std::make_shared<MSWInputUser>());
 			this->obtainMouseCapture(std::make_shared<MSWInputMouse>());
 			this->obtainKeyboardCapture(std::make_shared<MSWInputKeyboard>());
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
@@ -56,6 +58,13 @@ namespace vinyl
 			{
 				inputDevice_.reset();
 				inputDevice_ = nullptr;
+			}
+
+			if (userCaptureDevice_)
+			{
+				userCaptureDevice_->releaseCapture();
+				userCaptureDevice_.reset();
+				userCaptureDevice_ = nullptr;
 			}
 
 			if (mouseCaptureDevice_)
@@ -100,6 +109,13 @@ namespace vinyl
 		{
 			if (keyboardCaptureDevice_ && !keyboardCaptureDevice_->capture())
 				keyboardCaptureDevice_->obtainCaptures();
+		}
+
+		void
+		Input::obtainUserCapture() noexcept
+		{
+			if (userCaptureDevice_ && !userCaptureDevice_->capture())
+				userCaptureDevice_->obtainCaptures();
 		}
 
 		void
@@ -203,10 +219,61 @@ namespace vinyl
 		}
 
 		void
+		Input::obtainUserCapture(const IInputUserPtr& user) noexcept
+		{
+			if (userCaptureDevice_ != user)
+			{
+				if (userCaptureDevice_)
+				{
+					userCaptureDevice_->releaseCapture();
+
+					if (inputDevice_)
+						inputDevice_->removeInputListener(userCaptureDevice_);
+				}
+
+				userCaptureDevice_ = user;
+
+				if (userCaptureDevice_)
+				{
+					userCaptureDevice_->obtainCaptures();
+
+					if (inputDevice_)
+						inputDevice_->addInputListener(userCaptureDevice_);
+				}
+			}
+		}
+
+		void
+		Input::obtainUserCapture(IInputUserPtr&& user) noexcept
+		{
+			if (userCaptureDevice_ != user)
+			{
+				if (userCaptureDevice_)
+				{
+					userCaptureDevice_->releaseCapture();
+
+					if (inputDevice_)
+						inputDevice_->removeInputListener(userCaptureDevice_);
+				}
+
+				userCaptureDevice_ = std::move(user);
+
+				if (userCaptureDevice_)
+				{
+					userCaptureDevice_->obtainCaptures();
+
+					if (inputDevice_)
+						inputDevice_->addInputListener(userCaptureDevice_);
+				}
+			}
+		}
+
+		void
 		Input::obtainCaptures() noexcept
 		{
 			this->obtainMouseCapture();
 			this->obtainKeyboardCapture();
+			this->obtainUserCapture();
 		}
 
 		void
@@ -224,10 +291,18 @@ namespace vinyl
 		}
 
 		void
+		Input::releaseUserCapture() noexcept
+		{
+			if (userCaptureDevice_ && userCaptureDevice_->capture())
+				userCaptureDevice_->releaseCapture();
+		}
+
+		void
 		Input::releaseCapture() noexcept
 		{
 			this->releaseMouseCapture();
 			this->releaseKeyboardCapture();
+			this->releaseUserCapture();
 		}
 
 		void
@@ -238,6 +313,9 @@ namespace vinyl
 
 			if (keyboardCaptureDevice_)
 				keyboardCaptureDevice_->reset();
+
+			if (userCaptureDevice_)
+				userCaptureDevice_->reset();
 		}
 
 		void
@@ -294,6 +372,9 @@ namespace vinyl
 
 			if (mouseCaptureDevice_)
 				input->obtainMouseCapture(mouseCaptureDevice_->clone());
+
+			if (userCaptureDevice_)
+				input->obtainUserCapture(userCaptureDevice_->clone());
 
 			return input;
 		}

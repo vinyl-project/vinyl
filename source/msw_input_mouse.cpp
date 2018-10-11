@@ -112,6 +112,14 @@ namespace vinyl
 				mouse_event(MOUSEEVENTF_WHEEL, x, y, -WHEEL_DELTA, 0);
 			}
 			break;
+			case InputEvent::LockMouse:
+			{
+			}
+			break;
+			case InputEvent::UnlockMouse:
+			{
+			}
+			break;
 			case InputEvent::GetFocus:
 			{
 				window_ = (WindHandle)event.window.windowID;
@@ -127,8 +135,6 @@ namespace vinyl
 			default:
 				break;
 			}
-
-			InputMouse::onInputEvent(event);
 		}
 
 		IInputMousePtr

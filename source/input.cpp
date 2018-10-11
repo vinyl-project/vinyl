@@ -7,6 +7,7 @@
 #	include "msw_input_keyboard.h"
 #	include "msw_input_mouse.h"
 #	include "msw_input_user.h"
+#	include "msw_input_image.h"
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
 #	include "ndk_input_device.h"
 #	include "ndk_input_keyboard.h"
@@ -40,6 +41,7 @@ namespace vinyl
 			this->obtainDebugCapture(std::make_shared<InputDebug>());
 			this->obtainMouseCapture(std::make_shared<MSWInputMouse>());
 			this->obtainKeyboardCapture(std::make_shared<MSWInputKeyboard>());
+			this->obtainImageCapture(std::make_shared<MSWInputImage>());
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
 			inputDevice_ = std::make_shared<NDKInputDevice>();
 
@@ -81,6 +83,20 @@ namespace vinyl
 				keyboardCaptureDevice_->releaseCapture();
 				keyboardCaptureDevice_.reset();
 				keyboardCaptureDevice_ = nullptr;
+			}
+
+			if (debugCaptureDevice_)
+			{
+				debugCaptureDevice_->releaseCapture();
+				debugCaptureDevice_.reset();
+				debugCaptureDevice_ = nullptr;
+			}
+
+			if (imageCaptureDevice_)
+			{
+				imageCaptureDevice_->releaseCapture();
+				imageCaptureDevice_.reset();
+				imageCaptureDevice_ = nullptr;
 			}
 		}
 
@@ -125,6 +141,13 @@ namespace vinyl
 		{
 			if (debugCaptureDevice_ && !debugCaptureDevice_->capture())
 				debugCaptureDevice_->obtainCaptures();
+		}
+
+		void
+		Input::obtainImageCapture() noexcept
+		{
+			if (imageCaptureDevice_ && !imageCaptureDevice_->capture())
+				imageCaptureDevice_->obtainCaptures();
 		}
 
 		void
@@ -228,12 +251,38 @@ namespace vinyl
 		}
 
 		void
+		Input::obtainImageCapture(const IInputImagePtr& image) noexcept
+		{
+			if (imageCaptureDevice_ != image)
+			{
+				if (imageCaptureDevice_)
+				{
+					imageCaptureDevice_->releaseCapture();
+
+					if (inputDevice_)
+						inputDevice_->removeInputListener(imageCaptureDevice_);
+				}
+
+				imageCaptureDevice_ = image;
+
+				if (imageCaptureDevice_)
+				{
+					imageCaptureDevice_->obtainCaptures();
+
+					if (inputDevice_)
+						inputDevice_->addInputListener(imageCaptureDevice_);
+				}
+			}
+		}
+
+		void
 		Input::obtainCaptures() noexcept
 		{
 			this->obtainMouseCapture();
 			this->obtainKeyboardCapture();
 			this->obtainUserCapture();
 			this->obtainDebugCapture();
+			this->obtainImageCapture();
 		}
 
 		void
@@ -265,12 +314,20 @@ namespace vinyl
 		}
 
 		void
+		Input::releaseImageCapture() noexcept
+		{
+			if (imageCaptureDevice_ && imageCaptureDevice_->capture())
+				imageCaptureDevice_->releaseCapture();
+		}
+
+		void
 		Input::releaseCaptures() noexcept
 		{
 			this->releaseMouseCapture();
 			this->releaseKeyboardCapture();
 			this->releaseUserCapture();
 			this->releaseDebugCapture();
+			this->releaseImageCapture();
 		}
 
 		void
@@ -284,6 +341,12 @@ namespace vinyl
 
 			if (userCaptureDevice_)
 				userCaptureDevice_->reset();
+
+			if (debugCaptureDevice_)
+				debugCaptureDevice_->reset();
+
+			if (imageCaptureDevice_)
+				imageCaptureDevice_->reset();
 		}
 
 		void
@@ -329,6 +392,12 @@ namespace vinyl
 
 			if (userCaptureDevice_)
 				input->obtainUserCapture(userCaptureDevice_->clone());
+
+			if (debugCaptureDevice_)
+				input->obtainDebugCapture(debugCaptureDevice_->clone());
+
+			if (imageCaptureDevice_)
+				input->obtainImageCapture(imageCaptureDevice_->clone());
 
 			return input;
 		}

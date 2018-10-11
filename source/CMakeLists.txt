@@ -42,6 +42,7 @@ SET(INPUT_INTERFACE_LIST
 	${HEADER_PATH}/iinput_keyboard.h
 	${HEADER_PATH}/iinput_mouse.h
 	${HEADER_PATH}/iinput_user.h
+	${HEADER_PATH}/iinput_image.h
 	${HEADER_PATH}/iinput.h
 	${SOURCE_PATH}/iinput.cpp
 )
@@ -60,6 +61,8 @@ SET(INPUT_DEFAULT_LIST
 	${SOURCE_PATH}/input_mouse.cpp
 	${HEADER_PATH}/input_user.h
 	${SOURCE_PATH}/input_user.cpp
+	${HEADER_PATH}/input_image.h
+	${SOURCE_PATH}/input_image.cpp
 	${HEADER_PATH}/input.h
 	${SOURCE_PATH}/input.cpp
 )
@@ -74,6 +77,8 @@ SET(INPUT_MSW_LIST
 	${SOURCE_PATH}/msw_input_mouse.cpp
 	${SOURCE_PATH}/msw_input_user.h
 	${SOURCE_PATH}/msw_input_user.cpp
+	${SOURCE_PATH}/msw_input_image.h
+	${SOURCE_PATH}/msw_input_image.cpp
 )
 SOURCE_GROUP("input\\msw" FILES ${INPUT_MSW_LIST})
 

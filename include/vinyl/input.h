@@ -22,29 +22,27 @@ namespace vinyl
 			virtual void obtainMouseCapture() noexcept;
 			virtual void obtainKeyboardCapture() noexcept;
 			virtual void obtainUserCapture() noexcept;
+			virtual void obtainDebugCapture() noexcept;
 
 			virtual void obtainMouseCapture(const IInputMousePtr& mouse) noexcept;
-			virtual void obtainMouseCapture(IInputMousePtr&& mouse) noexcept;
 			virtual void obtainKeyboardCapture(const IInputKeyboardPtr& key) noexcept;
-			virtual void obtainKeyboardCapture(IInputKeyboardPtr&& key) noexcept;
 			virtual void obtainUserCapture(const IInputUserPtr& user) noexcept;
-			virtual void obtainUserCapture(IInputUserPtr&& user) noexcept;
+			virtual void obtainDebugCapture(const IInputDebugPtr& user) noexcept;
 			virtual void obtainCaptures() noexcept;
 
 			virtual void releaseMouseCapture() noexcept;
 			virtual void releaseKeyboardCapture() noexcept;
 			virtual void releaseUserCapture() noexcept;
-			virtual void releaseCapture() noexcept;
-
-			virtual void reset() noexcept override;
+			virtual void releaseDebugCapture() noexcept;
+			virtual void releaseCaptures() noexcept;
 
 			virtual void addInputListener(const IInputControllerPtr& listener) noexcept override;
-			virtual void addInputListener(IInputControllerPtr&& listener) noexcept override;
 			virtual void removeInputListener(const IInputControllerPtr& listener) noexcept override;
-			virtual void removeInputListener(IInputControllerPtr&& listener) noexcept override;
 			virtual void clearInputListener() noexcept override;
 
 			virtual bool sendInputEvent(const InputEvent& event) noexcept override;
+
+			virtual void reset() noexcept override;
 
 			virtual IInputPtr clone() const noexcept override;
 
@@ -55,6 +53,7 @@ namespace vinyl
 		private:
 			IInputDevicePtr inputDevice_;
 			IInputUserPtr userCaptureDevice_;
+			IInputDebugPtr debugCaptureDevice_;
 			IInputMousePtr mouseCaptureDevice_;
 			IInputKeyboardPtr keyboardCaptureDevice_;
 		};

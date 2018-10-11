@@ -38,6 +38,7 @@ SOURCE_GROUP("input\\core" FILES ${INPUT_CORE_LIST})
 SET(INPUT_INTERFACE_LIST
 	${HEADER_PATH}/iinput_controller.h
 	${HEADER_PATH}/iinput_device.h
+	${HEADER_PATH}/iinput_debug.h
 	${HEADER_PATH}/iinput_keyboard.h
 	${HEADER_PATH}/iinput_mouse.h
 	${HEADER_PATH}/iinput_user.h
@@ -51,6 +52,8 @@ SET(INPUT_DEFAULT_LIST
 	${HEADER_PATH}/input_controller.h
 	${HEADER_PATH}/input_device.h
 	${SOURCE_PATH}/input_device.cpp
+	${HEADER_PATH}/input_debug.h
+	${SOURCE_PATH}/input_debug.cpp
 	${HEADER_PATH}/input_keyboard.h
 	${SOURCE_PATH}/input_keyboard.cpp
 	${HEADER_PATH}/input_mouse.h

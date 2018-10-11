@@ -1,5 +1,6 @@
 #include <vinyl/input.h>
 #include <vinyl/input_device.h>
+#include <vinyl/input_debug.h>
 
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
 #	include "msw_input_device.h"
@@ -36,6 +37,7 @@ namespace vinyl
 			inputDevice_ = std::make_shared<MSWInputDevice>();
 
 			this->obtainUserCapture(std::make_shared<MSWInputUser>());
+			this->obtainDebugCapture(std::make_shared<InputDebug>());
 			this->obtainMouseCapture(std::make_shared<MSWInputMouse>());
 			this->obtainKeyboardCapture(std::make_shared<MSWInputKeyboard>());
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
@@ -119,6 +121,13 @@ namespace vinyl
 		}
 
 		void
+		Input::obtainDebugCapture() noexcept
+		{
+			if (debugCaptureDevice_ && !debugCaptureDevice_->capture())
+				debugCaptureDevice_->obtainCaptures();
+		}
+
+		void
 		Input::obtainMouseCapture(const IInputMousePtr& mouse) noexcept
 		{
 			if (mouseCaptureDevice_ != mouse)
@@ -132,31 +141,6 @@ namespace vinyl
 				}
 
 				mouseCaptureDevice_ = mouse;
-
-				if (mouseCaptureDevice_)
-				{
-					mouseCaptureDevice_->obtainCaptures();
-
-					if (inputDevice_)
-						inputDevice_->addInputListener(mouseCaptureDevice_);
-				}
-			}
-		}
-
-		void
-		Input::obtainMouseCapture(IInputMousePtr&& mouse) noexcept
-		{
-			if (mouseCaptureDevice_ != mouse)
-			{
-				if (mouseCaptureDevice_)
-				{
-					mouseCaptureDevice_->releaseCapture();
-
-					if (inputDevice_)
-						inputDevice_->removeInputListener(mouseCaptureDevice_);
-				}
-
-				mouseCaptureDevice_ = std::move(mouse);
 
 				if (mouseCaptureDevice_)
 				{
@@ -194,31 +178,6 @@ namespace vinyl
 		}
 
 		void
-		Input::obtainKeyboardCapture(IInputKeyboardPtr&& keyboard) noexcept
-		{
-			if (keyboardCaptureDevice_ != keyboard)
-			{
-				if (keyboardCaptureDevice_)
-				{
-					keyboardCaptureDevice_->releaseCapture();
-
-					if (inputDevice_)
-						inputDevice_->removeInputListener(keyboard);
-				}
-
-				keyboardCaptureDevice_ = std::move(keyboard);
-
-				if (keyboardCaptureDevice_)
-				{
-					keyboardCaptureDevice_->obtainCaptures();
-
-					if (inputDevice_)
-						inputDevice_->addInputListener(keyboardCaptureDevice_);
-				}
-			}
-		}
-
-		void
 		Input::obtainUserCapture(const IInputUserPtr& user) noexcept
 		{
 			if (userCaptureDevice_ != user)
@@ -244,26 +203,26 @@ namespace vinyl
 		}
 
 		void
-		Input::obtainUserCapture(IInputUserPtr&& user) noexcept
+		Input::obtainDebugCapture(const IInputDebugPtr& user) noexcept
 		{
-			if (userCaptureDevice_ != user)
+			if (debugCaptureDevice_ != user)
 			{
-				if (userCaptureDevice_)
+				if (debugCaptureDevice_)
 				{
-					userCaptureDevice_->releaseCapture();
+					debugCaptureDevice_->releaseCapture();
 
 					if (inputDevice_)
-						inputDevice_->removeInputListener(userCaptureDevice_);
+						inputDevice_->removeInputListener(debugCaptureDevice_);
 				}
 
-				userCaptureDevice_ = std::move(user);
+				debugCaptureDevice_ = user;
 
-				if (userCaptureDevice_)
+				if (debugCaptureDevice_)
 				{
-					userCaptureDevice_->obtainCaptures();
+					debugCaptureDevice_->obtainCaptures();
 
 					if (inputDevice_)
-						inputDevice_->addInputListener(userCaptureDevice_);
+						inputDevice_->addInputListener(debugCaptureDevice_);
 				}
 			}
 		}
@@ -274,6 +233,7 @@ namespace vinyl
 			this->obtainMouseCapture();
 			this->obtainKeyboardCapture();
 			this->obtainUserCapture();
+			this->obtainDebugCapture();
 		}
 
 		void
@@ -298,11 +258,19 @@ namespace vinyl
 		}
 
 		void
-		Input::releaseCapture() noexcept
+		Input::releaseDebugCapture() noexcept
+		{
+			if (debugCaptureDevice_ && debugCaptureDevice_->capture())
+				debugCaptureDevice_->releaseCapture();
+		}
+
+		void
+		Input::releaseCaptures() noexcept
 		{
 			this->releaseMouseCapture();
 			this->releaseKeyboardCapture();
 			this->releaseUserCapture();
+			this->releaseDebugCapture();
 		}
 
 		void
@@ -326,24 +294,10 @@ namespace vinyl
 		}
 
 		void
-		Input::addInputListener(IInputControllerPtr&& listener) noexcept
-		{
-			if (inputDevice_)
-				inputDevice_->addInputListener(std::move(listener));
-		}
-
-		void
 		Input::removeInputListener(const IInputControllerPtr& listener) noexcept
 		{
 			if (inputDevice_)
 				inputDevice_->removeInputListener(listener);
-		}
-
-		void
-		Input::removeInputListener(IInputControllerPtr&& listener) noexcept
-		{
-			if (inputDevice_)
-				inputDevice_->removeInputListener(std::move(listener));
 		}
 
 		void

@@ -21,3 +21,4 @@ document/OctoonAPI/*.tmp
 
 *.pyc
 *.pyd
+*.dll

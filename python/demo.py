@@ -1,8 +1,15 @@
 import pyvinyl
 
-pyvinyl.move_to(20, 20)
 
-pyvinyl.left_double_click()
+import cv2 as cv
+img = cv.imread("python/test.png")
+cv.imshow("Image",img)
+print(type(img[0][0][0]))
+
+
+# pyvinyl.move_to(20, 20)
+
+# pyvinyl.left_double_click()
 
 '''
 vinyl.left_click()

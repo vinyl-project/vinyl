@@ -105,6 +105,8 @@ PyObject* vinyl_init(PyObject* self, PyObject* args)
 	{
 		PyErr_SetString(StdErrorObj, e.what());
 	}
+
+	Py_RETURN_NONE;
 }
 
 PyObject* vinyl_left_click(PyObject* self, PyObject* args)
@@ -243,7 +245,7 @@ PyObject* vinyl_left_double_click(PyObject* self, PyObject* args)
 	{
 		PyErr_SetString(StdErrorObj, e.what());
 	}
-	
+
 	Py_RETURN_NONE;
 }
 

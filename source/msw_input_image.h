@@ -2,6 +2,7 @@
 #define VINYL_MSW_INPUT_IMAGE_H_
 
 #include <vinyl/input_image.h>
+#include <vector>
 
 namespace vinyl
 {
@@ -19,8 +20,16 @@ namespace vinyl
 			virtual void onInputEvent(const InputEvent& event) noexcept override;
 
 		private:
+			void CaptureScreen() noexcept;
+
+		private:
 			MSWInputImage(const MSWInputImage&) noexcept = delete;
 			MSWInputImage& operator=(const MSWInputImage&) noexcept = delete;
+
+		private:
+			std::uint32_t width_;
+			std::uint32_t height_;
+			std::vector<std::uint8_t> pixels_;
 		};
 	}
 }

@@ -71,6 +71,12 @@ namespace vinyl
 			std::uint64_t windowID;
 		};
 
+		struct ColorEvent
+		{
+			std::uint64_t timestamp;
+			std::uint32_t color;
+		};
+
 		struct SleepEvent
 		{
 			std::uint64_t timestamp;
@@ -165,6 +171,7 @@ namespace vinyl
 				JoyHatEvent  jhat;
 				JoyButtonEvent jbutton;
 				JoyDeviceEvent jdevice;
+				ColorEvent color;
 				SleepEvent sleep;
 				MessageEvent message;
 				DebugEvent debug;

@@ -1,5 +1,5 @@
 
-# copy python pyd files
+# copy python pyd files(TODO 应将二进制拓展文件移动写入py脚本中)
 SET(INPUT_LIB_DIR ${VINYL_LIBRARY_OUTPUT_PATH_RELEASE})
 SET(OUTPUT_LIB_DIR ${VINYL_PATH}/python/pyvinyl)
 function(copy_vinyl_lib)
@@ -43,5 +43,4 @@ function(rename_vinyl_pyd)
         MESSAGE("Not supported yet")
     ENDIF()
 endfunction()
-
 add_custom_target(vinyl_pyd DEPENDS copy_vinyl_lib rename_vinyl_pyd)

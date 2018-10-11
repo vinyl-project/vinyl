@@ -83,6 +83,12 @@ namespace vinyl
 			const char* message;
 		};
 
+		struct DebugEvent
+		{
+			std::uint64_t timestamp;
+			std::uint8_t trace;
+		};
+
 		struct ScreenshotEvent
 		{
 			std::uint64_t timestamp;
@@ -121,6 +127,11 @@ namespace vinyl
 				UnlockMouse,
 				WaitMouse,
 
+				FindColor,
+				FindColorEx,
+				FindCenterColor,
+				FinxPic,
+
 				GamePadButtonDown,
 				GamePadButtonUp,
 
@@ -131,11 +142,9 @@ namespace vinyl
 
 				Sleep,
 				Alert,
+				TracePrint,
 
 				Screenshot,
-
-				SizeChange,
-				SizeChangeDPI,
 
 				GetFocus,
 				LostFocus,
@@ -158,6 +167,7 @@ namespace vinyl
 				JoyDeviceEvent jdevice;
 				SleepEvent sleep;
 				MessageEvent message;
+				DebugEvent debug;
 				WindowEvent window;
 				ScreenshotEvent shot;
 			};
@@ -174,6 +184,7 @@ namespace vinyl
 			static InputEvent makeWindowMouseWheelDown() noexcept;
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
 			static InputEvent makeMessageBox(const char* message) noexcept;
+			static InputEvent makeTracePrint(std::uint8_t enable) noexcept;
 			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept;
 		};
 	}

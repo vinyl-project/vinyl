@@ -170,6 +170,16 @@ namespace vinyl
 		}
 
 		InputEvent
+		InputEvent::makeTracePrint(std::uint8_t enable) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::TracePrint;
+			event.debug.timestamp = 0;
+			event.debug.trace = enable;
+			return event;
+		}
+
+		InputEvent
 		InputEvent::makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept
 		{
 			InputEvent event;

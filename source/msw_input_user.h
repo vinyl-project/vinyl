@@ -21,6 +21,9 @@ namespace vinyl
 		private:
 			MSWInputUser(const MSWInputUser&) noexcept = delete;
 			MSWInputUser& operator=(const MSWInputUser&) noexcept = delete;
+
+		private:
+			bool tracePrint_;
 		};
 	}
 }

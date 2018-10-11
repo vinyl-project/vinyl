@@ -158,6 +158,14 @@ void VINYL_C_CALL VinylMessageBox(const char* message) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
+void VINYL_C_CALL VinylTracePrint(std::uint8_t enable) noexcept(false)
+{
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeTracePrint(enable));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
 void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept(false)
 {
 }

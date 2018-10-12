@@ -244,6 +244,18 @@ namespace vinyl
 			return event;
 		}
 
+		InputEvent 
+		InputEvent::makeGetDesktopSize(std::uint16_t& w, std::uint16_t& h) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::GetDesktopSize;
+			event.size.timestamp = 0;
+			event.size.windowID = 0;
+			event.size.w = &w;
+			event.size.h = &w;
+			return event;
+		}
+
 		InputEvent
 		InputEvent::makeSleep(std::uint32_t ms) noexcept
 		{

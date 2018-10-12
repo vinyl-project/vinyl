@@ -59,12 +59,12 @@ namespace vinyl
 			std::uint32_t delay;
 		};
 
-		struct SizeChangeEvent
+		struct SizeEvent
 		{
 			std::uint64_t timestamp;
 			std::uint64_t windowID;
-			std::uint32_t w;
-			std::uint32_t h;
+			std::uint16_t* w;
+			std::uint16_t* h;
 		};
 
 		struct WindowEvent
@@ -163,13 +163,7 @@ namespace vinyl
 				FindCenterColor,
 				FindPic,
 
-				GamePadButtonDown,
-				GamePadButtonUp,
-
-				TouchMotionMove,
-				TouchMotionDown,
-				TouchMotionUp,
-				TouchMotionCancel,
+				GetDesktopSize,
 
 				Sleep,
 				Alert,
@@ -192,6 +186,7 @@ namespace vinyl
 				MouseMotionEvent motion;
 				MouseButtonEvent button;
 				MouseWheelEvent wheel;
+				SizeEvent size;
 				JoyAxisEvent jaxis;
 				JoyBallEvent jball;
 				JoyHatEvent  jhat;
@@ -225,6 +220,8 @@ namespace vinyl
 			static InputEvent makeIsKeyUp(InputKey::Code key, std::uint8_t& state) noexcept;
 			static InputEvent makeIsMouseButtonDown(InputButton::Code key, std::uint8_t& state) noexcept;
 			static InputEvent makeIsMouseButtonUp(InputButton::Code key, std::uint8_t& state) noexcept;
+
+			static InputEvent makeGetDesktopSize(std::uint16_t& x, std::uint16_t& y) noexcept;
 
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
 			static InputEvent makeMessageBox(const char* message) noexcept;

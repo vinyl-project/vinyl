@@ -34,9 +34,6 @@ VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyDown(vinyl::input::Inpu
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyUp(vinyl::input::InputKey::Code key) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyClick(vinyl::input::InputKey::Code key) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyDoubleClick(vinyl::input::InputKey::Code key) noexcept(false);
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylWaitKey(vinyl::input::InputKey::Code key) noexcept(false);
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylIsKeyDown(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept;
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylIsKeyUp(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept;
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseMoveTo(float x, float y) noexcept(false);
@@ -45,12 +42,19 @@ VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonDown(vinyl::inp
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, float x, float y) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonClick(vinyl::input::InputButton::Code button, float x, float y) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept(false);
+
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylIsKeyDown(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept;
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylIsKeyUp(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylIsMouseButtonDown(vinyl::input::InputButton::Code button, std::uint8_t& state) noexcept;
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylIsMouseButtonUp(vinyl::input::InputButton::Code button, std::uint8_t& state) noexcept;
+
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylWaitKey(vinyl::input::InputKey::Code key) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylWaitMouseButton(vinyl::input::InputButton::Code button) noexcept(false);
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylWheelUp() noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylWheelDown() noexcept(false);
+
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetDesktopSize(std::uint16_t& w, std::uint16_t& h) noexcept(false);
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylSleep(std::uint32_t milliseconds) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMessageBox(const char* message) noexcept(false);

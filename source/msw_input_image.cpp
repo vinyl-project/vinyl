@@ -37,11 +37,11 @@ namespace vinyl
 					{
 						for (std::uint16_t y = 0; y < height_; y++)
 						{
-							auto r = pixels_[y * width_ + x];
-							auto g = pixels_[y * width_ + x + 1];
-							auto b = pixels_[y * width_ + x + 2];
+							auto r = pixels_[(y * width_ + x) * 3];
+							auto g = pixels_[(y * width_ + x) * 3 + 1];
+							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
-							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							if (r == event.color.r && g == event.color.g && b == event.color.b)
 							{
 								*event.color.x = x;
 								*event.color.y = y;
@@ -50,6 +50,7 @@ namespace vinyl
 					}
 				}
 			}
+			break;
 			case InputEvent::FindColorEx:
 			{
 				if (event.color.x && event.color.y)
@@ -63,11 +64,11 @@ namespace vinyl
 					{
 						for (std::uint16_t y = height_ - 1; y > 0; y++)
 						{
-							auto r = pixels_[y * width_ + x];
-							auto g = pixels_[y * width_ + x + 1];
-							auto b = pixels_[y * width_ + x + 2];
+							auto r = pixels_[(y * width_ + x) * 3];
+							auto g = pixels_[(y * width_ + x) * 3 + 1];
+							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
-							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							if (r == event.color.r && g == event.color.g && b == event.color.b)
 							{
 								*event.color.x = x;
 								*event.color.y = y;
@@ -76,6 +77,7 @@ namespace vinyl
 					}
 				}
 			}
+			break;
 			case InputEvent::FindCenterColor:
 			{
 				if (event.color.x && event.color.y)
@@ -85,15 +87,17 @@ namespace vinyl
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
 
+					std::uint32_t row = width_ * 3;
+
 					for (std::uint16_t x = 0; x < width_; x++)
 					{
 						for (std::uint16_t y = 0; y < height_; y++)
 						{
-							auto r = pixels_[y * width_ + x];
-							auto g = pixels_[y * width_ + x + 1];
-							auto b = pixels_[y * width_ + x + 2];
+							auto r = pixels_[(y * width_ + x) * 3];
+							auto g = pixels_[(y * width_ + x) * 3 + 1];
+							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
-							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							if (r == event.color.r && g == event.color.g && b == event.color.b)
 							{
 								*event.color.x = x;
 								*event.color.y = y;
@@ -107,26 +111,54 @@ namespace vinyl
 			{
 				if (event.image.x && event.image.y)
 				{
-					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
-
 					*event.image.x = std::numeric_limits<std::uint16_t>::max();
 					*event.image.y = std::numeric_limits<std::uint16_t>::max();
 
-					for (std::uint16_t x = 0; x < width_ - event.image.w; x++)
+					if (event.image.pixels)
 					{
-						for (std::uint16_t y = 0; y < height_ - event.image.h; y++)
-						{
-							auto r = pixels_[y * width_ + x];
-							auto g = pixels_[y * width_ + x + 1];
-							auto b = pixels_[y * width_ + x + 2];
+						this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
 
-							if (r == event.color.r && r == event.color.g && r == event.color.b)
+						std::uint32_t dstGray = 0;
+
+						for (std::uint16_t x = 0; x < event.image.w; x++)
+						{
+							for (std::uint16_t y = 0; y < event.image.h; y++)
 							{
-								*event.color.x = x;
-								*event.color.y = y;
+								auto r = event.image.pixels[(y * event.image.w + x) * 3];
+								auto g = event.image.pixels[(y * event.image.w + x) * 3 + 1];
+								auto b = event.image.pixels[(y * event.image.w + x) * 3 + 2];
+
+								dstGray += (r * 299 + g * 587 + b * 114 + 500) / 1000;
+							}
+						}
+
+						for (std::uint16_t x = 0; x < width_ - event.image.w; x++)
+						{
+							for (std::uint16_t y = 0; y < height_ - event.image.h; y++)
+							{
+								std::uint32_t srcGray = 0;
+
+								for (std::uint16_t xx = 0; xx < event.image.w; xx++)
+								{
+									for (std::uint16_t yy = 0; yy < event.image.h; yy++)
+									{
+										auto r = pixels_[((y + yy) * width_ + (x + xx)) * 3];
+										auto g = pixels_[((y + yy) * width_ + (x + xx)) * 3 + 1];
+										auto b = pixels_[((y + yy) * width_ + (x + xx)) * 3 + 2];
+
+										srcGray += (r * 299 + g * 587 + b * 114 + 500) / 1000;
+									}
+								}
+
+								if (dstGray == srcGray)
+								{
+									*event.color.x = x;
+									*event.color.y = y;
+								}
 							}
 						}
 					}
+
 				}
 			}
 			break;

@@ -27,19 +27,90 @@ namespace vinyl
 			switch (event.event)
 			{
 			case InputEvent::FindColor:
-			case InputEvent::FindColorEx:		
 			{
-				*event.color.x = std::numeric_limits<std::uint16_t>::max();
-				*event.color.y = std::numeric_limits<std::uint16_t>::max();
+				if (event.color.x && event.color.y)
+				{
+					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+
+					*event.color.x = std::numeric_limits<std::uint16_t>::max();
+					*event.color.y = std::numeric_limits<std::uint16_t>::max();
+
+					for (std::uint16_t x = 0; x < width_; x++)
+					{
+						for (std::uint16_t y = 0; y < height_; y++)
+						{
+							auto r = pixels_[y * width_ + x];
+							auto g = pixels_[y * width_ + x + 1];
+							auto b = pixels_[y * width_ + x + 2];
+
+							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							{
+								*event.color.x = x;
+								*event.color.y = y;
+							}
+						}
+					}
+				}
+			}
+			case InputEvent::FindColorEx:
+			{
+				if (event.color.x && event.color.y)
+				{
+					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+
+					*event.color.x = std::numeric_limits<std::uint16_t>::max();
+					*event.color.y = std::numeric_limits<std::uint16_t>::max();
+
+					for (std::uint16_t x = width_ - 1; x > 0; x++)
+					{
+						for (std::uint16_t y = height_ - 1; y > 0; y++)
+						{
+							auto r = pixels_[y * width_ + x];
+							auto g = pixels_[y * width_ + x + 1];
+							auto b = pixels_[y * width_ + x + 2];
+
+							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							{
+								*event.color.x = x;
+								*event.color.y = y;
+							}
+						}
+					}
+				}
+			}
+			case InputEvent::FindCenterColor:
+			{
+				if (event.color.x && event.color.y)
+				{
+					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+
+					*event.color.x = std::numeric_limits<std::uint16_t>::max();
+					*event.color.y = std::numeric_limits<std::uint16_t>::max();
+
+					for (std::uint16_t x = 0; x < width_; x++)
+					{
+						for (std::uint16_t y = 0; y < height_; y++)
+						{
+							auto r = pixels_[y * width_ + x];
+							auto g = pixels_[y * width_ + x + 1];
+							auto b = pixels_[y * width_ + x + 2];
+
+							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							{
+								*event.color.x = x;
+								*event.color.y = y;
+							}
+						}
+					}
+				}
 			}
 			break;
-			case InputEvent::FindCenterColor:
+			case InputEvent::FindPic:
 			{
 				*event.image.x = std::numeric_limits<std::uint16_t>::max();
 				*event.image.y = std::numeric_limits<std::uint16_t>::max();
 			}
 			break;
-			case InputEvent::FindPic:
 			case InputEvent::Screenshot:
 			{
 				if (event.shot.pixels)
@@ -65,8 +136,8 @@ namespace vinyl
 			rect.right = std::min<LONG>(x + w, rect.right);
 			rect.bottom = std::min<LONG>(y + h, rect.bottom);
 
-			auto width = rect.right - rect.left;
-			auto height = rect.bottom - rect.top;
+			auto width = width_ = rect.right - rect.left;
+			auto height = height_ = rect.bottom - rect.top;
 
 			auto hBitmap = ::CreateCompatibleBitmap(hdc1, width, height);
 			auto hbmpTemp = (HBITMAP)SelectObject(hdc2, hBitmap);
@@ -90,7 +161,8 @@ namespace vinyl
 
 			GetDIBits(hdc2, hBitmap, 0, height, pixels_.data(), (LPBITMAPINFO)&bihInfo, DIB_RGB_COLORS);
 
-			std::memcpy(pixels, pixels_.data(), pixels_.size());
+			if (pixels)
+				std::memcpy(pixels, pixels_.data(), pixels_.size());
 
 			DeleteDC(hdc2);
 		}

@@ -20,7 +20,7 @@ namespace vinyl
 		{
 			std::uint64_t timestamp;
 			std::uint64_t windowID;
-			std::uint8_t state;
+			std::uint8_t* state;
 			std::uint8_t repeat;
 			std::uint8_t padding2;
 			std::uint8_t padding3;
@@ -44,7 +44,7 @@ namespace vinyl
 			std::uint64_t windowID;
 			std::uint32_t which;
 			std::uint8_t button;
-			std::uint8_t state;
+			std::uint8_t* state;
 			std::uint8_t clicks;
 			std::uint8_t padding1;
 			std::uint32_t delay;
@@ -132,6 +132,11 @@ namespace vinyl
 				MouseWheelUp,
 				MouseWheelDown,
 
+				IsKeyDown,
+				IsKeyUp,
+				IsMouseButtonDown,
+				IsMouseButtonUp,
+
 				LockMouse,
 				UnlockMouse,
 				WaitMouse,
@@ -186,9 +191,13 @@ namespace vinyl
 			static InputEvent makeWindowFocus(bool focus) noexcept;
 			static InputEvent makeWindowKeyDown(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowKeyUp(InputKey::Code key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeWindowIsKeyDown(InputKey::Code key, std::uint8_t* state) noexcept;
+			static InputEvent makeWindowIsKeyUp(InputKey::Code key, std::uint8_t* state) noexcept;
 			static InputEvent makeWindowWaitKey(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseButtonDown(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseButtonUp(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeWindowIsMouseButtonDown(InputButton::Code key, std::uint8_t* state) noexcept;
+			static InputEvent makeWindowIsMouseButtonUp(InputButton::Code key, std::uint8_t* state) noexcept;
 			static InputEvent makeWindowWaitButton(InputButton::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseMove(float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseMoveTo(float x, float y, std::uint32_t delay = 10) noexcept;

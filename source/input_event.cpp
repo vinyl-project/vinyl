@@ -24,7 +24,7 @@ namespace vinyl
 			event.key.padding2 = 0;
 			event.key.padding3 = 0;
 			event.key.repeat = false;
-			event.key.state = true;
+			event.key.state = nullptr;
 			event.key.delay = delay;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
@@ -43,8 +43,46 @@ namespace vinyl
 			event.key.padding2 = 0;
 			event.key.padding3 = 0;
 			event.key.repeat = false;
-			event.key.state = false;
+			event.key.state = nullptr;
 			event.key.delay = delay;
+			event.key.keysym.raw = 0;
+			event.key.keysym.sym = input_key;
+			event.key.keysym.mod = 0;
+			event.key.keysym.unicode = 0;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeWindowIsKeyDown(InputKey::Code input_key, std::uint8_t* state) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::IsKeyDown;
+			event.key.windowID = 0;
+			event.key.timestamp = 0;
+			event.key.padding2 = 0;
+			event.key.padding3 = 0;
+			event.key.repeat = false;
+			event.key.state = state;
+			event.key.delay = 0;
+			event.key.keysym.raw = 0;
+			event.key.keysym.sym = input_key;
+			event.key.keysym.mod = 0;
+			event.key.keysym.unicode = 0;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeWindowIsKeyUp(InputKey::Code input_key, std::uint8_t* state) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::IsKeyUp;
+			event.key.windowID = 0;
+			event.key.timestamp = 0;
+			event.key.padding2 = 0;
+			event.key.padding3 = 0;
+			event.key.repeat = false;
+			event.key.state = state;
+			event.key.delay = 0;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
 			event.key.keysym.mod = 0;
@@ -62,7 +100,7 @@ namespace vinyl
 			event.key.padding2 = 0;
 			event.key.padding3 = 0;
 			event.key.repeat = 0;
-			event.key.state = true;
+			event.key.state = nullptr;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
 			event.key.delay = delay;
@@ -100,6 +138,42 @@ namespace vinyl
 			event.button.padding1 = 0;
 			event.button.which = 0;
 			event.button.delay = delay;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeWindowIsMouseButtonDown(InputButton::Code input_button, std::uint8_t* state) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::IsMouseButtonDown;
+			event.button.button = input_button;
+			event.button.clicks = true;
+			event.button.state = state;
+			event.button.x = 0;
+			event.button.y = 0;
+			event.button.timestamp = 0;
+			event.button.windowID = 0;
+			event.button.padding1 = 0;
+			event.button.which = 0;
+			event.button.delay = 0;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeWindowIsMouseButtonUp(InputButton::Code input_button, std::uint8_t* state) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::IsMouseButtonUp;
+			event.button.button = input_button;
+			event.button.clicks = false;
+			event.button.state = state;
+			event.button.x = 0;
+			event.button.y = 0;
+			event.button.timestamp = 0;
+			event.button.windowID = 0;
+			event.button.padding1 = 0;
+			event.button.which = 0;
+			event.button.delay = 0;
 			return event;
 		}
 

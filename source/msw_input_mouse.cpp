@@ -90,6 +90,44 @@ namespace vinyl
 				Sleep(event.button.delay);
 			}
 			break;
+			case InputEvent::IsMouseButtonDown:
+			{
+				if (event.button.state)
+				{
+					switch (event.button.button)
+					{
+					case InputButton::Code::Left:
+						*event.button.state = GetAsyncKeyState(VK_LBUTTON) & 0x8000 ? true : false;
+						break;
+					case InputButton::Code::Right:
+						*event.button.state = GetAsyncKeyState(VK_RBUTTON) & 0x8000 ? true : false;
+						break;
+					case InputButton::Code::Middle:
+						*event.button.state = GetAsyncKeyState(VK_MBUTTON) & 0x8000 ? true : false;
+						break;
+					}					
+				}
+			}
+			break;
+			case InputEvent::IsMouseButtonUp:
+			{
+				if (event.button.state)
+				{
+					switch (event.button.button)
+					{
+					case InputButton::Code::Left:
+						*event.button.state = GetAsyncKeyState(VK_LBUTTON) & 0x8000 ? false : true;
+						break;
+					case InputButton::Code::Right:
+						*event.button.state = GetAsyncKeyState(VK_RBUTTON) & 0x8000 ? false : true;
+						break;
+					case InputButton::Code::Middle:
+						*event.button.state = GetAsyncKeyState(VK_MBUTTON) & 0x8000 ? false : true;
+						break;
+					}
+				}
+			}
+			break;
 			case InputEvent::MouseWheelUp:
 			{
 				mouse_event(MOUSEEVENTF_WHEEL, 0, 0, WHEEL_DELTA, 0);

@@ -4,17 +4,18 @@ import time
 
 # 点击编辑界面的注释按钮，即可看到比较详细的脚本说明
 pv.cmd("notepad")
-pv.sleep(2)
+pv.sleep(2000)
 StringDelay=1
 # 最大化写字板
-pv.key_down(pv.KeyCode.Home)
+pv.key_down(pv.KeyCode.LeftAlt)
+pv.key_down(pv.KeyCode.Space)
 time.sleep(0.5)
-pv.key_press(pv.KeyCode.ArrowLeft)
+pv.key_press(pv.KeyCode.X)
 time.sleep(0.5)
-pv.key_up(pv.KeyCode.Home)
+pv.key_up(pv.KeyCode.Space)
+pv.key_up(pv.KeyCode.LeftAlt)
 
 '''
-KeyPress "X", 1
 SayString "hi，你好，我是""按键精灵""，我是个很有趣的软件，如果你愿意花5分钟的时间来了解我，你一定会喜欢上我的。 :-)"
 KeyPress "Enter", 1
 Delay StringDelay

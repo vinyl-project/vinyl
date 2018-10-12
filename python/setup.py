@@ -3,8 +3,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "PyVinyl",
-    version = "0.1.1",
+    name = "pyvinyl",
+    version = "0.1.2",
     keywords = ("pip", "automation", "gui", "test"),
     description = "GUI automation utility",
     long_description = "GUI automation utility",

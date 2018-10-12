@@ -1,15 +1,23 @@
 import pyvinyl
 import numpy
 import cv2
+import time
+
+time_start=time.time()
 
 # pyvinyl.move_to(20, 20)
 
 # pyvinyl.left_double_click()
 
 # pyvinyl.message_box("123")
-screen = pyvinyl.screenshot(0,0,100,100)
-print(type(screen))
-print(screen.shape)
+frame = 0
+
+while(True):
+    screen = pyvinyl.screenshot(0,0,1024,768)
+    frame= frame+1
+    time_end=time.time()
+    print(frame/(time_end - time_start))
+
 
 cv2.imwrite('lenagray.png',screen)
 

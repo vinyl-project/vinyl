@@ -53,7 +53,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowIsKeyDown(InputKey::Code input_key, std::uint8_t* state) noexcept
+		InputEvent::makeWindowIsKeyDown(InputKey::Code input_key, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsKeyDown;
@@ -62,7 +62,7 @@ namespace vinyl
 			event.key.padding2 = 0;
 			event.key.padding3 = 0;
 			event.key.repeat = false;
-			event.key.state = state;
+			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
@@ -72,7 +72,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowIsKeyUp(InputKey::Code input_key, std::uint8_t* state) noexcept
+		InputEvent::makeWindowIsKeyUp(InputKey::Code input_key, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsKeyUp;
@@ -81,7 +81,7 @@ namespace vinyl
 			event.key.padding2 = 0;
 			event.key.padding3 = 0;
 			event.key.repeat = false;
-			event.key.state = state;
+			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
@@ -142,13 +142,13 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowIsMouseButtonDown(InputButton::Code input_button, std::uint8_t* state) noexcept
+		InputEvent::makeWindowIsMouseButtonDown(InputButton::Code input_button, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsMouseButtonDown;
 			event.button.button = input_button;
 			event.button.clicks = true;
-			event.button.state = state;
+			event.button.state = &state;
 			event.button.x = 0;
 			event.button.y = 0;
 			event.button.timestamp = 0;
@@ -160,13 +160,13 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowIsMouseButtonUp(InputButton::Code input_button, std::uint8_t* state) noexcept
+		InputEvent::makeWindowIsMouseButtonUp(InputButton::Code input_button, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsMouseButtonUp;
 			event.button.button = input_button;
 			event.button.clicks = false;
-			event.button.state = state;
+			event.button.state = &state;
 			event.button.x = 0;
 			event.button.y = 0;
 			event.button.timestamp = 0;

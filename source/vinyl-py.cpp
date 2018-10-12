@@ -108,6 +108,9 @@ PyInit_vinyl(void)
     Py_INCREF(StdErrorObj);
     PyModule_AddObject(m, "StdError", StdErrorObj);
 
+	// import third-party modules
+	import_array();
+
 	// vinyl init
 	VinylInit("");
 
@@ -492,14 +495,14 @@ PyObject* vinyl_screenshot(PyObject* self, PyObject* args)
 	}
 	std::uint8_t * data = nullptr;
 	PyObject *numpy_array = nullptr;
-	
+
 	try
 	{
 		data = new std::uint8_t[w * h * 3];
 		npy_intp dims[3] = { w, h, 3 };
-		numpy_array = PyArray_SimpleNewFromData(3, dims, NPY_UINT8, data);
 		// TODO get w h
-		VinylScreenshot(0, 0, w, h, data);
+		VinylScreenshot(x, y, w, h, data);
+		numpy_array = PyArray_SimpleNewFromData(3, dims, NPY_UINT8, data);
 		delete[] data;
 	}
 	catch (const std::exception& e)

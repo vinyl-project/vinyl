@@ -1,15 +1,17 @@
 import pyvinyl
 import numpy
+import cv2
 
 # pyvinyl.move_to(20, 20)
 
 # pyvinyl.left_double_click()
 
 # pyvinyl.message_box("123")
-print(123)
-screen = pyvinyl.screenshot()
+screen = pyvinyl.screenshot(0,0,100,100)
 print(type(screen))
 print(screen.shape)
+
+cv2.imwrite('lenagray.png',screen)
 
 '''
 vinyl.left_click()

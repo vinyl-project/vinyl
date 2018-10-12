@@ -29,6 +29,9 @@ def main(argv):
             lib_name = "vinyl.so"
     else:
         print("Unknown system.")
+
+    if os.path.exists(vinyl_root + "/python/pyvinyl/vinyl.pyd"):
+        os.remove(vinyl_root + "/python/pyvinyl/vinyl.pyd")
         
     if os.path.isfile(lib_dir + "/" + lib_name):
         shutil.copyfile(lib_dir + "/" + lib_name, vinyl_root + "/python/pyvinyl/vinyl.pyd")

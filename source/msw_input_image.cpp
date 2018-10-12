@@ -167,6 +167,7 @@ namespace vinyl
 				if (event.shot.pixels)
 					CaptureScreen(event.shot.x, event.shot.y, event.shot.w, event.shot.h, event.shot.pixels);
 			}
+			break;
 			default:
 				break;
 			}

@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "PyVinyl",
-    version = "0.1.0",
+    version = "0.1.1",
     keywords = ("pip", "automation", "gui", "test"),
     description = "GUI automation utility",
     long_description = "GUI automation utility",
@@ -17,5 +17,5 @@ setup(
     packages = find_packages(),
     include_package_data = True,
     platforms = "any",
-    install_requires = []
+    install_requires = ["numpy"]
 )

@@ -206,7 +206,7 @@ namespace vinyl
 			BITMAPINFOHEADER bihInfo;
 			bihInfo.biSize = sizeof(BITMAPINFOHEADER);
 			bihInfo.biWidth = width;
-			bihInfo.biHeight = height;
+			bihInfo.biHeight = -height;
 			bihInfo.biPlanes = 1;
 			bihInfo.biBitCount = 24;
 			bihInfo.biCompression = BI_RGB;

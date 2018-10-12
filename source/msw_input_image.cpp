@@ -41,7 +41,7 @@ namespace vinyl
 							auto g = pixels_[(y * width_ + x) * 3 + 1];
 							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
-							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							if (r == event.color.r && g == event.color.g && b == event.color.b)
 							{
 								*event.color.x = x;
 								*event.color.y = y;
@@ -68,7 +68,7 @@ namespace vinyl
 							auto g = pixels_[(y * width_ + x) * 3 + 1];
 							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
-							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							if (r == event.color.r && g == event.color.g && b == event.color.b)
 							{
 								*event.color.x = x;
 								*event.color.y = y;
@@ -97,7 +97,7 @@ namespace vinyl
 							auto g = pixels_[(y * width_ + x) * 3 + 1];
 							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
-							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							if (r == event.color.r && g == event.color.g && b == event.color.b)
 							{
 								*event.color.x = x;
 								*event.color.y = y;

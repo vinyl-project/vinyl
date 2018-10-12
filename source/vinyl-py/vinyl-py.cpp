@@ -93,7 +93,6 @@ static struct PyModuleDef vinyl_module = {
     VinylMethods
 };
 
-
 // module init
 PyMODINIT_FUNC
 PyInit_vinyl(void)
@@ -493,23 +492,20 @@ PyObject* vinyl_screenshot(PyObject* self, PyObject* args)
 	{
 		Py_RETURN_NONE;
 	}
-	std::uint8_t * data = nullptr;
-	PyObject *numpy_array = nullptr;
 
 	try
 	{
-		data = new std::uint8_t[w * h * 3];
+		auto data = std::make_unique<std::uint8_t[]>(w * h * 3);
 		npy_intp dims[3] = { w, h, 3 };
+
 		// TODO get w h
-		VinylScreenshot(x, y, w, h, data);
-		numpy_array = PyArray_SimpleNewFromData(3, dims, NPY_UINT8, data);
-		delete[] data;
+		VinylScreenshot(x, y, w, h, data.get());
+		return PyArray_SimpleNewFromData(3, dims, NPY_UINT8, data.get());
 	}
 	catch (const std::exception& e)
 	{
-		delete[] data;
 		PyErr_SetString(StdErrorObj, e.what());
 	}
 
-	return numpy_array;
+	Py_RETURN_NONE;
 }

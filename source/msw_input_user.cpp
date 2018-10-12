@@ -25,6 +25,18 @@ namespace vinyl
 		{
 			switch (event.event)
 			{
+			case InputEvent::GetDesktopSize:
+			{
+				if (event.size.w && event.size.h)
+				{
+					RECT rect;
+					GetClientRect(::GetDesktopWindow(), &rect);
+
+					*event.size.w = rect.right - rect.left;
+					*event.size.h = rect.bottom - rect.top;
+				}
+			}
+			break;
 			case InputEvent::Sleep:
 				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(event.sleep.milliseconds));
 				break;

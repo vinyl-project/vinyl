@@ -63,12 +63,6 @@ namespace vinyl
 				case InputEvent::FindColorEx: std::cout << "FindColorEx" << std::endl; break;
 				case InputEvent::FindCenterColor: std::cout << "FindCenterColor" << std::endl; break;
 				case InputEvent::FindPic: std::cout << "FinxPic" << std::endl; break;
-				case InputEvent::GamePadButtonDown: std::cout << "GamePadButtonDown" << std::endl; break;
-				case InputEvent::GamePadButtonUp: std::cout << "GamePadButtonUp" << std::endl; break;
-				case InputEvent::TouchMotionMove: std::cout << "TouchMotionMove" << std::endl; break;
-				case InputEvent::TouchMotionDown: std::cout << "TouchMotionDown" << std::endl; break;
-				case InputEvent::TouchMotionUp: std::cout << "TouchMotionUp" << std::endl; break;
-				case InputEvent::TouchMotionCancel: std::cout << "TouchMotionCancel" << std::endl; break;
 				case InputEvent::Sleep: std::cout << "Sleep" << std::endl; break;
 				case InputEvent::Alert: std::cout << "Alert" << std::endl; break;
 				case InputEvent::TracePrint: std::cout << "TracePrint" << std::endl; break;

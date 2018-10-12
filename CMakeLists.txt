@@ -10,6 +10,7 @@ SET(VINYL_PATH_INCLUDE ${VINYL_PATH}/include CACHE STRING "Adds a path to vinyl 
 SET(VINYL_PATH_HEADER ${VINYL_PATH_INCLUDE}/vinyl CACHE STRING "Adds a path to vinyl header" FORCE)
 SET(VINYL_PATH_SOURCE ${VINYL_PATH}/source CACHE STRING "Adds a path to vinyl source" FORCE)
 SET(VINYL_PATH_SAMPLES ${VINYL_PATH}/samples CACHE STRING "Adds a path to octoon samples" FORCE)
+SET(VINYL_PATH_TEST ${VINYL_PATH}/test CACHE STRING "Adds a path to octoon test" FORCE)
 
 OPTION(VINYL_BUILD_DOCUMENT "ON to enable document generation" ON)
 OPTION(VINYL_BUILD_SSE "ON for use OFF for ignore" OFF)
@@ -283,5 +284,5 @@ ADD_SUBDIRECTORY(source)
 # 添加python项目
 ADD_SUBDIRECTORY(python)
 
-# 添加示例
-ADD_SUBDIRECTORY(samples)
+# 测试
+ADD_SUBDIRECTORY(test)

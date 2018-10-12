@@ -76,9 +76,22 @@ namespace vinyl
 		struct ColorEvent
 		{
 			std::uint64_t timestamp;
+			std::uint8_t r;
+			std::uint8_t g;
+			std::uint8_t b;
+			std::uint16_t* x;
+			std::uint16_t* y;
+		};
+
+		struct ImageEvent
+		{
+			std::uint64_t timestamp;
 			std::uint32_t color;
-			std::uint32_t* x;
-			std::uint32_t* y;
+			std::uint32_t w;
+			std::uint32_t h;
+			std::uint16_t* x;
+			std::uint16_t* y;
+			const std::uint8_t* pixels;
 		};
 
 		struct SleepEvent
@@ -148,7 +161,7 @@ namespace vinyl
 				FindColor,
 				FindColorEx,
 				FindCenterColor,
-				FinxPic,
+				FindPic,
 
 				GamePadButtonDown,
 				GamePadButtonUp,
@@ -185,6 +198,7 @@ namespace vinyl
 				JoyButtonEvent jbutton;
 				JoyDeviceEvent jdevice;
 				ColorEvent color;
+				ImageEvent image;
 				SleepEvent sleep;
 				MessageEvent message;
 				DebugEvent debug;
@@ -216,6 +230,11 @@ namespace vinyl
 			static InputEvent makeMessageBox(const char* message) noexcept;
 			static InputEvent makeTracePrint(std::uint8_t enable) noexcept;
 			static InputEvent makeCommand(const char* message) noexcept;
+
+			static InputEvent makeFindColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeFindColorEx(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeFindImage(std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint16_t& x, std::uint16_t& y) noexcept;
 
 			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept;
 		};

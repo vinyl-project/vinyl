@@ -1,9 +1,6 @@
 #undef _DEBUG
 #include <python.h>
-#include <vinyl/input.h>
 #include <vinyl/vinyl-c.h>
-
-extern vinyl::input::IInputPtr input_;
 
 PyObject* vinyl_init(PyObject* self, PyObject* args);
 PyObject* vinyl_left_click(PyObject* self, PyObject* args);

@@ -174,6 +174,10 @@ void VINYL_C_CALL VinylCommand(const char* cmd) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept(false)
+void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept(false)
 {
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeScreenshot(x, y, w, h, data));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
 }

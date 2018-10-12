@@ -194,7 +194,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept
+		InputEvent::makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::Screenshot;
@@ -204,6 +204,7 @@ namespace vinyl
 			event.shot.y = y;
 			event.shot.w = w;
 			event.shot.h = h;
+			event.shot.pixels = data;
 			return event;
 		}
 	}

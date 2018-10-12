@@ -105,6 +105,7 @@ namespace vinyl
 			std::uint32_t y;
 			std::uint32_t w;
 			std::uint32_t h;
+			std::uint8_t* pixels;
 		};
 
 		struct JoyAxisEvent {};
@@ -196,7 +197,7 @@ namespace vinyl
 			static InputEvent makeMessageBox(const char* message) noexcept;
 			static InputEvent makeTracePrint(std::uint8_t enable) noexcept;
 			static InputEvent makeCommand(const char* message) noexcept;
-			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept;
+			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept;
 		};
 	}
 }

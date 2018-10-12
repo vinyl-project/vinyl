@@ -25,7 +25,7 @@ void VINYL_C_CALL VinylKeyDown(vinyl::input::InputKey::Code key) noexcept(false)
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyDown(key, 10));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyDown(key, 10));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -35,7 +35,7 @@ void VINYL_C_CALL VinylKeyUp(vinyl::input::InputKey::Code key) noexcept(false)
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyUp(key, 10));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyUp(key, 10));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -46,8 +46,8 @@ void VINYL_C_CALL VinylKeyClick(vinyl::input::InputKey::Code key) noexcept(false
 
 	if (input_)
 	{
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyDown(key, 10));
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowKeyUp(key, 10));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyDown(key, 10));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyUp(key, 10));
 	}
 	else
 	{
@@ -66,7 +66,7 @@ void VINYL_C_CALL VinylWaitKey(vinyl::input::InputKey::Code key) noexcept(false)
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowWaitKey(key));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWaitKey(key));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -76,7 +76,7 @@ void VINYL_C_CALL VinylIsKeyDown(vinyl::input::InputKey::Code key, std::uint8_t&
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowIsKeyDown(key, state));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeIsKeyDown(key, state));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -86,7 +86,7 @@ void VINYL_C_CALL VinylIsKeyUp(vinyl::input::InputKey::Code key, std::uint8_t& s
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowIsKeyUp(key, state));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeIsKeyUp(key, state));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -96,7 +96,7 @@ void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept(false)
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMove(x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseMove(x, y));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -106,7 +106,7 @@ void VINYL_C_CALL VinylMouseMoveTo(float x, float y) noexcept(false)
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseMoveTo(x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseMoveTo(x, y));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -116,7 +116,7 @@ void VINYL_C_CALL VinylMouseButtonDown(vinyl::input::InputButton::Code button, f
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(button, x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseButtonDown(button, x, y));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -126,7 +126,7 @@ void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, flo
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseButtonUp(button, x, y));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -137,8 +137,8 @@ void VINYL_C_CALL VinylMouseButtonClick(vinyl::input::InputButton::Code button, 
 
 	if (input_)
 	{
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonDown(button, x, y));
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseButtonUp(button, x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseButtonDown(button, x, y));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseButtonUp(button, x, y));
 	}
 	else
 	{
@@ -157,7 +157,7 @@ void VINYL_C_CALL VinylIsMouseButtonDown(vinyl::input::InputButton::Code button,
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowIsMouseButtonDown(button, state));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeIsMouseButtonDown(button, state));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -167,7 +167,7 @@ void VINYL_C_CALL VinylIsMouseButtonUp(vinyl::input::InputButton::Code button, s
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowIsMouseButtonUp(button, state));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeIsMouseButtonUp(button, state));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -177,7 +177,7 @@ void VINYL_C_CALL VinylWaitMouseButton(vinyl::input::InputButton::Code button) n
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowWaitButton(button));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWaitButton(button));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -187,7 +187,7 @@ void VINYL_C_CALL VinylWheelUp() noexcept(false)
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseWheelUp());
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseWheelUp());
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -197,7 +197,7 @@ void VINYL_C_CALL VinylWheelDown() noexcept(false)
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowMouseWheelDown());
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseWheelDown());
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }

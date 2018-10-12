@@ -129,10 +129,19 @@ class Code(Enum):
 
 
 def key_down(code):
-    pyvinyl.vinyl.key_down(code.value)
+    if (type(code) == Code):
+        pyvinyl.vinyl.key_down(code.value)
+    elif (type(code) == str):
+        pyvinyl.vinyl.key_down(Code[code])
 
 def key_up(code):
-    pyvinyl.vinyl.key_up(code.value)
+    if (type(code) == Code):
+        pyvinyl.vinyl.key_up(code.value)
+    elif (type(code) == str):
+        pyvinyl.vinyl.key_up(Code[code])
 
 def key_press(code):
-    pyvinyl.vinyl.key_click(code.value)
+    if (type(code) == Code):
+        pyvinyl.vinyl.key_click(code.value)
+    elif (type(code) == str):
+        pyvinyl.vinyl.key_click(Code[code])

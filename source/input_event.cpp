@@ -15,7 +15,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowKeyDown(InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods) noexcept
+		InputEvent::makeWindowKeyDown(InputKey::Code input_key, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::KeyDown;
@@ -25,15 +25,16 @@ namespace vinyl
 			event.key.padding3 = 0;
 			event.key.repeat = false;
 			event.key.state = true;
-			event.key.keysym.raw = scancode;
+			event.key.delay = delay;
+			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
-			event.key.keysym.mod = mods;
+			event.key.keysym.mod = 0;
 			event.key.keysym.unicode = 0;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeWindowKeyUp(InputKey::Code input_key, std::uint16_t scancode, std::uint16_t mods) noexcept
+		InputEvent::makeWindowKeyUp(InputKey::Code input_key, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::KeyUp;
@@ -43,9 +44,10 @@ namespace vinyl
 			event.key.padding3 = 0;
 			event.key.repeat = false;
 			event.key.state = false;
-			event.key.keysym.raw = scancode;
+			event.key.delay = delay;
+			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
-			event.key.keysym.mod = mods;
+			event.key.keysym.mod = 0;
 			event.key.keysym.unicode = 0;
 			return event;
 		}
@@ -68,7 +70,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseButtonDown(InputButton::Code input_button, float x, float y) noexcept
+		InputEvent::makeWindowMouseButtonDown(InputButton::Code input_button, float x, float y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseButtonDown;
@@ -80,11 +82,12 @@ namespace vinyl
 			event.button.windowID = 0;
 			event.button.padding1 = 0;
 			event.button.which = 0;
+			event.button.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseButtonUp(InputButton::Code input_button, float x, float y) noexcept
+		InputEvent::makeWindowMouseButtonUp(InputButton::Code input_button, float x, float y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseButtonUp;
@@ -96,11 +99,12 @@ namespace vinyl
 			event.button.windowID = 0;
 			event.button.padding1 = 0;
 			event.button.which = 0;
+			event.button.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseMove(float x, float y) noexcept
+		InputEvent::makeWindowMouseMove(float x, float y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMove;
@@ -111,11 +115,12 @@ namespace vinyl
 			event.motion.timestamp = 0;
 			event.motion.state = false;
 			event.motion.windowID = 0;
+			event.motion.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseMoveTo(float x, float y) noexcept
+		InputEvent::makeWindowMouseMoveTo(float x, float y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMoveTo;
@@ -126,26 +131,29 @@ namespace vinyl
 			event.motion.timestamp = 0;
 			event.motion.state = false;
 			event.motion.windowID = 0;
+			event.motion.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseWheelUp() noexcept
+		InputEvent::makeWindowMouseWheelUp(std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseWheelUp;
 			event.wheel.timestamp = 0;
 			event.wheel.windowID = 0;
+			event.wheel.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeWindowMouseWheelDown() noexcept
+		InputEvent::makeWindowMouseWheelDown(std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseWheelDown;
 			event.wheel.timestamp = 0;
 			event.wheel.windowID = 0;
+			event.wheel.delay = delay;
 			return event;
 		}
 

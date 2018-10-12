@@ -133,12 +133,16 @@ namespace vinyl
 			{
 			case InputEvent::KeyDown:
 			{
-				keybd_event(ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym), 0, 0, 0);
+				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
+				keybd_event(vkey, MapVirtualKey(vkey, 0), 0, 0);
+				Sleep(event.key.delay);
 			}
 			break;
 			case InputEvent::KeyUp:
 			{
-				keybd_event(ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym), 0, KEYEVENTF_KEYUP, 0);
+				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
+				keybd_event(vkey, MapVirtualKey(vkey, 0), KEYEVENTF_KEYUP, 0);
+				Sleep(event.key.delay);
 			}
 			break;
 			default:

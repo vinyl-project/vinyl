@@ -34,6 +34,7 @@ namespace vinyl
 				auto y = event.motion.yrel;
 
 				mouse_event(MOUSEEVENTF_MOVE, x, y, 0, 0);
+				Sleep(event.motion.delay);
 			}
 			break;
 			case InputEvent::MouseMoveTo:
@@ -42,6 +43,7 @@ namespace vinyl
 				auto y = event.motion.yrel;
 
 				SetCursorPos(x, y);
+				Sleep(event.motion.delay);
 			}
 			break;
 			case InputEvent::MouseButtonDown:
@@ -52,23 +54,19 @@ namespace vinyl
 				switch (event.button.button)
 				{
 				case InputButton::Code::Left:
-				{
 					mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
-				}
-				break;
+					break;
 				case InputButton::Code::Right:
-				{
 					mouse_event(MOUSEEVENTF_RIGHTDOWN, x, y, 0, 0);
-				}
-				break;
+					break;
 				case InputButton::Code::Middle:
-				{
 					mouse_event(MOUSEEVENTF_MIDDLEDOWN, x, y, 0, 0);
-				}
-				break;
+					break;
 				default:
 					break;
 				}
+
+				Sleep(event.button.delay);
 			}
 			break;
 			case InputEvent::MouseButtonUp:
@@ -79,37 +77,29 @@ namespace vinyl
 				switch (event.button.button)
 				{
 				case InputButton::Code::Left:
-				{
 					mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
-				}
-				break;
+					break;
 				case InputButton::Code::Right:
-				{
 					mouse_event(MOUSEEVENTF_RIGHTUP, x, y, 0, 0);
-				}
-				break;
+					break;
 				case InputButton::Code::Middle:
-				{
 					mouse_event(MOUSEEVENTF_MIDDLEUP, x, y, 0, 0);
+					break;
 				}
-				break;
-				default:
-				break;
-				}
+
+				Sleep(event.button.delay);
 			}
 			break;
 			case InputEvent::MouseWheelUp:
 			{
-				auto x = event.motion.xrel;
-				auto y = event.motion.yrel;
-				mouse_event(MOUSEEVENTF_WHEEL, x, y, WHEEL_DELTA, 0);
+				mouse_event(MOUSEEVENTF_WHEEL, 0, 0, WHEEL_DELTA, 0);
+				Sleep(event.wheel.delay);
 			}
 			break;
 			case InputEvent::MouseWheelDown:
 			{
-				auto x = event.motion.xrel;
-				auto y = event.motion.yrel;
-				mouse_event(MOUSEEVENTF_WHEEL, x, y, -WHEEL_DELTA, 0);
+				mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -WHEEL_DELTA, 0);
+				Sleep(event.wheel.delay);
 			}
 			break;
 			case InputEvent::LockMouse:

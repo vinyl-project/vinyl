@@ -166,6 +166,14 @@ void VINYL_C_CALL VinylTracePrint(std::uint8_t enable) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
+void VINYL_C_CALL VinylCommand(const char* cmd) noexcept(false)
+{
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeCommand(cmd));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
 void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h) noexcept(false)
 {
 }

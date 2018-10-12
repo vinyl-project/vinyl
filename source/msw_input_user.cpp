@@ -32,6 +32,10 @@ namespace vinyl
 				if (event.message.message)
 					MessageBox(NULL, event.message.message, " ", 0);
 				break;
+			case InputEvent::Command:
+				if (event.message.message)
+					std::system(event.message.message);
+				break;
 			}
 		}
 	}

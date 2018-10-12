@@ -22,12 +22,14 @@ while(True):
     print(frame/(time_end - time_start))
     
 '''
-screen = pyvinyl.screenshot(0,0,800,400)
-
-print(screen.flags)
-
+screen = pyvinyl.screenshot(0,0,1300,700)
+print(screen.shape)
+# cv2.imshow("123", screen)
 # cv2.imwrite('lenagray.bmp',screen)
-scipy.misc.imsave('lenagray.bmp',screen)
+# scipy.misc.imsave('lenagray.jpg',screen)
+
+map = pyvinyl.find_color(screen, [60,60,60])
+print(map.shape)
 
 '''
 vinyl.left_click()

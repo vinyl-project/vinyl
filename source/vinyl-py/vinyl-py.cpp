@@ -496,7 +496,7 @@ PyObject* vinyl_screenshot(PyObject* self, PyObject* args)
 	try
 	{
 		auto data = std::make_unique<std::uint8_t[]>(w * h * 3);
-		npy_intp dims[3] = { w, h, 3 };
+		npy_intp dims[3] = { h, w, 3 };
 
 		// TODO get w h
 		VinylScreenshot(x, y, w, h, data.get());

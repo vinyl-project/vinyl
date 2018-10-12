@@ -1,6 +1,7 @@
 import pyvinyl
 import numpy
 import cv2
+import scipy.misc
 import time
 
 time_start=time.time()
@@ -10,6 +11,8 @@ time_start=time.time()
 # pyvinyl.left_double_click()
 
 # pyvinyl.message_box("123")
+
+'''
 frame = 0
 
 while(True):
@@ -17,9 +20,14 @@ while(True):
     frame= frame+1
     time_end=time.time()
     print(frame/(time_end - time_start))
+    
+'''
+screen = pyvinyl.screenshot(0,0,800,400)
 
+print(screen.flags)
 
-cv2.imwrite('lenagray.png',screen)
+# cv2.imwrite('lenagray.bmp',screen)
+scipy.misc.imsave('lenagray.bmp',screen)
 
 '''
 vinyl.left_click()

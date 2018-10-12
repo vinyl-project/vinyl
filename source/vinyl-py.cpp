@@ -1,5 +1,6 @@
 #undef _DEBUG
 #include <python.h>
+#include <numpy/arrayobject.h>
 #include <vinyl/vinyl-c.h>
 
 PyObject* vinyl_init(PyObject* self, PyObject* args);
@@ -29,6 +30,8 @@ PyObject* vinyl_sleep(PyObject* self, PyObject* args);
 PyObject* vinyl_message_box(PyObject* self, PyObject* args);
 PyObject* vinyl_trace_print(PyObject* self, PyObject* args);
 PyObject* vinyl_command(PyObject* self, PyObject* args);
+
+PyObject* vinyl_screenshot(PyObject* self, PyObject* args);
 
 static PyMethodDef VinylMethods[] = {
     {"init", vinyl_init, METH_VARARGS,
@@ -72,7 +75,9 @@ static PyMethodDef VinylMethods[] = {
 	{ "trace_print", vinyl_trace_print, METH_VARARGS,
 	"A function that prints information in console." },
 	{ "cmd", vinyl_command, METH_VARARGS,
-	"A function that execute a command." },
+	"A function that executes a command." },
+	{ "screenshot", vinyl_screenshot, METH_VARARGS,
+	"A function that captures screenshot." },
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
@@ -476,4 +481,32 @@ PyObject* vinyl_key_click(PyObject* self, PyObject* args)
 	}
 
 	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_screenshot(PyObject* self, PyObject* args)
+{
+	int x, y, w, h;
+	if (!(PyArg_ParseTuple(args, "iiii", &x, &y, &w, &h)))
+	{
+		Py_RETURN_NONE;
+	}
+	std::uint8_t * data = nullptr;
+	PyObject *numpy_array = nullptr;
+	
+	try
+	{
+		data = new std::uint8_t[w * h * 3];
+		npy_intp dims[3] = { w, h, 3 };
+		numpy_array = PyArray_SimpleNewFromData(3, dims, NPY_UINT8, data);
+		// TODO get w h
+		VinylScreenshot(0, 0, w, h, data);
+		delete[] data;
+	}
+	catch (const std::exception& e)
+	{
+		delete[] data;
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	return numpy_array;
 }

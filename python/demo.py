@@ -1,10 +1,15 @@
 import pyvinyl
+import numpy
 
 # pyvinyl.move_to(20, 20)
 
 # pyvinyl.left_double_click()
 
-pyvinyl.message_box("123")
+# pyvinyl.message_box("123")
+print(123)
+screen = pyvinyl.screenshot()
+print(type(screen))
+print(screen.shape)
 
 '''
 vinyl.left_click()

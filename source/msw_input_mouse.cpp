@@ -30,8 +30,8 @@ namespace vinyl
 			{
 			case InputEvent::MouseMove:
 			{
-				auto x = event.motion.xrel;
-				auto y = event.motion.yrel;
+				auto x = event.motion.x;
+				auto y = event.motion.y;
 
 				mouse_event(MOUSEEVENTF_MOVE, x, y, 0, 0);
 				Sleep(event.motion.delay);
@@ -39,8 +39,8 @@ namespace vinyl
 			break;
 			case InputEvent::MouseMoveTo:
 			{
-				auto x = event.motion.xrel;
-				auto y = event.motion.yrel;
+				auto x = event.motion.x;
+				auto y = event.motion.y;
 
 				SetCursorPos(x, y);
 				Sleep(event.motion.delay);
@@ -48,8 +48,8 @@ namespace vinyl
 			break;
 			case InputEvent::MouseButtonDown:
 			{
-				auto x = event.motion.xrel;
-				auto y = event.motion.yrel;
+				auto x = event.motion.x;
+				auto y = event.motion.y;
 
 				switch (event.button.button)
 				{
@@ -71,8 +71,8 @@ namespace vinyl
 			break;
 			case InputEvent::MouseButtonUp:
 			{
-				auto x = event.motion.xrel;
-				auto y = event.motion.yrel;
+				auto x = event.motion.x;
+				auto y = event.motion.y;
 
 				switch (event.button.button)
 				{

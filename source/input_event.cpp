@@ -108,10 +108,8 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMove;
-			event.motion.x = x;
-			event.motion.y = y;
-			event.motion.xrel = (std::uint32_t)x;
-			event.motion.yrel = (std::uint32_t)y;
+			event.motion.x = (std::uint32_t)x;
+			event.motion.y = (std::uint32_t)y;
 			event.motion.timestamp = 0;
 			event.motion.state = false;
 			event.motion.windowID = 0;
@@ -124,10 +122,8 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMoveTo;
-			event.motion.x = x;
-			event.motion.y = y;
-			event.motion.xrel = (std::uint32_t)x;
-			event.motion.yrel = (std::uint32_t)y;
+			event.motion.x = (std::uint32_t)x;
+			event.motion.y = (std::uint32_t)y;
 			event.motion.timestamp = 0;
 			event.motion.state = false;
 			event.motion.windowID = 0;

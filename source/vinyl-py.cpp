@@ -27,6 +27,7 @@ PyObject* vinyl_mouse_wheel(PyObject* self, PyObject* args);
 PyObject* vinyl_sleep(PyObject* self, PyObject* args);
 PyObject* vinyl_message_box(PyObject* self, PyObject* args);
 PyObject* vinyl_trace_print(PyObject* self, PyObject* args);
+PyObject* vinyl_command(PyObject* self, PyObject* args);
 
 static PyMethodDef VinylMethods[] = {
     {"init", vinyl_init, METH_VARARGS,
@@ -63,6 +64,8 @@ static PyMethodDef VinylMethods[] = {
 	"A function that opens a message box." },
 	{ "trace_print", vinyl_trace_print, METH_VARARGS,
 	"A function that prints information in console." },
+	{ "cmd", vinyl_command, METH_VARARGS,
+	"A function that execute a command." },
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
@@ -379,6 +382,26 @@ PyObject* vinyl_trace_print(PyObject* self, PyObject* args)
 	try
 	{
 		VinylTracePrint(enable);
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_command(PyObject* self, PyObject* args)
+{
+	const char * cmd;
+	if (!(PyArg_ParseTuple(args, "s", &cmd)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylCommand(cmd);
 	}
 	catch (const std::exception& e)
 	{

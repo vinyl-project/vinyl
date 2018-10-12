@@ -102,6 +102,25 @@ namespace vinyl
 				Sleep(event.wheel.delay);
 			}
 			break;
+			case InputEvent::WaitKey:
+			{
+				switch (event.button.button)
+				{
+				case InputButton::Code::Left:
+					while (!(GetAsyncKeyState(VK_LBUTTON) & 0x8000))
+						Sleep(event.button.delay);
+					break;
+				case InputButton::Code::Right:
+					while (!(GetAsyncKeyState(VK_RBUTTON) & 0x8000))
+						Sleep(event.button.delay);
+					break;
+				case InputButton::Code::Middle:
+					while (!(GetAsyncKeyState(VK_MBUTTON) & 0x8000))
+						Sleep(event.button.delay);
+					break;
+				}
+			}
+			break;
 			case InputEvent::LockMouse:
 			{
 			}

@@ -186,9 +186,10 @@ namespace vinyl
 			static InputEvent makeWindowFocus(bool focus) noexcept;
 			static InputEvent makeWindowKeyDown(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowKeyUp(InputKey::Code key, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeWindowWaitKey(InputKey::Code key) noexcept;
+			static InputEvent makeWindowWaitKey(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseButtonDown(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseButtonUp(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeWindowWaitButton(InputButton::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseMove(float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseMoveTo(float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeWindowMouseWheelUp(std::uint32_t delay = 10) noexcept;

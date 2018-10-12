@@ -61,6 +61,16 @@ void VINYL_C_CALL VinylKeyDoubleClick(vinyl::input::InputKey::Code key) noexcept
 	VinylKeyClick(key);
 }
 
+void VINYL_C_CALL VinylWaitKey(vinyl::input::InputKey::Code key) noexcept(false)
+{
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowWaitKey(key));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
 void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept(false)
 {
 	assert(input_);
@@ -120,6 +130,16 @@ void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code bu
 {
 	VinylMouseButtonClick(button, x, y);
 	VinylMouseButtonClick(button, x, y);
+}
+
+void VINYL_C_CALL VinylWaitMouseButton(vinyl::input::InputButton::Code button) noexcept(false)
+{
+	assert(input_);
+
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeWindowWaitButton(button));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
 }
 
 void VINYL_C_CALL VinylWheelUp() noexcept(false)

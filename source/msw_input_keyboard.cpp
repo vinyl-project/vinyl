@@ -145,6 +145,13 @@ namespace vinyl
 				Sleep(event.key.delay);
 			}
 			break;
+			case InputEvent::WaitKey:
+			{
+				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);				
+				while (!(GetAsyncKeyState(vkey) & 0x8000))
+					Sleep(event.key.delay);
+			}
+			break;
 			default:
 				break;
 			}

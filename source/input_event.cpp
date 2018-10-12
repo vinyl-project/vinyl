@@ -53,7 +53,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWindowWaitKey(InputKey::Code input_key) noexcept
+		InputEvent::makeWindowWaitKey(InputKey::Code input_key, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::WaitKey;
@@ -65,7 +65,7 @@ namespace vinyl
 			event.key.state = true;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
-
+			event.key.delay = delay;
 			return event;
 		}
 
@@ -95,6 +95,23 @@ namespace vinyl
 			event.button.clicks = false;
 			event.button.x = x;
 			event.button.y = y;
+			event.button.timestamp = 0;
+			event.button.windowID = 0;
+			event.button.padding1 = 0;
+			event.button.which = 0;
+			event.button.delay = delay;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeWindowWaitButton(InputButton::Code input_button, std::uint32_t delay) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::WaitMouse;
+			event.button.button = input_button;
+			event.button.clicks = false;
+			event.button.x = 0;
+			event.button.y = 0;
 			event.button.timestamp = 0;
 			event.button.windowID = 0;
 			event.button.padding1 = 0;

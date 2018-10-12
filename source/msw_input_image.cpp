@@ -1,8 +1,6 @@
 #include "msw_input_image.h"
 #include <algorithm>
 
-#define _WidthPitch(w) ((w + w + w + 3) & 0xFFFFFFFC)
-
 namespace vinyl
 {
 	namespace input

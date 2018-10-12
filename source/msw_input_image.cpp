@@ -27,9 +27,19 @@ namespace vinyl
 			switch (event.event)
 			{
 			case InputEvent::FindColor:
-			case InputEvent::FindColorEx:
+			case InputEvent::FindColorEx:		
+			{
+				*event.color.x = std::numeric_limits<std::uint16_t>::max();
+				*event.color.y = std::numeric_limits<std::uint16_t>::max();
+			}
+			break;
 			case InputEvent::FindCenterColor:
-			case InputEvent::FinxPic:
+			{
+				*event.image.x = std::numeric_limits<std::uint16_t>::max();
+				*event.image.y = std::numeric_limits<std::uint16_t>::max();
+			}
+			break;
+			case InputEvent::FindPic:
 			case InputEvent::Screenshot:
 			{
 				if (event.shot.pixels)

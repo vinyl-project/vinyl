@@ -285,6 +285,58 @@ namespace vinyl
 		}
 
 		InputEvent
+		InputEvent::makeFindColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindColor;
+			event.color.r = r;
+			event.color.g = g;
+			event.color.b = b;
+			event.color.x = &x;
+			event.color.y = &y;			
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeFindColorEx(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindColorEx;
+			event.color.r = r;
+			event.color.g = g;
+			event.color.b = b;
+			event.color.x = &x;
+			event.color.y = &y;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindCenterColor;
+			event.color.r = r;
+			event.color.g = g;
+			event.color.b = b;
+			event.color.x = &x;
+			event.color.y = &y;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeFindImage(std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint16_t& x, std::uint16_t& y) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindPic;
+			event.image.w = w;
+			event.image.h = h;
+			event.image.pixels = image;
+			event.image.x = &x;
+			event.image.y = &y;
+			return event;
+		}
+
+		InputEvent
 		InputEvent::makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept
 		{
 			InputEvent event;

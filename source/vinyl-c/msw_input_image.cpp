@@ -33,9 +33,10 @@ namespace vinyl
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
 
-					for (std::uint16_t x = 0; x < width_; x++)
+					#pragma omp parallel for
+					for (std::int16_t x = 0; x < width_; x++)
 					{
-						for (std::uint16_t y = 0; y < height_; y++)
+						for (std::int16_t y = 0; y < height_; y++)
 						{
 							auto r = pixels_[(y * width_ + x) * 3];
 							auto g = pixels_[(y * width_ + x) * 3 + 1];
@@ -45,6 +46,7 @@ namespace vinyl
 							{
 								*event.color.x = x;
 								*event.color.y = y;
+								break;
 							}
 						}
 					}
@@ -60,9 +62,10 @@ namespace vinyl
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
 
-					for (std::uint16_t x = width_ - 1; x > 0; x++)
+					#pragma omp parallel for
+					for (std::int16_t x = width_ - 1; x > 0; x++)
 					{
-						for (std::uint16_t y = height_ - 1; y > 0; y++)
+						for (std::int16_t y = height_ - 1; y > 0; y++)
 						{
 							auto r = pixels_[(y * width_ + x) * 3];
 							auto g = pixels_[(y * width_ + x) * 3 + 1];
@@ -72,6 +75,7 @@ namespace vinyl
 							{
 								*event.color.x = x;
 								*event.color.y = y;
+								break;
 							}
 						}
 					}
@@ -89,9 +93,10 @@ namespace vinyl
 
 					std::uint32_t row = width_ * 3;
 
-					for (std::uint16_t x = 0; x < width_; x++)
+					#pragma omp parallel for
+					for (std::int16_t x = 0; x < width_; x++)
 					{
-						for (std::uint16_t y = 0; y < height_; y++)
+						for (std::int16_t y = 0; y < height_; y++)
 						{
 							auto r = pixels_[(y * width_ + x) * 3];
 							auto g = pixels_[(y * width_ + x) * 3 + 1];
@@ -101,6 +106,7 @@ namespace vinyl
 							{
 								*event.color.x = x;
 								*event.color.y = y;
+								break;
 							}
 						}
 					}
@@ -132,9 +138,10 @@ namespace vinyl
 							}
 						}
 
-						for (std::uint16_t x = 0; x < width_ - event.image.w; x++)
+						#pragma omp parallel for
+						for (std::int16_t x = 0; x < width_ - event.image.w; x++)
 						{
-							for (std::uint16_t y = 0; y < height_ - event.image.h; y++)
+							for (std::int16_t y = 0; y < height_ - event.image.h; y++)
 							{
 								std::uint32_t srcGray = 0;
 
@@ -154,11 +161,11 @@ namespace vinyl
 								{
 									*event.color.x = x;
 									*event.color.y = y;
+									break;
 								}
 							}
 						}
 					}
-
 				}
 			}
 			break;

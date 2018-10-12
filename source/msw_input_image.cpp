@@ -61,7 +61,7 @@ namespace vinyl
 			auto hBitmap = ::CreateCompatibleBitmap(hdc1, width, height);
 			auto hbmpTemp = (HBITMAP)SelectObject(hdc2, hBitmap);
 
-			BitBlt(hdc2, 0, 0, rect.right, rect.bottom, hdc1, 0, 0, SRCCOPY);
+			BitBlt(hdc2, rect.left, rect.top, rect.right, rect.bottom, hdc1, 0, 0, SRCCOPY);
 
 			BITMAPINFOHEADER bihInfo;
 			bihInfo.biSize = sizeof(BITMAPINFOHEADER);
@@ -78,7 +78,7 @@ namespace vinyl
 
 			pixels_.resize(w * h * 3);
 
-			GetDIBits(hdc2, hBitmap, 0, rect.bottom - rect.top, pixels_.data(), (LPBITMAPINFO)&bihInfo, DIB_RGB_COLORS);
+			GetDIBits(hdc2, hBitmap, 0, height, pixels_.data(), (LPBITMAPINFO)&bihInfo, DIB_RGB_COLORS);
 
 			std::memcpy(pixels, pixels_.data(), pixels_.size());
 

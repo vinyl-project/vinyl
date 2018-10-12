@@ -16,7 +16,7 @@ OPTION(VINYL_BUILD_DOCUMENT "ON to enable document generation" ON)
 OPTION(VINYL_BUILD_SSE "ON for use OFF for ignore" OFF)
 OPTION(VINYL_BUILD_DEBUG_MODE "ON for debug or OFF for release" ON)
 OPTION(VINYL_BUILD_MUTILTHREAD_DLL "ON for /MD OFF for /MT" ON)
-OPTION(VINYL_BUILD_SHARED_DLL "ON for dynamic OFF for static libraries" ON)
+OPTION(VINYL_BUILD_SHARED_DLL "ON for dynamic OFF for static libraries" OFF)
 
 # 设置默认编译平台
 IF(ANDROID_ABI OR CMAKE_SYSTEM_NAME MATCHES "VCMDDAndroid")

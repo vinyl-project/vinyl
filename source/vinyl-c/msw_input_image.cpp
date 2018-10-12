@@ -171,8 +171,10 @@ namespace vinyl
 			break;
 			case InputEvent::Screenshot:
 			{
-				//if (event.shot.pixels)
+				if (event.shot.pixels)
+				{
 					CaptureScreen(event.shot.x, event.shot.y, event.shot.w, event.shot.h, event.shot.pixels);
+				}
 			}
 			break;
 			default:
@@ -220,7 +222,8 @@ namespace vinyl
 
 			GetDIBits(hdc2, hBitmap, 0, height, pixels_.data(), (LPBITMAPINFO)&bihInfo, DIB_RGB_COLORS);
 
-			std::memcpy(pixels, pixels_.data(), pixels_.size());
+			if (pixels)
+				std::memcpy(pixels, pixels_.data(), pixels_.size());
 
 			DeleteDC(hdc2);
 		}

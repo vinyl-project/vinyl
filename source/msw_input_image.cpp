@@ -33,15 +33,13 @@ namespace vinyl
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
 
-					std::uint32_t row = width_ * 3;
-
 					for (std::uint16_t x = 0; x < width_; x++)
 					{
 						for (std::uint16_t y = 0; y < height_; y++)
 						{
-							auto r = pixels_[y * row + x];
-							auto g = pixels_[y * row + x + 1];
-							auto b = pixels_[y * row + x + 2];
+							auto r = pixels_[(y * width_ + x) * 3];
+							auto g = pixels_[(y * width_ + x) * 3 + 1];
+							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
 							if (r == event.color.r && r == event.color.g && r == event.color.b)
 							{
@@ -62,15 +60,13 @@ namespace vinyl
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
 
-					std::uint32_t row = width_ * 3;
-
 					for (std::uint16_t x = width_ - 1; x > 0; x++)
 					{
 						for (std::uint16_t y = height_ - 1; y > 0; y++)
 						{
-							auto r = pixels_[y * row + x];
-							auto g = pixels_[y * row + x + 1];
-							auto b = pixels_[y * row + x + 2];
+							auto r = pixels_[(y * width_ + x) * 3];
+							auto g = pixels_[(y * width_ + x) * 3 + 1];
+							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
 							if (r == event.color.r && r == event.color.g && r == event.color.b)
 							{
@@ -97,9 +93,9 @@ namespace vinyl
 					{
 						for (std::uint16_t y = 0; y < height_; y++)
 						{
-							auto r = pixels_[y * row + x];
-							auto g = pixels_[y * row + x + 1];
-							auto b = pixels_[y * row + x + 2];
+							auto r = pixels_[(y * width_ + x) * 3];
+							auto g = pixels_[(y * width_ + x) * 3 + 1];
+							auto b = pixels_[(y * width_ + x) * 3 + 2];
 
 							if (r == event.color.r && r == event.color.g && r == event.color.b)
 							{
@@ -128,15 +124,13 @@ namespace vinyl
 						{
 							for (std::uint16_t y = 0; y < event.image.h; y++)
 							{
-								auto r = event.image.pixels[y * event.image.h + x];
-								auto g = event.image.pixels[y * event.image.h + x + 1];
-								auto b = event.image.pixels[y * event.image.h + x + 2];
+								auto r = event.image.pixels[(y * event.image.w + x) * 3];
+								auto g = event.image.pixels[(y * event.image.w + x) * 3 + 1];
+								auto b = event.image.pixels[(y * event.image.w + x) * 3 + 2];
 
 								dstGray += (r * 299 + g * 587 + b * 114 + 500) / 1000;
 							}
 						}
-
-						std::uint32_t row = width_ * 3;
 
 						for (std::uint16_t x = 0; x < width_ - event.image.w; x++)
 						{
@@ -148,9 +142,9 @@ namespace vinyl
 								{
 									for (std::uint16_t yy = 0; yy < event.image.h; yy++)
 									{
-										auto r = pixels_[(y + yy) * row + (x + xx) * 3];
-										auto g = pixels_[(y + yy) * row + (x + xx) * 3 + 1];
-										auto b = pixels_[(y + yy) * row + (x + xx) * 3 + 2];
+										auto r = pixels_[((y + yy) * width_ + (x + xx)) * 3];
+										auto g = pixels_[((y + yy) * width_ + (x + xx)) * 3 + 1];
+										auto b = pixels_[((y + yy) * width_ + (x + xx)) * 3 + 2];
 
 										srcGray += (r * 299 + g * 587 + b * 114 + 500) / 1000;
 									}

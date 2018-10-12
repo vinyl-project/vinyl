@@ -107,8 +107,29 @@ namespace vinyl
 			break;
 			case InputEvent::FindPic:
 			{
-				*event.image.x = std::numeric_limits<std::uint16_t>::max();
-				*event.image.y = std::numeric_limits<std::uint16_t>::max();
+				if (event.image.x && event.image.y)
+				{
+					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+
+					*event.image.x = std::numeric_limits<std::uint16_t>::max();
+					*event.image.y = std::numeric_limits<std::uint16_t>::max();
+
+					for (std::uint16_t x = 0; x < width_ - event.image.w; x++)
+					{
+						for (std::uint16_t y = 0; y < height_ - event.image.h; y++)
+						{
+							auto r = pixels_[y * width_ + x];
+							auto g = pixels_[y * width_ + x + 1];
+							auto b = pixels_[y * width_ + x + 2];
+
+							if (r == event.color.r && r == event.color.g && r == event.color.b)
+							{
+								*event.color.x = x;
+								*event.color.y = y;
+							}
+						}
+					}
+				}
 			}
 			break;
 			case InputEvent::Screenshot:

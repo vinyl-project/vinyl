@@ -71,7 +71,7 @@ void VINYL_C_CALL VinylWaitKey(vinyl::input::InputKey::Code key) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylIsKeyDown(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept
+void VINYL_C_CALL VinylIsKeyDown(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept(false)
 {
 	assert(input_);
 
@@ -81,7 +81,7 @@ void VINYL_C_CALL VinylIsKeyDown(vinyl::input::InputKey::Code key, std::uint8_t&
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylIsKeyUp(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept
+void VINYL_C_CALL VinylIsKeyUp(vinyl::input::InputKey::Code key, std::uint8_t& state) noexcept(false)
 {
 	assert(input_);
 
@@ -152,7 +152,7 @@ void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code bu
 	VinylMouseButtonClick(button, x, y);
 }
 
-void VINYL_C_CALL VinylIsMouseButtonDown(vinyl::input::InputButton::Code button, std::uint8_t& state) noexcept
+void VINYL_C_CALL VinylIsMouseButtonDown(vinyl::input::InputButton::Code button, std::uint8_t& state) noexcept(false)
 {
 	assert(input_);
 
@@ -162,7 +162,7 @@ void VINYL_C_CALL VinylIsMouseButtonDown(vinyl::input::InputButton::Code button,
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylIsMouseButtonUp(vinyl::input::InputButton::Code button, std::uint8_t& state) noexcept
+void VINYL_C_CALL VinylIsMouseButtonUp(vinyl::input::InputButton::Code button, std::uint8_t& state) noexcept(false)
 {
 	assert(input_);
 
@@ -242,7 +242,7 @@ void VINYL_C_CALL VinylCommand(const char* cmd) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylFindColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept
+void VINYL_C_CALL VinylFindColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept(false)
 {
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeFindColor(r, g, b, x, y));
@@ -250,7 +250,7 @@ void VINYL_C_CALL VinylFindColor(std::uint8_t r, std::uint8_t g, std::uint8_t b,
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylFindColorEx(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept
+void VINYL_C_CALL VinylFindColorEx(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept(false)
 {
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeFindColorEx(r, g, b, x, y));
@@ -258,7 +258,7 @@ void VINYL_C_CALL VinylFindColorEx(std::uint8_t r, std::uint8_t g, std::uint8_t 
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept
+void VINYL_C_CALL VinylFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept(false)
 {
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeFindCenterColor(r, g, b, x, y));
@@ -266,7 +266,7 @@ void VINYL_C_CALL VinylFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylFindImage(std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint16_t& x, std::uint16_t& y) noexcept
+void VINYL_C_CALL VinylFindImage(std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint16_t& x, std::uint16_t& y) noexcept(false)
 {
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeFindImage(image, w, h, x, y));

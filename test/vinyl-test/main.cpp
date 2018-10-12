@@ -8,5 +8,6 @@ int main(int argc, const char* argv[])
 	VinylMouseButtonDoubleClick(vinyl::input::InputButton::Left, 0, 0);
 	VinylKeyDoubleClick(vinyl::input::InputKey::Code::A);
 	VinylMessageBox("Hello World");
+
 	return 0;
 }

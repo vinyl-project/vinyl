@@ -24,6 +24,10 @@ PyObject* vinyl_move_to(PyObject* self, PyObject* args);
 PyObject* vinyl_move(PyObject* self, PyObject* args);
 PyObject* vinyl_mouse_wheel(PyObject* self, PyObject* args);
 
+PyObject* vinyl_key_down(PyObject* self, PyObject* args);
+PyObject* vinyl_key_up(PyObject* self, PyObject* args);
+PyObject* vinyl_key_click(PyObject* self, PyObject* args);
+
 PyObject* vinyl_sleep(PyObject* self, PyObject* args);
 PyObject* vinyl_message_box(PyObject* self, PyObject* args);
 PyObject* vinyl_trace_print(PyObject* self, PyObject* args);
@@ -52,6 +56,12 @@ static PyMethodDef VinylMethods[] = {
 	"A function that controls mouse to middle down." },
 	{ "left_double_click", vinyl_left_double_click, METH_VARARGS,
 	"A function that controls mouse to left double click." },
+	{ "key_down", vinyl_key_down, METH_VARARGS,
+	"A function that presses key down." },
+	{ "key_up", vinyl_key_up, METH_VARARGS,
+	"A function that releases key up." },
+	{ "key_click", vinyl_key_click, METH_VARARGS,
+	"A function that clicks key." },
 	{ "move_to", vinyl_move_to, METH_VARARGS,
 	"A function that controls mouse to move." },
 	{ "move", vinyl_move, METH_VARARGS,
@@ -402,6 +412,66 @@ PyObject* vinyl_command(PyObject* self, PyObject* args)
 	try
 	{
 		VinylCommand(cmd);
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_key_down(PyObject* self, PyObject* args)
+{
+	int code;
+	if (!(PyArg_ParseTuple(args, "i", &code)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylKeyDown(static_cast<vinyl::input::InputKey::Code>(code));
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_key_up(PyObject* self, PyObject* args)
+{
+	int code;
+	if (!(PyArg_ParseTuple(args, "i", &code)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylKeyUp(static_cast<vinyl::input::InputKey::Code>(code));
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_key_click(PyObject* self, PyObject* args)
+{
+	int code;
+	if (!(PyArg_ParseTuple(args, "i", &code)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylKeyClick(static_cast<vinyl::input::InputKey::Code>(code));
 	}
 	catch (const std::exception& e)
 	{

@@ -31,10 +31,8 @@ list(APPEND NUMPY_SEARCHES ${NUMPY_SEARCH_NORMAL})
 
 # Try each search configuration.
 foreach(search ${NUMPY_SEARCHES})
-  find_path(NUMPY_INCLUDE_DIR NAMES numpyconfig.h PATHS ${search} PATH_SUFFIXES include)
+  find_path(NUMPY_INCLUDE_DIR NAMES numpy PATHS ${search} PATH_SUFFIXES include)
 endforeach()
-
-set(NUMPY_INCLUDE_DIR ${NUMPY_INCLUDE_DIR}/..)
 
 # Allow NUMPY_LIBRARY to be set manually, as the location of the numpy library
 if(NOT NUMPY_LIBRARY)
@@ -67,7 +65,8 @@ include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(NUMPY REQUIRED_VARS NUMPY_LIBRARY NUMPY_INCLUDE_DIR
                                        VERSION_VAR NUMPY_VERSION_STRING)
 
-if(NUMPY_FOUND)
+if(NUMPY_LIBRARY)
+    set(NUMPY_FOUND)
     set(NUMPY_INCLUDE_DIRS ${NUMPY_INCLUDE_DIR})
 
     if(NOT NUMPY_LIBRARIES)

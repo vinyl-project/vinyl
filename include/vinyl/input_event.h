@@ -136,7 +136,7 @@ namespace vinyl
 			{
 				KeyDown,
 				KeyUp,
-				
+
 				GetLastKey,
 				SetSimMode,
 
@@ -169,6 +169,7 @@ namespace vinyl
 				Alert,
 				TracePrint,
 				Command,
+				SayString,
 
 				Screenshot,
 
@@ -207,7 +208,7 @@ namespace vinyl
 			static InputEvent makeKeyUp(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 
 			static InputEvent makeMouseButtonDown(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseButtonUp(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;			
+			static InputEvent makeMouseButtonUp(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseMove(float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseMoveTo(float x, float y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelUp(std::uint32_t delay = 10) noexcept;
@@ -225,6 +226,7 @@ namespace vinyl
 
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
 			static InputEvent makeMessageBox(const char* message) noexcept;
+			static InputEvent makeSayString(const char* message) noexcept;
 			static InputEvent makeTracePrint(std::uint8_t enable) noexcept;
 			static InputEvent makeCommand(const char* message) noexcept;
 

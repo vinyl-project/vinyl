@@ -244,7 +244,7 @@ namespace vinyl
 			return event;
 		}
 
-		InputEvent 
+		InputEvent
 		InputEvent::makeGetDesktopSize(std::uint16_t& w, std::uint16_t& h) noexcept
 		{
 			InputEvent event;
@@ -252,7 +252,7 @@ namespace vinyl
 			event.size.timestamp = 0;
 			event.size.windowID = 0;
 			event.size.w = &w;
-			event.size.h = &w;
+			event.size.h = &h;
 			return event;
 		}
 
@@ -271,6 +271,16 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::Alert;
+			event.message.timestamp = 0;
+			event.message.message = message;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeSayString(const char* message) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::SayString;
 			event.message.timestamp = 0;
 			event.message.message = message;
 			return event;
@@ -305,11 +315,11 @@ namespace vinyl
 			event.color.g = g;
 			event.color.b = b;
 			event.color.x = &x;
-			event.color.y = &y;			
+			event.color.y = &y;
 			return event;
 		}
 
-		InputEvent 
+		InputEvent
 		InputEvent::makeFindColorEx(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept
 		{
 			InputEvent event;

@@ -29,11 +29,8 @@ namespace vinyl
 			{
 				if (event.size.w && event.size.h)
 				{
-					RECT rect;
-					GetClientRect(::GetDesktopWindow(), &rect);
-
-					*event.size.w = rect.right - rect.left;
-					*event.size.h = rect.bottom - rect.top;
+					*event.size.w = GetSystemMetrics(SM_CXFULLSCREEN);
+					*event.size.h = GetSystemMetrics(SM_CYFULLSCREEN);
 				}
 			}
 			break;
@@ -44,12 +41,38 @@ namespace vinyl
 			{
 				if (event.message.message)
 				{
+					constexpr std::size_t PATHLIMITS = 4096;
+
 					int size = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, 0, 0) + 1;
-					if (size > 1 && size < 4096)
+					if (size > 1 && size < PATHLIMITS)
 					{
-						wchar_t buffer[4096];
+						wchar_t buffer[PATHLIMITS];
 						if (MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, buffer, size) > 0)
 							MessageBoxW(NULL, buffer, L" ", 0);
+					}
+				}
+			}
+			break;
+			case InputEvent::SayString:
+			{
+				if (event.message.message)
+				{
+					constexpr std::size_t PATHLIMITS = 4096;
+
+					int size = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, 0, 0) + 1;
+					if (size > 1 && size < PATHLIMITS)
+					{
+						wchar_t buffer[PATHLIMITS];
+						int length = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, buffer, size);
+						if (length > 0)
+						{
+							HWND hwnd = GetForegroundWindow();
+							if (hwnd)
+							{
+								for (int i = 0; i < length; i++)
+									::PostMessage(hwnd, WM_IME_CHAR, buffer[i], NULL);
+							}
+						}
 					}
 				}
 			}

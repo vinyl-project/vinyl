@@ -58,6 +58,7 @@ VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetDesktopSize(std::uint16
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylSleep(std::uint32_t milliseconds) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMessageBox(const char* message) noexcept(false);
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylSayString(const char* string) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylTracePrint(std::uint8_t enable) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylCommand(const char* cmd) noexcept(false);
 

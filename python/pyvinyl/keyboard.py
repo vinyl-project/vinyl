@@ -139,8 +139,6 @@ def is_key_up(code):
         result = pyvinyl.vinyl.is_key_up(code.value)
     elif (type(code) == str):
         result = pyvinyl.vinyl.is_key_up(KeyCode[code].value)
-    if (pyvinyl.DELAY > 0):
-        pyvinyl.sleep(pyvinyl.DELAY)
     return result
 
 def is_key_down(code):
@@ -149,35 +147,45 @@ def is_key_down(code):
         result = pyvinyl.vinyl.is_key_down(code.value)
     elif (type(code) == str):
         result = pyvinyl.vinyl.is_key_down(KeyCode[code].value)
-    if (pyvinyl.DELAY > 0):
-        pyvinyl.sleep(pyvinyl.DELAY)
     return result
 
 def say_string(text):
+    pyvinyl.auto_delay()
     pyvinyl.vinyl.say_string(text)
-    if (pyvinyl.DELAY > 0):
-        pyvinyl.sleep(pyvinyl.DELAY)
+    
 
 def key_down(code):
+    pyvinyl.auto_delay()
+
     if (type(code) == KeyCode):
         pyvinyl.vinyl.key_down(code.value)
     elif (type(code) == str):
         pyvinyl.vinyl.key_down(KeyCode[code].value)
-    if (pyvinyl.DELAY > 0):
-        pyvinyl.sleep(pyvinyl.DELAY)
+    
 
 def key_up(code):
+    pyvinyl.auto_delay()
+
     if (type(code) == KeyCode):
         pyvinyl.vinyl.key_up(code.value)
     elif (type(code) == str):
         pyvinyl.vinyl.key_up(KeyCode[code].value)
-    if (pyvinyl.DELAY > 0):
-        pyvinyl.sleep(pyvinyl.DELAY)
+    
 
 def key_press(code):
+    pyvinyl.auto_delay()
+
     if (type(code) == KeyCode):
         pyvinyl.vinyl.key_click(code.value)
     elif (type(code) == str):
         pyvinyl.vinyl.key_click(KeyCode[code].value)
-    if (pyvinyl.DELAY > 0):
-        pyvinyl.sleep(pyvinyl.DELAY)
+
+def hotkey(*args):
+    pyvinyl.auto_delay()
+    for key in args:
+        pyvinyl.key_down(key)
+
+    args = args[::-1]
+    for key in args:
+        pyvinyl.key_up(key)
+    

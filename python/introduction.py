@@ -16,12 +16,15 @@ pv.sleep(500)
 pv.key_up(pv.KeyCode.Space)
 pv.key_up(pv.KeyCode.LeftAlt)
 
+
+pv.say_string("hi，你好，我是<按键精灵>，我是个很有趣的软件，如果你愿意花5分钟的时间来了解我，你一定会喜欢上我的。 :-)")
+pv.key_press(pv.KeyCode.Enter)
+
 '''
-SayString "hi，你好，我是""按键精灵""，我是个很有趣的软件，如果你愿意花5分钟的时间来了解我，你一定会喜欢上我的。 :-)"
-KeyPress "Enter", 1
 Delay StringDelay
 SayString "愿意了解我吗？如果愿意，请你按下键盘上的Y键，如果不喜欢我，那就按下键盘上的N键（等待按键...）"
 KeyPress "Enter", 1
+
 Do
     //等待按键
     key=WaitKey()

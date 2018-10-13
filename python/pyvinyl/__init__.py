@@ -14,7 +14,7 @@ from pyvinyl.process import (sleep, cmd)
 
 from pyvinyl.keyboard import Code as KeyCode
 
-from pyvinyl.keyboard import (key_up, key_down, key_press)
+from pyvinyl.keyboard import (say_string, key_up, key_down, key_press)
 
 from pyvinyl.screen import (screenshot, find_color)
 

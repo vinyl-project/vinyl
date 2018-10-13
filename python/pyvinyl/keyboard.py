@@ -128,6 +128,10 @@ class Code(Enum):
     LeftMenu = 348
     RightMenu = 349
 
+def say_string(text):
+    pyvinyl.vinyl.say_string(text)
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)
 
 def key_down(code):
     if (type(code) == Code):

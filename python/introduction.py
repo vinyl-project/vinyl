@@ -3,10 +3,10 @@ import os
 import time
 
 # 点击编辑界面的注释按钮，即可看到比较详细的脚本说明
-pv.DELAY = 500
+pv.DELAY = 100
 pv.cmd("notepad")
 pv.sleep(2000)
-StringDelay=1
+StringDelay = 1000
 # 最大化写字板
 pv.key_down(pv.KeyCode.LeftAlt)
 pv.key_down(pv.KeyCode.Space)
@@ -16,15 +16,14 @@ pv.sleep(500)
 pv.key_up(pv.KeyCode.Space)
 pv.key_up(pv.KeyCode.LeftAlt)
 
-
 pv.say_string("hi，你好，我是<按键精灵>，我是个很有趣的软件，如果你愿意花5分钟的时间来了解我，你一定会喜欢上我的。 :-)")
 pv.key_press(pv.KeyCode.Enter)
 
-'''
-Delay StringDelay
-SayString "愿意了解我吗？如果愿意，请你按下键盘上的Y键，如果不喜欢我，那就按下键盘上的N键（等待按键...）"
-KeyPress "Enter", 1
+pv.sleep(StringDelay)
+pv.say_string("愿意了解我吗？如果愿意，请你按下键盘上的Y键，如果不喜欢我，那就按下键盘上的N键（等待按键...）")
+pv.key_press("Enter")
 
+'''
 Do
     //等待按键
     key=WaitKey()

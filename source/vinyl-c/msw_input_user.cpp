@@ -71,7 +71,7 @@ namespace vinyl
 							{
 								HWND top = GetTopWindow(hwnd);
 								for (int i = 0; i < length; i++)
-									::PostMessage(top ? top : hwnd, WM_IME_CHAR, buffer[i], NULL);
+									PostMessageW(top ? top : hwnd, WM_IME_CHAR, buffer[i], NULL);
 							}
 						}
 					}

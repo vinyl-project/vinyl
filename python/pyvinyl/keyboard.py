@@ -137,7 +137,7 @@ def key_down(code):
     if (type(code) == Code):
         pyvinyl.vinyl.key_down(code.value)
     elif (type(code) == str):
-        pyvinyl.vinyl.key_down(Code[code])
+        pyvinyl.vinyl.key_down(Code[code].value)
     if (pyvinyl.DELAY > 0):
         pyvinyl.sleep(pyvinyl.DELAY)
 
@@ -145,7 +145,7 @@ def key_up(code):
     if (type(code) == Code):
         pyvinyl.vinyl.key_up(code.value)
     elif (type(code) == str):
-        pyvinyl.vinyl.key_up(Code[code])
+        pyvinyl.vinyl.key_up(Code[code].value)
     if (pyvinyl.DELAY > 0):
         pyvinyl.sleep(pyvinyl.DELAY)
 
@@ -153,6 +153,6 @@ def key_press(code):
     if (type(code) == Code):
         pyvinyl.vinyl.key_click(code.value)
     elif (type(code) == str):
-        pyvinyl.vinyl.key_click(Code[code])
+        pyvinyl.vinyl.key_click(Code[code].value)
     if (pyvinyl.DELAY > 0):
         pyvinyl.sleep(pyvinyl.DELAY)

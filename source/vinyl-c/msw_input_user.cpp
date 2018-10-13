@@ -66,11 +66,12 @@ namespace vinyl
 						int length = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, buffer, size);
 						if (length > 0)
 						{
-							HWND hwnd = GetTopWindow(GetForegroundWindow());
+							HWND hwnd = GetForegroundWindow();
 							if (hwnd)
 							{
+								HWND top = GetTopWindow(hwnd);
 								for (int i = 0; i < length; i++)
-									::PostMessage(hwnd, WM_IME_CHAR, buffer[i], NULL);
+									::PostMessage(top ? top : hwnd, WM_IME_CHAR, buffer[i], NULL);
 							}
 						}
 					}

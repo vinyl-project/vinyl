@@ -277,6 +277,16 @@ namespace vinyl
 		}
 
 		InputEvent
+		InputEvent::makeSayString(const char* message) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::SayString;
+			event.message.timestamp = 0;
+			event.message.message = message;
+			return event;
+		}
+
+		InputEvent
 		InputEvent::makeTracePrint(std::uint8_t enable) noexcept
 		{
 			InputEvent event;

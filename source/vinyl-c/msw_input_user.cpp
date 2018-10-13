@@ -53,6 +53,27 @@ namespace vinyl
 				}
 			}
 			break;
+			case InputEvent::SayString:
+			{
+				if (event.message.message)
+				{
+					constexpr std::size_t PATHLIMITS = 4096;
+
+					int size = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, 0, 0) + 1;
+					if (size > 1 && size < PATHLIMITS)
+					{
+						wchar_t buffer[PATHLIMITS];
+						int length = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, buffer, size);
+						if (length > 0)
+						{
+							HWND hwnd = GetForegroundWindow();
+							for (int i = 0; i < length; i++)
+								::PostMessage(hwnd, WM_IME_CHAR, buffer[i], NULL);
+						}
+					}
+				}
+			}
+			break;
 			case InputEvent::Command:
 				if (event.message.message)
 					std::system(event.message.message);

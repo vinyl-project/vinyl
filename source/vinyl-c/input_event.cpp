@@ -21,9 +21,6 @@ namespace vinyl
 			event.event = InputEvent::KeyDown;
 			event.key.windowID = 0;
 			event.key.timestamp = 0;
-			event.key.padding2 = 0;
-			event.key.padding3 = 0;
-			event.key.repeat = false;
 			event.key.state = nullptr;
 			event.key.delay = delay;
 			event.key.keysym.raw = 0;
@@ -40,9 +37,6 @@ namespace vinyl
 			event.event = InputEvent::KeyUp;
 			event.key.windowID = 0;
 			event.key.timestamp = 0;
-			event.key.padding2 = 0;
-			event.key.padding3 = 0;
-			event.key.repeat = false;
 			event.key.state = nullptr;
 			event.key.delay = delay;
 			event.key.keysym.raw = 0;
@@ -59,9 +53,6 @@ namespace vinyl
 			event.event = InputEvent::IsKeyDown;
 			event.key.windowID = 0;
 			event.key.timestamp = 0;
-			event.key.padding2 = 0;
-			event.key.padding3 = 0;
-			event.key.repeat = false;
 			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
@@ -78,9 +69,6 @@ namespace vinyl
 			event.event = InputEvent::IsKeyUp;
 			event.key.windowID = 0;
 			event.key.timestamp = 0;
-			event.key.padding2 = 0;
-			event.key.padding3 = 0;
-			event.key.repeat = false;
 			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
@@ -91,19 +79,14 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWaitKey(InputKey::Code input_key, std::uint32_t delay) noexcept
+		InputEvent::makeWaitKey(InputKey::Code& input_key, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::WaitKey;
-			event.key.windowID = 0;
-			event.key.timestamp = 0;
-			event.key.padding2 = 0;
-			event.key.padding3 = 0;
-			event.key.repeat = 0;
-			event.key.state = nullptr;
-			event.key.keysym.raw = 0;
-			event.key.keysym.sym = input_key;
-			event.key.delay = delay;
+			event.waitKey.delay = delay;
+			event.waitKey.timestamp = 0;
+			event.waitKey.key = &input_key;
+
 			return event;
 		}
 
@@ -178,19 +161,14 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWaitButton(InputButton::Code input_button, std::uint32_t delay) noexcept
+		InputEvent::makeWaitButton(InputButton::Code& input_button, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
-			event.event = InputEvent::WaitMouse;
-			event.button.button = input_button;
-			event.button.clicks = false;
-			event.button.x = 0;
-			event.button.y = 0;
-			event.button.timestamp = 0;
-			event.button.windowID = 0;
-			event.button.padding1 = 0;
-			event.button.which = 0;
-			event.button.delay = delay;
+			event.event = InputEvent::WaitButton;
+			event.waitButton.delay = delay;
+			event.waitButton.timestamp = 0;
+			event.waitButton.button = &input_button;
+
 			return event;
 		}
 

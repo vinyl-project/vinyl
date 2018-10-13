@@ -140,22 +140,40 @@ namespace vinyl
 				Sleep(event.wheel.delay);
 			}
 			break;
-			case InputEvent::WaitKey:
+			case InputEvent::WaitButton:
 			{
-				switch (event.button.button)
+				*event.waitButton.button = InputButton::Code::NumButtonCodes;
+
+				while (*event.waitButton.button == InputButton::Code::NumButtonCodes)
 				{
-				case InputButton::Code::Left:
-					while (!(GetAsyncKeyState(VK_LBUTTON) & 0x8000))
-						Sleep(event.button.delay);
-					break;
-				case InputButton::Code::Right:
-					while (!(GetAsyncKeyState(VK_RBUTTON) & 0x8000))
-						Sleep(event.button.delay);
-					break;
-				case InputButton::Code::Middle:
-					while (!(GetAsyncKeyState(VK_MBUTTON) & 0x8000))
-						Sleep(event.button.delay);
-					break;
+					for (std::size_t i = 0x01; i < 0x07; i++)
+					{
+						if (GetAsyncKeyState(i) & 0x8000)
+						{
+							switch (i)
+							{
+							case VK_LBUTTON:
+								*event.waitButton.button = InputButton::Code::Left;
+								break;
+							case VK_RBUTTON:
+								*event.waitButton.button = InputButton::Code::Right;
+								break;
+							case VK_MBUTTON:
+								*event.waitButton.button = InputButton::Code::Middle;
+								break;
+							case VK_XBUTTON1:
+								*event.waitButton.button = InputButton::Code::Mouse3;
+								break;
+							case VK_XBUTTON2:
+								*event.waitButton.button = InputButton::Code::Mouse4;
+								break;
+							}
+
+							break;
+						}
+					}
+
+					Sleep(event.waitButton.delay);
 				}
 			}
 			break;

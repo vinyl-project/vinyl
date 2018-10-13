@@ -49,7 +49,7 @@ namespace vinyl
 				case InputEvent::MouseWheelDown: std::cout << "MouseWheelDown" << std::endl; break;
 				case InputEvent::LockMouse: std::cout << "LockMouse" << std::endl; break;
 				case InputEvent::UnlockMouse: std::cout << "UnlockMouse" << std::endl; break;
-				case InputEvent::WaitMouse: std::cout << "WaitMouse" << std::endl; break;
+				case InputEvent::WaitButton: std::cout << "WaitButton" << std::endl; break;
 				case InputEvent::FindColor: std::cout << "FindColor" << std::endl; break;
 				case InputEvent::FindColorEx: std::cout << "FindColorEx" << std::endl; break;
 				case InputEvent::FindCenterColor: std::cout << "FindCenterColor" << std::endl; break;

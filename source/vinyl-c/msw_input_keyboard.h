@@ -23,8 +23,14 @@ namespace vinyl
 			virtual void onInputEvent(const InputEvent& event) noexcept;
 
 		private:
+			static LRESULT KeybdProc(int code, WPARAM wParam, LPARAM lParam) noexcept;
+
+		private:
 			MSWInputKeyboard(const MSWInputKeyboard&) noexcept = delete;
 			MSWInputKeyboard& operator=(const MSWInputKeyboard&) noexcept = delete;
+
+		private:
+			static HHOOK hook_;
 		};
 	}
 }

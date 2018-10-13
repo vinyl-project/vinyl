@@ -21,11 +21,22 @@ namespace vinyl
 			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint8_t* state;
-			std::uint8_t repeat;
-			std::uint8_t padding2;
-			std::uint8_t padding3;
 			std::uint32_t delay;
 			InputKeysym keysym;
+		};
+
+		struct WaitKeyEvent
+		{
+			std::uint64_t timestamp;
+			std::uint32_t delay;
+			InputKey::Code* key;
+		};
+
+		struct WaitButtonEvent
+		{
+			std::uint64_t timestamp;
+			std::uint32_t delay;
+			InputButton::Code* button;
 		};
 
 		struct MouseMotionEvent
@@ -164,7 +175,7 @@ namespace vinyl
 				UnlockMouse,
 
 				WaitKey,
-				WaitMouse,
+				WaitButton,
 
 				FindColor,
 				FindColorEx,
@@ -196,6 +207,8 @@ namespace vinyl
 				MouseMotionEvent motion;
 				MouseButtonEvent button;
 				MouseWheelEvent wheel;
+				WaitKeyEvent waitKey;
+				WaitButtonEvent waitButton;
 				PosEvent pos;
 				SizeEvent size;
 				JoyAxisEvent jaxis;
@@ -224,8 +237,8 @@ namespace vinyl
 			static InputEvent makeMouseWheelUp(std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelDown(std::uint32_t delay = 10) noexcept;
 
-			static InputEvent makeWaitKey(InputKey::Code key, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeWaitButton(InputButton::Code key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeWaitKey(InputKey::Code& key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeWaitButton(InputButton::Code& key, std::uint32_t delay = 10) noexcept;
 
 			static InputEvent makeIsKeyDown(InputKey::Code key, std::uint8_t& state) noexcept;
 			static InputEvent makeIsKeyUp(InputKey::Code key, std::uint8_t& state) noexcept;

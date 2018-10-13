@@ -1,9 +1,99 @@
-#include "msw_input_keyboard.h"
+﻿#include "msw_input_keyboard.h"
 
 namespace vinyl
 {
 	namespace input
 	{
+		InputKey::Code VirtualKeyToScanCode(UINT code)
+		{
+			switch (code)
+			{
+			case VK_RSHIFT:   	   return InputKey::Code::RightShift;
+			case VK_LSHIFT:   	   return InputKey::Code::LeftShift;
+			case VK_RCONTROL: 	   return InputKey::Code::RightControl;
+			case VK_LCONTROL: 	   return InputKey::Code::LeftControl;
+			case VK_RMENU:    	   return InputKey::Code::RightAlt;
+			case VK_LMENU:    	   return InputKey::Code::LeftAlt;
+			case VK_LWIN:     	   return InputKey::Code::RightMenu;
+			case VK_RWIN:     	   return InputKey::Code::LeftMenu;
+			case VK_RETURN:		   return InputKey::Code::Enter;
+			case VK_ESCAPE:        return InputKey::Code::Escape;
+			case VK_TAB:           return InputKey::Code::Tab;
+			case VK_BACK:          return InputKey::Code::Backspace;
+			case VK_HOME:          return InputKey::Code::Home;
+			case VK_END:           return InputKey::Code::End;
+			case VK_PRIOR:         return InputKey::Code::PageUp;
+			case VK_NEXT:          return InputKey::Code::PageDown;
+			case VK_INSERT:        return InputKey::Code::Insert;
+			case VK_DELETE:        return InputKey::Code::Delete;
+			case VK_LEFT:          return InputKey::Code::ArrowLeft;
+			case VK_UP:            return InputKey::Code::ArrowUp;
+			case VK_RIGHT:         return InputKey::Code::ArrowRight;
+			case VK_DOWN:          return InputKey::Code::ArrowDown;
+			case VK_F1:            return InputKey::Code::F1;
+			case VK_F2:            return InputKey::Code::F2;
+			case VK_F3:            return InputKey::Code::F3;
+			case VK_F4:            return InputKey::Code::F4;
+			case VK_F5:            return InputKey::Code::F5;
+			case VK_F6:            return InputKey::Code::F6;
+			case VK_F7:            return InputKey::Code::F7;
+			case VK_F8:            return InputKey::Code::F8;
+			case VK_F9:            return InputKey::Code::F9;
+			case VK_F10:           return InputKey::Code::F10;
+			case VK_F11:           return InputKey::Code::F11;
+			case VK_F12:           return InputKey::Code::F12;
+			case VK_F13:           return InputKey::Code::F13;
+			case VK_F14:           return InputKey::Code::F14;
+			case VK_F15:           return InputKey::Code::F15;
+			case VK_F16:           return InputKey::Code::F16;
+			case VK_F17:           return InputKey::Code::F17;
+			case VK_F18:           return InputKey::Code::F18;
+			case VK_F19:           return InputKey::Code::F19;
+			case VK_F20:           return InputKey::Code::F20;
+			case VK_F21:           return InputKey::Code::F21;
+			case VK_F22:           return InputKey::Code::F22;
+			case VK_F23:           return InputKey::Code::F23;
+			case VK_F24:           return InputKey::Code::F24;
+
+			case VK_SPACE:         return InputKey::Code::Space;
+
+			case VK_NUMPAD0:       return InputKey::Code::KP_0;
+			case VK_NUMPAD1:       return InputKey::Code::KP_1;
+			case VK_NUMPAD2:       return InputKey::Code::KP_2;
+			case VK_NUMPAD3:       return InputKey::Code::KP_3;
+			case VK_NUMPAD4:       return InputKey::Code::KP_4;
+			case VK_NUMPAD5:       return InputKey::Code::KP_5;
+			case VK_NUMPAD6:       return InputKey::Code::KP_6;
+			case VK_NUMPAD7:       return InputKey::Code::KP_7;
+			case VK_NUMPAD8:       return InputKey::Code::KP_8;
+			case VK_NUMPAD9:       return InputKey::Code::KP_9;
+
+			case VK_DIVIDE:        return InputKey::Code::KP_Divide;
+			case VK_MULTIPLY:      return InputKey::Code::KP_Multiply;
+			case VK_SUBTRACT:      return InputKey::Code::KP_Subtract;
+			case VK_ADD:           return InputKey::Code::KP_Add;
+			case VK_DECIMAL:       return InputKey::Code::KP_Decimal;
+			case VK_NUMLOCK:       return InputKey::Code::NumLock;
+
+			case VK_CAPITAL:       return InputKey::Code::CapsLock;
+			case VK_SCROLL:        return InputKey::Code::ScrollLock;
+			case VK_PAUSE:         return InputKey::Code::Pause;
+			case VK_APPS:          return InputKey::Code::None;
+			case VK_CLEAR:		   return InputKey::Code::None;
+			}
+
+			if (code >= 'a' && code <= 'z')
+				return (InputKey::Code)(InputKey::Code::A + code - 'a');
+
+			if (code >= 'A' && code <= 'Z')
+				return (InputKey::Code)(InputKey::Code::A + code - 'A');
+
+			if (code >= '0' && code <= '9')
+				return (InputKey::Code)(InputKey::Code::Key0 + code - '0');
+
+			return InputKey::Code::None;
+		}
+
 		BYTE ScanCodeToVirtualKey(InputKey::Code code)
 		{
 			switch (code)
@@ -121,6 +211,66 @@ namespace vinyl
 			}
 		}
 
+		int VirtualKeyToText(WPARAM _virtualKey)
+		{
+			static WCHAR deadKey = 0;
+
+			BYTE keyState[256];
+			HKL  layout = GetKeyboardLayout(0);
+			if (GetKeyboardState(keyState) == 0)
+				return 0;
+
+			WCHAR buff[3] = { 0, 0, 0 };
+			int ascii = ToUnicodeEx((UINT)_virtualKey, 0, keyState, buff, 3, 0, layout);
+			if (ascii == 1 && deadKey != '\0')
+			{
+				// A dead key is stored and we have just converted a character key
+				// Combine the two into a single character
+				WCHAR wcBuff[3] = { buff[0], deadKey, '\0' };
+				WCHAR out[3];
+
+				deadKey = '\0';
+				if (FoldStringW(MAP_PRECOMPOSED, (LPWSTR)wcBuff, 3, (LPWSTR)out, 3))
+					return out[0];
+			}
+			else if (ascii == 1)
+			{
+				// We have a single character
+				deadKey = '\0';
+				return buff[0];
+			}
+			else if (ascii == 2)
+			{
+				// Convert a non-combining diacritical mark into a combining diacritical mark
+				// Combining versions range from 0x300 to 0x36F; only 5 (for French) have been mapped below
+				// http://www.fileformat.info/info/unicode/block/combining_diacritical_marks/images.htm
+				switch (buff[0])
+				{
+				case 0x5E: // Circumflex accent: в
+					deadKey = 0x302;
+					break;
+				case 0x60: // Grave accent: а
+					deadKey = 0x300;
+					break;
+				case 0xA8: // Diaeresis: E
+					deadKey = 0x308;
+					break;
+				case 0xB4: // Acute accent: й
+					deadKey = 0x301;
+					break;
+				case 0xB8: // Cedilla: з
+					deadKey = 0x327;
+					break;
+				default:
+					deadKey = buff[0];
+					break;
+				}
+			}
+			return 0;
+		}
+
+		HHOOK MSWInputKeyboard::hook_ = nullptr;
+
 		MSWInputKeyboard::MSWInputKeyboard() noexcept
 		{
 		}
@@ -132,11 +282,20 @@ namespace vinyl
 		void
 		MSWInputKeyboard::onActivate() noexcept
 		{
+			/*if (!hook_)
+			{
+				hook_ = SetWindowsHookEx(WH_KEYBOARD, MSWInputKeyboard::KeybdProc, GetModuleHandle("user32"), 0);
+			}*/
 		}
 
 		void
 		MSWInputKeyboard::onDeactivate() noexcept
 		{
+			/*if (hook_)
+			{
+				UnhookWindowsHookEx(hook_);
+				hook_ = nullptr;
+			}*/
 		}
 
 		void
@@ -178,9 +337,21 @@ namespace vinyl
 			break;
 			case InputEvent::WaitKey:
 			{
-				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
-				while (!(GetAsyncKeyState(vkey) & 0x8000))
-					Sleep(event.key.delay);
+				*event.waitKey.key = InputKey::Code::None;
+
+				while (*event.waitKey.key == InputKey::Code::None)
+				{
+					for (std::size_t i = 0x08; i < 0xFF; i++)
+					{
+						if (GetAsyncKeyState(i) & 0x8000)
+						{
+							*event.waitKey.key = VirtualKeyToScanCode(i);
+							break;
+						}
+					}
+
+					Sleep(event.waitKey.delay);
+				}
 			}
 			break;
 			default:
@@ -192,6 +363,27 @@ namespace vinyl
 		MSWInputKeyboard::clone() const noexcept
 		{
 			return std::make_shared<MSWInputKeyboard>();
+		}
+
+		LRESULT
+		MSWInputKeyboard::KeybdProc(int code, WPARAM wParam, LPARAM lParam) noexcept
+		{
+			if (code < 0 || code == HC_NOREMOVE)
+				return ::CallNextHookEx(hook_, code, wParam, lParam);
+
+			switch (code)
+			{
+			case WM_KEYDOWN:
+			{
+			}
+			break;
+			case WM_KEYUP:
+			{
+			}
+			break;
+			}
+
+			return ::CallNextHookEx(hook_, code, wParam, lParam);
 		}
 	}
 }

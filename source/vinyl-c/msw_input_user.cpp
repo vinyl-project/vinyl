@@ -67,8 +67,11 @@ namespace vinyl
 						if (length > 0)
 						{
 							HWND hwnd = GetForegroundWindow();
-							for (int i = 0; i < length; i++)
-								::PostMessage(hwnd, WM_IME_CHAR, buffer[i], NULL);
+							if (hwnd)
+							{
+								for (int i = 0; i < length; i++)
+									::PostMessage(hwnd, WM_IME_CHAR, buffer[i], NULL);
+							}
 						}
 					}
 				}

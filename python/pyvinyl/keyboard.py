@@ -1,8 +1,9 @@
 from enum import Enum
+import time
 import pyvinyl
 import pyvinyl.vinyl
 
-class Code(Enum):
+class KeyCode(Enum):
     NoneKey = 0
     Space = 32
     Apostrophe = 39
@@ -128,31 +129,55 @@ class Code(Enum):
     LeftMenu = 348
     RightMenu = 349
 
+def wait_key(code):
+    while(is_key_up(code)):
+        time.sleep(0.1)
+
+def is_key_up(code):
+    result = False
+    if (type(code) == KeyCode):
+        result = pyvinyl.vinyl.is_key_up(code.value)
+    elif (type(code) == str):
+        result = pyvinyl.vinyl.is_key_up(KeyCode[code].value)
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)
+    return result
+
+def is_key_down(code):
+    result = False
+    if (type(code) == KeyCode):
+        result = pyvinyl.vinyl.is_key_down(code.value)
+    elif (type(code) == str):
+        result = pyvinyl.vinyl.is_key_down(KeyCode[code].value)
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)
+    return result
+
 def say_string(text):
     pyvinyl.vinyl.say_string(text)
     if (pyvinyl.DELAY > 0):
         pyvinyl.sleep(pyvinyl.DELAY)
 
 def key_down(code):
-    if (type(code) == Code):
+    if (type(code) == KeyCode):
         pyvinyl.vinyl.key_down(code.value)
     elif (type(code) == str):
-        pyvinyl.vinyl.key_down(Code[code].value)
+        pyvinyl.vinyl.key_down(KeyCode[code].value)
     if (pyvinyl.DELAY > 0):
         pyvinyl.sleep(pyvinyl.DELAY)
 
 def key_up(code):
-    if (type(code) == Code):
+    if (type(code) == KeyCode):
         pyvinyl.vinyl.key_up(code.value)
     elif (type(code) == str):
-        pyvinyl.vinyl.key_up(Code[code].value)
+        pyvinyl.vinyl.key_up(KeyCode[code].value)
     if (pyvinyl.DELAY > 0):
         pyvinyl.sleep(pyvinyl.DELAY)
 
 def key_press(code):
-    if (type(code) == Code):
+    if (type(code) == KeyCode):
         pyvinyl.vinyl.key_click(code.value)
     elif (type(code) == str):
-        pyvinyl.vinyl.key_click(Code[code].value)
+        pyvinyl.vinyl.key_click(KeyCode[code].value)
     if (pyvinyl.DELAY > 0):
         pyvinyl.sleep(pyvinyl.DELAY)

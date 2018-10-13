@@ -26,6 +26,11 @@ PyObject* vinyl_key_down(PyObject* self, PyObject* args);
 PyObject* vinyl_key_up(PyObject* self, PyObject* args);
 PyObject* vinyl_key_click(PyObject* self, PyObject* args);
 
+PyObject* vinyl_is_key_down(PyObject* self, PyObject* args);
+PyObject* vinyl_is_key_up(PyObject* self, PyObject* args);
+PyObject* vinyl_is_mouse_button_down(PyObject* self, PyObject* args);
+PyObject* vinyl_is_mouse_button_up(PyObject* self, PyObject* args);
+
 PyObject* vinyl_sleep(PyObject* self, PyObject* args);
 PyObject* vinyl_message_box(PyObject* self, PyObject* args);
 PyObject* vinyl_trace_print(PyObject* self, PyObject* args);
@@ -69,6 +74,14 @@ static PyMethodDef VinylMethods[] = {
 	"A function that controls mouse to relative move." },
 	{ "mouse_wheel", vinyl_mouse_wheel, METH_VARARGS,
 	"A function that controls mouse wheel." },
+	{ "is_key_down", vinyl_is_key_down, METH_VARARGS,
+	"A function that gets key state." },
+	{ "is_key_up", vinyl_is_key_up, METH_VARARGS,
+	"A function that gets key state." },
+	{ "is_mouse_button_down", vinyl_is_mouse_button_down, METH_VARARGS,
+	"A function that gets mouse state." },
+	{ "is_mouse_button_up", vinyl_is_mouse_button_up, METH_VARARGS,
+	"A function that gets mouse state." },
 	{ "sleep", vinyl_sleep, METH_VARARGS,
 	"A function that hangs up the thread." },
 	{ "message_box", vinyl_message_box, METH_VARARGS,
@@ -486,6 +499,94 @@ PyObject* vinyl_key_click(PyObject* self, PyObject* args)
 	}
 
 	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_is_key_down(PyObject* self, PyObject* args)
+{
+	bool result = false;
+	int code;
+	std::uint8_t state;
+	if (!(PyArg_ParseTuple(args, "i", &code)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylIsKeyDown(static_cast<vinyl::input::InputKey::Code>(code), state);
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	return PyBool_FromLong(state);
+}
+
+PyObject* vinyl_is_key_up(PyObject* self, PyObject* args)
+{
+	bool result = false;
+	int code;
+	std::uint8_t state;
+	if (!(PyArg_ParseTuple(args, "i", &code)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylIsKeyUp(static_cast<vinyl::input::InputKey::Code>(code), state);
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	return PyBool_FromLong(state);
+}
+
+PyObject* vinyl_is_mouse_button_down(PyObject* self, PyObject* args)
+{
+	bool result = false;
+	int code;
+	std::uint8_t state;
+	if (!(PyArg_ParseTuple(args, "i", &code)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylIsMouseButtonDown(static_cast<vinyl::input::InputButton::Code>(code), state);
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	return PyBool_FromLong(state);
+}
+
+PyObject* vinyl_is_mouse_button_up(PyObject* self, PyObject* args)
+{
+	bool result = false;
+	int code;
+	std::uint8_t state;
+	if (!(PyArg_ParseTuple(args, "i", &code)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylIsMouseButtonUp(static_cast<vinyl::input::InputButton::Code>(code), state);
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	return PyBool_FromLong(state);
 }
 
 PyObject* vinyl_say_string(PyObject* self, PyObject* args)

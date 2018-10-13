@@ -13,10 +13,7 @@ namespace vinyl
 			InputImage() noexcept;
 			virtual ~InputImage() noexcept;
 
-			virtual IInputImagePtr clone() const noexcept;
-
-		protected:
-			virtual void onInputEvent(const InputEvent& event) noexcept override;
+			virtual IInputControllerPtr clone() const noexcept;
 
 		private:
 			InputImage(const InputImage&) noexcept = delete;

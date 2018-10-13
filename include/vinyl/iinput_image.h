@@ -13,8 +13,6 @@ namespace vinyl
 			IInputImage() noexcept = default;
 			virtual ~IInputImage() = default;
 
-			virtual IInputImagePtr clone() const noexcept = 0;
-
 		private:
 			IInputImage(const IInputImage&) noexcept = delete;
 			IInputImage& operator=(const IInputImage&) noexcept = delete;

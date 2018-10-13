@@ -13,10 +13,7 @@ namespace vinyl
 			InputMouse() noexcept;
 			virtual ~InputMouse() noexcept;
 
-			virtual IInputMousePtr clone() const noexcept override;
-
-		protected:
-			virtual void onInputEvent(const InputEvent& event) noexcept override;
+			virtual IInputControllerPtr clone() const noexcept override;
 
 		private:
 			InputMouse(const InputMouse&) noexcept = delete;

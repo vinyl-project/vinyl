@@ -34,6 +34,8 @@ namespace vinyl
 			virtual bool waitEvents(InputEvent& event, int timeout) noexcept = 0;
 			virtual void flushEvent() noexcept = 0;
 
+			virtual void reset() noexcept = 0;
+
 			virtual IInputDevicePtr clone() const noexcept = 0;
 
 		private:

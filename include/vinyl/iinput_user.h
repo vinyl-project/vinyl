@@ -14,8 +14,6 @@ namespace vinyl
 			IInputUser() noexcept = default;
 			virtual ~IInputUser() = default;
 
-			virtual IInputUserPtr clone() const noexcept = 0;
-
 		private:
 			IInputUser(const IInputUser&) noexcept = delete;
 			IInputUser& operator=(const IInputUser&) noexcept = delete;

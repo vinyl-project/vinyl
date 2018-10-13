@@ -13,7 +13,7 @@ namespace vinyl
 			MSWInputUser() noexcept;
 			virtual ~MSWInputUser() noexcept;
 
-			virtual IInputUserPtr clone() const noexcept;
+			virtual IInputControllerPtr clone() const noexcept;
 
 		protected:
 			virtual void onInputEvent(const InputEvent& event) noexcept override;

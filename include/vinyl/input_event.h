@@ -182,8 +182,8 @@ namespace vinyl
 
 				Screenshot,
 
-				GetFocus,
-				LostFocus,
+				ObtainCapture,
+				LostCapture,
 
 				Reset
 			};

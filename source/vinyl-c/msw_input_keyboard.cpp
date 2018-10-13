@@ -130,6 +130,16 @@ namespace vinyl
 		}
 
 		void
+		MSWInputKeyboard::onActivate() noexcept
+		{
+		}
+
+		void
+		MSWInputKeyboard::onDeactivate() noexcept
+		{
+		}
+
+		void
 		MSWInputKeyboard::onInputEvent(const InputEvent& event) noexcept
 		{
 			switch (event.event)
@@ -137,14 +147,14 @@ namespace vinyl
 			case InputEvent::KeyDown:
 			{
 				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
-				keybd_event(vkey, MapVirtualKey(vkey, 0), 0, 0);
+				keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), 0, 0);
 				Sleep(event.key.delay);
 			}
 			break;
 			case InputEvent::KeyUp:
 			{
 				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
-				keybd_event(vkey, MapVirtualKey(vkey, 0), KEYEVENTF_KEYUP, 0);
+				keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), KEYEVENTF_KEYUP, 0);
 				Sleep(event.key.delay);
 			}
 			break;
@@ -178,7 +188,7 @@ namespace vinyl
 			}
 		}
 
-		IInputKeyboardPtr
+		IInputControllerPtr
 		MSWInputKeyboard::clone() const noexcept
 		{
 			return std::make_shared<MSWInputKeyboard>();

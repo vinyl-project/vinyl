@@ -14,7 +14,7 @@ namespace vinyl
 		{
 		}
 
-		IInputUserPtr
+		IInputControllerPtr
 		MSWInputUser::clone() const noexcept
 		{
 			return std::make_shared<MSWInputUser>();

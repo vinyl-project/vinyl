@@ -45,7 +45,7 @@ namespace vinyl
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
 			if (it == inputListeners_.end())
 			{
-				listener->onAttach();
+				listener->setActive(true);
 				inputListeners_.push_back(listener);
 			}
 		}
@@ -57,7 +57,7 @@ namespace vinyl
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
 			if (it == inputListeners_.end())
 			{
-				listener->onAttach();
+				listener->setActive(true);
 				inputListeners_.push_back(std::move(listener));
 			}
 		}
@@ -69,7 +69,7 @@ namespace vinyl
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
 			if (it != inputListeners_.end())
 			{
-				listener->onDetach();
+				listener->setActive(false);
 				inputListeners_.erase(it);
 			}
 		}
@@ -81,7 +81,7 @@ namespace vinyl
 			auto it = std::find(inputListeners_.begin(), inputListeners_.end(), listener);
 			if (it != inputListeners_.end())
 			{
-				listener->onDetach();
+				listener->setActive(false);
 				inputListeners_.erase(it);
 			}
 		}
@@ -90,8 +90,15 @@ namespace vinyl
 		InputDevice::clearInputListener() noexcept
 		{
 			for (auto& listener : inputListeners_)
-				listener->onDetach();
+				listener->setActive(false);
+
 			inputListeners_.clear();
+		}
+
+		const IInputControllers&
+		InputDevice::getInputListeners() const noexcept
+		{
+			return inputListeners_;
 		}
 
 		bool
@@ -100,7 +107,7 @@ namespace vinyl
 			try
 			{
 				for (auto& it : inputListeners_)
-					it->onInputEvent(event);
+					it->sendInputEvent(event);
 				return true;
 			}
 			catch (...)
@@ -177,6 +184,13 @@ namespace vinyl
 			mutex_.lock();
 			events_ = std::queue<InputEvent>();
 			mutex_.unlock();
+		}
+
+		void
+		InputDevice::reset() noexcept
+		{
+			for (auto& listener : inputListeners_)
+				listener->reset();
 		}
 
 		IInputDevicePtr

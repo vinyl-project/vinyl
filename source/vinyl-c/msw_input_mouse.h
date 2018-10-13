@@ -14,7 +14,7 @@ namespace vinyl
 			MSWInputMouse(WindHandle window) noexcept;
 			~MSWInputMouse() noexcept;
 
-			virtual IInputMousePtr clone() const noexcept override;
+			virtual IInputControllerPtr clone() const noexcept override;
 
 		private:
 			virtual void onInputEvent(const InputEvent& event) noexcept override;

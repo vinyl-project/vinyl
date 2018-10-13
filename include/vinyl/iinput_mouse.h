@@ -14,8 +14,6 @@ namespace vinyl
 			IInputMouse() noexcept = default;
 			virtual ~IInputMouse() = default;
 
-			virtual IInputMousePtr clone() const noexcept = 0;
-
 		private:
 			IInputMouse(const IInputMouse&) noexcept = delete;
 			IInputMouse& operator=(const IInputMouse&) noexcept = delete;

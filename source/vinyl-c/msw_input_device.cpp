@@ -241,7 +241,11 @@ namespace vinyl
 		IInputDevicePtr
 		MSWInputDevice::clone() const noexcept
 		{
-			return std::make_shared<MSWInputDevice>();
+			auto device = std::make_shared<MSWInputDevice>();
+			for (auto& listener : this->getInputListeners())
+				device->addInputListener(listener->clone());
+
+			return device;
 		}
 	}
 }

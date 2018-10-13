@@ -13,7 +13,7 @@ namespace vinyl
 			InputDebug() noexcept;
 			virtual ~InputDebug() noexcept;
 
-			virtual IInputDebugPtr clone() const noexcept override;
+			virtual IInputControllerPtr clone() const noexcept override;
 
 		protected:
 			virtual void onInputEvent(const InputEvent& event) noexcept override;

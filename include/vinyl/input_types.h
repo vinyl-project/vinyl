@@ -3,6 +3,7 @@
 
 #include <memory> // std::shared_ptr
 #include <assert.h> // assert
+#include <vector>
 
 #if defined(_MSC_VER) || defined (_WIN32) || defined(_WIN64)
 #	include <windows.h>
@@ -67,6 +68,8 @@ namespace vinyl
 		typedef std::shared_ptr<class IInput> IInputPtr;
 
 		typedef void* WindHandle;
+
+		typedef std::vector<IInputControllerPtr> IInputControllers;
 	}
 }
 

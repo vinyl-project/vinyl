@@ -28,6 +28,7 @@ namespace vinyl
 			virtual void removeInputListener(const IInputControllerPtr& listener) noexcept override;
 			virtual void removeInputListener(IInputControllerPtr&& listener) noexcept override;
 			virtual void clearInputListener() noexcept override;
+			virtual const IInputControllers& getInputListeners() const noexcept;
 
 			virtual bool sendEvent(const InputEvent& event) noexcept override;
 			virtual bool postEvent(const InputEvent& event) noexcept override;
@@ -38,6 +39,8 @@ namespace vinyl
 			virtual bool waitEvents(InputEvent& event, int timeout) noexcept override;
 			virtual void flushEvent() noexcept override;
 
+			virtual void reset() noexcept override;
+
 			virtual IInputDevicePtr clone() const noexcept override;
 
 		private:
@@ -46,10 +49,9 @@ namespace vinyl
 
 		private:
 			typedef std::queue<InputEvent>  InputEvents;
-			typedef std::vector<IInputControllerPtr> InputListeners;
 
 			InputEvents events_;
-			InputListeners inputListeners_;
+			IInputControllers inputListeners_;
 
 			bool enableEventPosting_;
 

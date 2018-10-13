@@ -26,7 +26,6 @@ SET(INPUT_INTERFACE_LIST
 	${HEADER_PATH}/iinput_user.h
 	${HEADER_PATH}/iinput_image.h
 	${HEADER_PATH}/iinput.h
-	${SOURCE_PATH}/iinput.cpp
 )
 SOURCE_GROUP("input\\interface" FILES ${INPUT_INTERFACE_LIST})
 

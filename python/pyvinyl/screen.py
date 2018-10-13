@@ -6,4 +6,5 @@ def screenshot(x, y, w, h):
     return image[:,:,::-1]
 
 def find_color(image, color):
-    return numpy.all(image==color, axis = 2)
+    all_logic = numpy.all(image==color, axis = 2)
+    return numpy.where(all_logic == True)

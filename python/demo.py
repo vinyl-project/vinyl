@@ -12,6 +12,26 @@ time_start=time.time()
 
 # pyvinyl.message_box("123")
 
+def find_color_test():
+    screen = pyvinyl.screenshot(0,0,600,600)
+    print(screen.shape)
+
+    numpy.savetxt('opt1.txt', screen, delimiter='\t', fmt='%s')
+
+    # cv2.imshow("123", screen)
+    # cv2.imwrite('lenagray.bmp',screen)
+    # scipy.misc.imsave('lenagray.jpg',screen)
+
+    pos = pyvinyl.find_color(screen, [60,60,60])
+    i = 0
+    len = pos[0].size
+    print(len)
+    while(i<len):
+        pyvinyl.move_to(pos[0][i], pos[1][i])
+        i=i+1
+
+find_color_test()
+
 '''
 frame = 0
 
@@ -22,14 +42,7 @@ while(True):
     print(frame/(time_end - time_start))
     
 '''
-screen = pyvinyl.screenshot(0,0,1300,700)
-print(screen.shape)
-# cv2.imshow("123", screen)
-# cv2.imwrite('lenagray.bmp',screen)
-# scipy.misc.imsave('lenagray.jpg',screen)
 
-map = pyvinyl.find_color(screen, [60,60,60])
-print(map.shape)
 
 '''
 vinyl.left_click()

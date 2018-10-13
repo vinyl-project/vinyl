@@ -500,7 +500,10 @@ PyObject* vinyl_screenshot(PyObject* self, PyObject* args)
 
 		// TODO get w h
 		VinylScreenshot(x, y, w, h, data.get());
-		return PyArray_SimpleNewFromData(3, dims, NPY_UINT8, data.get());
+		PyObject* nd_array = PyArray_SimpleNew(3, dims, NPY_UINT8);
+		char * raw_data = PyArray_BYTES(nd_array);
+		std::memcpy(raw_data, data.get(), w * h * 3);
+		return nd_array;
 	}
 	catch (const std::exception& e)
 	{

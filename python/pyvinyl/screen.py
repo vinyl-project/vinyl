@@ -2,7 +2,7 @@ import numpy
 import pyvinyl.vinyl
 
 def size():
-    pass
+    return pyvinyl.vinyl.get_desktop_size()
 
 def screenshot(x, y, w, h):
     image = pyvinyl.vinyl.screenshot(x, y, w, h)

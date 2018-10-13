@@ -22,7 +22,7 @@ class ButtonCode(Enum):
     MouseLast = 13
 
 def position():
-    pass
+    return pyvinyl.vinyl.get_mouse_pos()
 
 def is_button_up(code):
     result = False
@@ -42,18 +42,38 @@ def is_button_down(code):
 
 def move(x=None, y=None, duration=0):
     pyvinyl.auto_delay()
-    # TODO
+    
+    if (x == None):
+        x = 0
+    if (y == None):
+        y = 0
+    if (x!=None or y!=None):
+        pyvinyl.vinyl.move(x, y)
+
     pyvinyl.vinyl.move(x, y)
 
 def move_to(x=None, y=None, duration=0):
     pyvinyl.auto_delay()
-    # TODO
-    pyvinyl.vinyl.move_to(x, y)
+    
+    pos = pyvinyl.position()
+    if (x == None):
+        x = pos[0]
+    if (y == None):
+        y = pos[1]
+    if (x!=None or y!=None):
+        pyvinyl.vinyl.move_to(x, y)
 
 def click(x=None, y=None, clicks=1, interval=0, button='Left'):
     pyvinyl.auto_delay()
+
+    pos = pyvinyl.position()
+    if (x == None):
+        x = pos[0]
+    if (y == None):
+        y = pos[1]
+    if (x!=None or y!=None):
+        pyvinyl.vinyl.move_to(x, y)
     
-    pyvinyl.vinyl.move_to(x, y)
     clicks_num = 0
     while(clicks_num<clicks):
         if(ButtonCode[button] == ButtonCode.Left):
@@ -93,9 +113,50 @@ def right_double_click():
 def mouse_up(x=None,y=None,button='Left'):
     pyvinyl.auto_delay()
 
+    pos = pyvinyl.position()
+    if (x == None):
+        x = pos[0]
+    if (y == None):
+        y = pos[1]
+    if (x!=None or y!=None):
+        pyvinyl.vinyl.move_to(x, y)
+
+    if(ButtonCode[button] == ButtonCode.Left):
+        pyvinyl.vinyl.left_up()
+    elif(ButtonCode[button] == ButtonCode.Right):
+        pyvinyl.vinyl.right_up()
+    elif(ButtonCode[button] == ButtonCode.Middle):
+        pyvinyl.vinyl.middle_up()
+
 
 def mouse_down(x=None,y=None,button='Left'):
     pyvinyl.auto_delay()
 
+    pos = pyvinyl.position()
+    if (x == None):
+        x = pos[0]
+    if (y == None):
+        y = pos[1]
+    if (x!=None or y!=None):
+        pyvinyl.vinyl.move_to(x, y)
+
+    if(ButtonCode[button] == ButtonCode.Left):
+        pyvinyl.vinyl.left_down()
+    elif(ButtonCode[button] == ButtonCode.Right):
+        pyvinyl.vinyl.right_down()
+    elif(ButtonCode[button] == ButtonCode.Middle):
+        pyvinyl.vinyl.middle_down()
+
+
 def scroll(delta, x=None,y=None):
     pyvinyl.auto_delay()
+
+    pos = pyvinyl.position()
+    if (x == None):
+        x = pos[0]
+    if (y == None):
+        y = pos[1]
+    if (x!=None or y!=None):
+        pyvinyl.vinyl.move_to(x, y)
+
+    pyvinyl.vinyl.mouse_wheel(delta)

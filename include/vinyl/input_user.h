@@ -13,10 +13,7 @@ namespace vinyl
 			InputUser() noexcept;
 			virtual ~InputUser() noexcept;
 
-			virtual IInputUserPtr clone() const noexcept;
-
-		protected:
-			virtual void onInputEvent(const InputEvent& event) noexcept override;
+			virtual IInputControllerPtr clone() const noexcept;
 
 		private:
 			InputUser(const InputUser&) noexcept = delete;

@@ -13,8 +13,6 @@ namespace vinyl
 			IInputDebug() noexcept = default;
 			virtual ~IInputDebug() = default;
 
-			virtual IInputDebugPtr clone() const noexcept = 0;
-
 		private:
 			IInputDebug(const IInputDebug&) noexcept = delete;
 			IInputDebug& operator=(const IInputDebug&) noexcept = delete;

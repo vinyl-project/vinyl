@@ -13,29 +13,10 @@ namespace vinyl
 		{
 		}
 
-		IInputMousePtr
+		IInputControllerPtr
 		InputMouse::clone() const noexcept
 		{
 			return std::make_shared<InputMouse>();
-		}
-
-		void
-		InputMouse::onInputEvent(const InputEvent& event) noexcept
-		{
-			switch (event.event)
-			{
-			case InputEvent::GetFocus:
-				this->obtainCaptures();
-				break;
-			case InputEvent::LostFocus:
-				this->releaseCapture();
-				break;
-			case InputEvent::Reset:
-				this->reset();
-				break;
-			default:
-				break;
-			}
 		}
 	}
 }

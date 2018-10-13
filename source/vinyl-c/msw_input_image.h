@@ -14,7 +14,7 @@ namespace vinyl
 			MSWInputImage() noexcept;
 			virtual ~MSWInputImage() noexcept;
 
-			virtual IInputImagePtr clone() const noexcept;
+			virtual IInputControllerPtr clone() const noexcept;
 
 		protected:
 			virtual void onInputEvent(const InputEvent& event) noexcept override;

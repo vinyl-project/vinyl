@@ -202,7 +202,7 @@ namespace vinyl
 			}
 		}
 
-		IInputMousePtr
+		IInputControllerPtr
 		MSWInputMouse::clone() const noexcept
 		{
 			return std::make_shared<MSWInputMouse>();

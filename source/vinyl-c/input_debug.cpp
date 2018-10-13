@@ -14,7 +14,7 @@ namespace vinyl
 		{
 		}
 
-		IInputDebugPtr
+		IInputControllerPtr
 		InputDebug::clone() const noexcept
 		{
 			return std::make_shared<InputDebug>();
@@ -25,15 +25,6 @@ namespace vinyl
 		{
 			switch (event.event)
 			{
-			case InputEvent::GetFocus:
-				this->obtainCaptures();
-				break;
-			case InputEvent::LostFocus:
-				this->releaseCapture();
-				break;
-			case InputEvent::Reset:
-				this->reset();
-				break;
 			case InputEvent::TracePrint:
 				tracePrint_ = event.debug.trace ? true : false;
 				break;

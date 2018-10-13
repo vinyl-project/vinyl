@@ -5,7 +5,7 @@ namespace vinyl
 	namespace input
 	{
 		InputController::InputController() noexcept
-			:capture_(true)
+			: active_(false)
 		{
 		}
 
@@ -14,29 +14,23 @@ namespace vinyl
 		}
 
 		void
-		InputController::obtainCaptures() noexcept
+		InputController::setActive(bool active) noexcept(false)
 		{
-			if (!capture_)
+			if (active_ != active)
 			{
-				this->onObtainCapture();
-				capture_ = true;
-			}
-		}
+				if (active)
+					this->onActivate();
+				else
+					this->onDeactivate();
 
-		void
-		InputController::releaseCapture() noexcept
-		{
-			if (capture_)
-			{
-				this->onReleaseCapture();
-				capture_ = false;
+				active_ = active;
 			}
 		}
 
 		bool
-		InputController::capture() const noexcept
+		InputController::getActive() const noexcept
 		{
-			return capture_;
+			return active_;
 		}
 
 		void
@@ -46,17 +40,43 @@ namespace vinyl
 		}
 
 		void
-		InputController::onObtainCapture() noexcept
+		InputController::sendInputEvent(const InputEvent& event) noexcept(false)
+		{
+			switch (event.event)
+			{
+			case InputEvent::GetFocus:
+				this->setActive(true);
+				break;
+			case InputEvent::LostFocus:
+				this->setActive(false);
+				break;
+			case InputEvent::Reset:
+				this->reset();
+				break;
+			default:
+				break;
+			}
+
+			this->onInputEvent(event);
+		}
+
+		void
+		InputController::onActivate() noexcept
 		{
 		}
 
 		void
-		InputController::onReleaseCapture() noexcept
+		InputController::onDeactivate() noexcept
 		{
 		}
 
 		void
 		InputController::onReset() noexcept
+		{
+		}
+
+		void
+		InputController::onInputEvent(const InputEvent& event) noexcept(false)
 		{
 		}
 	}

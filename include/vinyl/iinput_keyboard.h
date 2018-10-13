@@ -13,8 +13,6 @@ namespace vinyl
 			IInputKeyboard() noexcept = default;
 			virtual ~IInputKeyboard() = default;
 
-			virtual IInputKeyboardPtr clone() const noexcept = 0;
-
 		private:
 			IInputKeyboard(const IInputKeyboard&) noexcept = delete;
 			IInputKeyboard& operator=(const IInputKeyboard&) noexcept = delete;

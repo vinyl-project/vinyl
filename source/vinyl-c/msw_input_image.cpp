@@ -13,7 +13,7 @@ namespace vinyl
 		{
 		}
 
-		IInputImagePtr
+		IInputControllerPtr
 		MSWInputImage::clone() const noexcept
 		{
 			return std::make_shared<MSWInputImage>();

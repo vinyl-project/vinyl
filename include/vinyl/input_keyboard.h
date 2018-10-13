@@ -13,10 +13,7 @@ namespace vinyl
 			InputKeyboard() noexcept;
 			virtual ~InputKeyboard() noexcept;
 
-			virtual IInputKeyboardPtr clone() const noexcept override;
-
-		protected:
-			virtual void onInputEvent(const InputEvent& event) noexcept override;
+			virtual IInputControllerPtr clone() const noexcept override;
 
 		private:
 			InputKeyboard(const InputKeyboard&) noexcept = delete;

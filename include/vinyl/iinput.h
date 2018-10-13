@@ -15,33 +15,13 @@ namespace vinyl
 			IInput() = default;
 			virtual ~IInput() = default;
 
-			virtual void obtainMouseCapture() noexcept = 0;
-			virtual void obtainKeyboardCapture() noexcept = 0;
-			virtual void obtainUserCapture() noexcept = 0;
-			virtual void obtainDebugCapture() noexcept = 0;
-			virtual void obtainImageCapture() noexcept = 0;
-
-			virtual void obtainMouseCapture(const IInputMousePtr& mouse) noexcept = 0;
-			virtual void obtainKeyboardCapture(const IInputKeyboardPtr& key) noexcept = 0;
-			virtual void obtainUserCapture(const IInputUserPtr& user) noexcept = 0;
-			virtual void obtainDebugCapture(const IInputDebugPtr& user) noexcept = 0;
-			virtual void obtainImageCapture(const IInputImagePtr& user) noexcept = 0;
-			virtual void obtainCaptures() noexcept = 0;
-
-			virtual void releaseMouseCapture() noexcept = 0;
-			virtual void releaseKeyboardCapture() noexcept = 0;
-			virtual void releaseUserCapture() noexcept = 0;
-			virtual void releaseDebugCapture() noexcept = 0;
-			virtual void releaseImageCapture() noexcept = 0;
-			virtual void releaseCaptures() noexcept = 0;
-
-			virtual void reset() noexcept = 0;
-
 			virtual void addInputListener(const IInputControllerPtr& listener) noexcept = 0;
 			virtual void removeInputListener(const IInputControllerPtr& listener) noexcept = 0;
 			virtual void clearInputListener() noexcept = 0;
 
 			virtual bool sendInputEvent(const InputEvent& event) noexcept = 0;
+
+			virtual void reset() noexcept = 0;
 
 			virtual IInputPtr clone() const noexcept = 0;
 

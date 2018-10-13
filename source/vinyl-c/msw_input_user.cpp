@@ -41,9 +41,19 @@ namespace vinyl
 				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(event.sleep.milliseconds));
 				break;
 			case InputEvent::Alert:
+			{
 				if (event.message.message)
-					MessageBox(NULL, event.message.message, " ", 0);
-				break;
+				{
+					int size = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, 0, 0) + 1;
+					if (size > 1 && size < 4096)
+					{
+						wchar_t buffer[4096];
+						if (MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, buffer, size) > 0)
+							MessageBoxW(NULL, buffer, L" ", 0);
+					}
+				}
+			}
+			break;
 			case InputEvent::Command:
 				if (event.message.message)
 					std::system(event.message.message);

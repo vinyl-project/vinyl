@@ -131,7 +131,7 @@ class KeyCode(Enum):
 
 def wait_key(code):
     while(is_key_up(code)):
-        time.sleep(0.1)
+        pass
 
 def is_key_up(code):
     result = False

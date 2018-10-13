@@ -3,15 +3,16 @@ import os
 import time
 
 # 点击编辑界面的注释按钮，即可看到比较详细的脚本说明
+pv.DELAY = 500
 pv.cmd("notepad")
 pv.sleep(2000)
 StringDelay=1
 # 最大化写字板
 pv.key_down(pv.KeyCode.LeftAlt)
 pv.key_down(pv.KeyCode.Space)
-time.sleep(0.5)
+pv.sleep(500)
 pv.key_press(pv.KeyCode.X)
-time.sleep(0.5)
+pv.sleep(500)
 pv.key_up(pv.KeyCode.Space)
 pv.key_up(pv.KeyCode.LeftAlt)
 

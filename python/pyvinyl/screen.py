@@ -3,6 +3,8 @@ import pyvinyl.vinyl
 
 def screenshot(x, y, w, h):
     image = pyvinyl.vinyl.screenshot(x, y, w, h)
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)
     return image[:,:,::-1]
 
 def find_color(image, color):

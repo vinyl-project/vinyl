@@ -66,7 +66,7 @@ namespace vinyl
 						int length = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, buffer, size);
 						if (length > 0)
 						{
-							HWND hwnd = GetForegroundWindow();
+							HWND hwnd = GetTopWindow(GetForegroundWindow());
 							if (hwnd)
 							{
 								for (int i = 0; i < length; i++)
@@ -78,9 +78,15 @@ namespace vinyl
 			}
 			break;
 			case InputEvent::Command:
+			{
 				if (event.message.message)
-					std::system(event.message.message);
-				break;
+				{
+					std::string str = event.message.message;
+					std::thread thread([=]() {std::system(str.c_str()); });
+					thread.detach();
+				}
+			}
+			break;
 			}
 		}
 	}

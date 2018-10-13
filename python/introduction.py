@@ -26,7 +26,7 @@ def draw_circle():
     while n<3.1415926*2:
         x=x0+r*math.cos(n)
         y=y0-r*math.sin(n)
-        pv.move_to(x, y)
+        pv.move_to(int(x), int(y))
         pv.sleep(20)
         n=n+0.03
 
@@ -230,7 +230,7 @@ pv.sleep(1000)
 intX,intY = pv.size()
 pv.move_to(0,0)
 pv.sleep(StringDelay)
-pv.move_to(intX/2,intY/2)
+pv.move_to(intX//2,intY//2)
 # SaveMousePos 
 ox,oy = pv.position()
 

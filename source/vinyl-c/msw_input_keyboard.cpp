@@ -44,9 +44,14 @@ namespace vinyl
 			case InputKey::Code::X:          return 'X';
 			case InputKey::Code::Y:          return 'Y';
 			case InputKey::Code::Z:          return 'Z';
-			case InputKey::Code::LeftShift:  return VK_SHIFT;
-			case InputKey::Code::LeftControl:return VK_CONTROL;
-			case InputKey::Code::LeftAlt:    return VK_MENU;
+			case InputKey::Code::LeftShift:  return VK_LSHIFT;
+			case InputKey::Code::LeftControl:return VK_LCONTROL;
+			case InputKey::Code::LeftAlt:    return VK_LMENU;
+			case InputKey::Code::LeftMenu:   return VK_LWIN;
+			case InputKey::Code::RightShift: return VK_RSHIFT;
+			case InputKey::Code::RightControl:return VK_RCONTROL;
+			case InputKey::Code::RightAlt:   return VK_RMENU;
+			case InputKey::Code::RightMenu:  return VK_RWIN;
 			case InputKey::Code::Enter: 	 return VK_RETURN;
 			case InputKey::Code::Escape:     return VK_ESCAPE;
 			case InputKey::Code::Tab:        return VK_TAB;
@@ -110,8 +115,6 @@ namespace vinyl
 			case InputKey::Code::ScrollLock: return VK_SCROLL;
 			case InputKey::Code::Pause:      return VK_PAUSE;
 
-			case InputKey::Code::LeftMenu:   return VK_LWIN;
-			case InputKey::Code::RightMenu:  return VK_RWIN;
 			case InputKey::Code::None:       return VK_APPS;
 			default:
 				return 0;
@@ -165,7 +168,7 @@ namespace vinyl
 			break;
 			case InputEvent::WaitKey:
 			{
-				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);				
+				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
 				while (!(GetAsyncKeyState(vkey) & 0x8000))
 					Sleep(event.key.delay);
 			}

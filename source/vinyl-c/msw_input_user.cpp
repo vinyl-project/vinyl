@@ -44,10 +44,12 @@ namespace vinyl
 			{
 				if (event.message.message)
 				{
+					constexpr std::size_t PATHLIMITS = 4096;
+
 					int size = MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, 0, 0) + 1;
-					if (size > 1 && size < 4096)
+					if (size > 1 && size < PATHLIMITS)
 					{
-						wchar_t buffer[4096];
+						wchar_t buffer[PATHLIMITS];
 						if (MultiByteToWideChar(CP_UTF8, 0, event.message.message, -1, buffer, size) > 0)
 							MessageBoxW(NULL, buffer, L" ", 0);
 					}

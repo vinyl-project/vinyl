@@ -30,6 +30,7 @@ PyObject* vinyl_sleep(PyObject* self, PyObject* args);
 PyObject* vinyl_message_box(PyObject* self, PyObject* args);
 PyObject* vinyl_trace_print(PyObject* self, PyObject* args);
 PyObject* vinyl_command(PyObject* self, PyObject* args);
+PyObject* vinyl_say_string(PyObject* self, PyObject* args);
 
 PyObject* vinyl_screenshot(PyObject* self, PyObject* args);
 
@@ -76,6 +77,8 @@ static PyMethodDef VinylMethods[] = {
 	"A function that prints information in console." },
 	{ "cmd", vinyl_command, METH_VARARGS,
 	"A function that executes a command." },
+	{ "say_string", vinyl_say_string, METH_VARARGS,
+	"A function that outputs a string." },
 	{ "screenshot", vinyl_screenshot, METH_VARARGS,
 	"A function that captures screenshot." },
     {NULL, NULL, 0, NULL}        /* Sentinel */
@@ -476,6 +479,26 @@ PyObject* vinyl_key_click(PyObject* self, PyObject* args)
 	try
 	{
 		VinylKeyClick(static_cast<vinyl::input::InputKey::Code>(code));
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_say_string(PyObject* self, PyObject* args)
+{
+	const char* text;
+	if (!(PyArg_ParseTuple(args, "s", &text)))
+	{
+		Py_RETURN_NONE;
+	}
+
+	try
+	{
+		VinylSayString(text);
 	}
 	catch (const std::exception& e)
 	{

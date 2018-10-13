@@ -1,4 +1,5 @@
 from enum import Enum
+import pyvinyl
 import pyvinyl.vinyl
 
 class Code(Enum):
@@ -127,21 +128,31 @@ class Code(Enum):
     LeftMenu = 348
     RightMenu = 349
 
+def say_string(text):
+    pyvinyl.vinyl.say_string(text)
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)
 
 def key_down(code):
     if (type(code) == Code):
         pyvinyl.vinyl.key_down(code.value)
     elif (type(code) == str):
         pyvinyl.vinyl.key_down(Code[code])
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)
 
 def key_up(code):
     if (type(code) == Code):
         pyvinyl.vinyl.key_up(code.value)
     elif (type(code) == str):
         pyvinyl.vinyl.key_up(Code[code])
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)
 
 def key_press(code):
     if (type(code) == Code):
         pyvinyl.vinyl.key_click(code.value)
     elif (type(code) == str):
         pyvinyl.vinyl.key_click(Code[code])
+    if (pyvinyl.DELAY > 0):
+        pyvinyl.sleep(pyvinyl.DELAY)

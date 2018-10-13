@@ -91,7 +91,7 @@ void VINYL_C_CALL VinylIsKeyUp(vinyl::input::InputKey::Code key, std::uint8_t& s
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept(false)
+void VINYL_C_CALL VinylMouseMove(std::uint32_t x, std::uint32_t y) noexcept(false)
 {
 	assert(input_);
 
@@ -101,7 +101,7 @@ void VINYL_C_CALL VinylMouseMove(float x, float y) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMouseMoveTo(float x, float y) noexcept(false)
+void VINYL_C_CALL VinylMouseMoveTo(std::uint32_t x, std::uint32_t y) noexcept(false)
 {
 	assert(input_);
 
@@ -111,7 +111,7 @@ void VINYL_C_CALL VinylMouseMoveTo(float x, float y) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMouseButtonDown(vinyl::input::InputButton::Code button, float x, float y) noexcept(false)
+void VINYL_C_CALL VinylMouseButtonDown(vinyl::input::InputButton::Code button, std::uint32_t x, std::uint32_t y) noexcept(false)
 {
 	assert(input_);
 
@@ -121,7 +121,7 @@ void VINYL_C_CALL VinylMouseButtonDown(vinyl::input::InputButton::Code button, f
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, float x, float y) noexcept(false)
+void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, std::uint32_t x, std::uint32_t y) noexcept(false)
 {
 	assert(input_);
 
@@ -131,7 +131,7 @@ void VINYL_C_CALL VinylMouseButtonUp(vinyl::input::InputButton::Code button, flo
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMouseButtonClick(vinyl::input::InputButton::Code button, float x, float y) noexcept(false)
+void VINYL_C_CALL VinylMouseButtonClick(vinyl::input::InputButton::Code button, std::uint32_t x, std::uint32_t y) noexcept(false)
 {
 	assert(input_);
 
@@ -146,7 +146,7 @@ void VINYL_C_CALL VinylMouseButtonClick(vinyl::input::InputButton::Code button, 
 	}
 }
 
-void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code button, float x, float y) noexcept(false)
+void VINYL_C_CALL VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code button, std::uint32_t x, std::uint32_t y) noexcept(false)
 {
 	VinylMouseButtonClick(button, x, y);
 	VinylMouseButtonClick(button, x, y);
@@ -198,6 +198,14 @@ void VINYL_C_CALL VinylWheelDown() noexcept(false)
 
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeMouseWheelDown());
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
+void VINYL_C_CALL VinylGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept(false)
+{
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeGetMousePos(x, y));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }

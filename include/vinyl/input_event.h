@@ -59,6 +59,14 @@ namespace vinyl
 			std::uint32_t delay;
 		};
 
+		struct PosEvent
+		{
+			std::uint64_t timestamp;
+			std::uint64_t windowID;
+			std::uint16_t* x;
+			std::uint16_t* y;
+		};
+
 		struct SizeEvent
 		{
 			std::uint64_t timestamp;
@@ -163,6 +171,7 @@ namespace vinyl
 				FindCenterColor,
 				FindPic,
 
+				GetMousePos,
 				GetDesktopSize,
 
 				Sleep,
@@ -187,6 +196,7 @@ namespace vinyl
 				MouseMotionEvent motion;
 				MouseButtonEvent button;
 				MouseWheelEvent wheel;
+				PosEvent pos;
 				SizeEvent size;
 				JoyAxisEvent jaxis;
 				JoyBallEvent jball;
@@ -207,10 +217,10 @@ namespace vinyl
 			static InputEvent makeKeyDown(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeKeyUp(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 
-			static InputEvent makeMouseButtonDown(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseButtonUp(InputButton::Code button, float x, float y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseMove(float x, float y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseMoveTo(float x, float y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseButtonDown(InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseButtonUp(InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseMove(std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseMoveTo(std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelUp(std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelDown(std::uint32_t delay = 10) noexcept;
 
@@ -222,6 +232,7 @@ namespace vinyl
 			static InputEvent makeIsMouseButtonDown(InputButton::Code key, std::uint8_t& state) noexcept;
 			static InputEvent makeIsMouseButtonUp(InputButton::Code key, std::uint8_t& state) noexcept;
 
+			static InputEvent makeGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeGetDesktopSize(std::uint16_t& x, std::uint16_t& y) noexcept;
 
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;

@@ -62,9 +62,9 @@ namespace vinyl
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
 
-					for (std::uint16_t x = width_ - 1; x > 0; x++)
+					for (std::uint32_t x = width_ - 1; x > 0; x++)
 					{
-						for (std::uint16_t y = height_ - 1; y > 0; y++)
+						for (std::uint32_t y = height_ - 1; y > 0; y++)
 						{
 							auto b = pixels_[(y * width_ + x) * 3];
 							auto g = pixels_[(y * width_ + x) * 3 + 1];
@@ -89,8 +89,6 @@ namespace vinyl
 
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
-
-					std::uint32_t row = width_ * 3;
 
 					for (std::uint16_t x = 0; x < width_; x++)
 					{

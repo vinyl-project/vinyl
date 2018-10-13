@@ -105,7 +105,7 @@ namespace vinyl
 					case InputButton::Code::Middle:
 						*event.button.state = GetAsyncKeyState(VK_MBUTTON) & 0x8000 ? true : false;
 						break;
-					}					
+					}
 				}
 			}
 			break;
@@ -165,6 +165,24 @@ namespace vinyl
 			break;
 			case InputEvent::UnlockMouse:
 			{
+			}
+			break;
+			case InputEvent::GetMousePos:
+			{
+				if (event.pos.x && event.pos.y)
+				{
+					POINT pt;
+					if (GetCursorPos(&pt))
+					{
+						*event.pos.x = pt.x;
+						*event.pos.y = pt.y;
+					}
+					else
+					{
+						*event.pos.x = std::numeric_limits<std::uint16_t>::max();
+						*event.pos.y = std::numeric_limits<std::uint16_t>::max();
+					}
+				}
 			}
 			break;
 			case InputEvent::GetFocus:

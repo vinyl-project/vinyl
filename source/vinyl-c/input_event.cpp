@@ -108,7 +108,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseButtonDown(InputButton::Code input_button, float x, float y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseButtonDown(InputButton::Code input_button, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseButtonDown;
@@ -125,7 +125,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseButtonUp(InputButton::Code input_button, float x, float y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseButtonUp(InputButton::Code input_button, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseButtonUp;
@@ -195,7 +195,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseMove(float x, float y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseMove(std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMove;
@@ -209,7 +209,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseMoveTo(float x, float y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseMoveTo(std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMoveTo;
@@ -241,6 +241,18 @@ namespace vinyl
 			event.wheel.timestamp = 0;
 			event.wheel.windowID = 0;
 			event.wheel.delay = delay;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::GetMousePos;
+			event.pos.timestamp = 0;
+			event.pos.windowID = 0;
+			event.pos.x = &x;
+			event.pos.y = &y;
 			return event;
 		}
 

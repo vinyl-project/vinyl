@@ -4,13 +4,24 @@ import cv2
 import scipy.misc
 import time
 
-time_start=time.time()
+
 
 # pyvinyl.move_to(20, 20)
 
 # pyvinyl.left_double_click()
 
 # pyvinyl.message_box("123")
+
+
+def fps_test():
+    time_start=time.time()
+    frame = 0
+
+    while(True):
+        screen = pyvinyl.screenshot(0,0,1024,768)
+        frame= frame+1
+        time_end=time.time()
+        print(frame/(time_end - time_start))
 
 def find_color_test():
     screen = pyvinyl.screenshot(0,0,600,600)
@@ -30,18 +41,8 @@ def find_color_test():
         pyvinyl.move_to(pos[0][i], pos[1][i])
         i=i+1
 
-find_color_test()
 
-'''
-frame = 0
-
-while(True):
-    screen = pyvinyl.screenshot(0,0,1024,768)
-    frame= frame+1
-    time_end=time.time()
-    print(frame/(time_end - time_start))
-    
-'''
+pyvinyl.message_box('你好')
 
 
 '''

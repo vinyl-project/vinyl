@@ -3,10 +3,10 @@ import os
 import time
 
 # 点击编辑界面的注释按钮，即可看到比较详细的脚本说明
-pv.DELAY = 500
+pv.DELAY = 100
 pv.cmd("notepad")
 pv.sleep(2000)
-StringDelay=1
+StringDelay = 1000
 # 最大化写字板
 pv.key_down(pv.KeyCode.LeftAlt)
 pv.key_down(pv.KeyCode.Space)
@@ -16,34 +16,40 @@ pv.sleep(500)
 pv.key_up(pv.KeyCode.Space)
 pv.key_up(pv.KeyCode.LeftAlt)
 
-
 pv.say_string("hi，你好，我是<按键精灵>，我是个很有趣的软件，如果你愿意花5分钟的时间来了解我，你一定会喜欢上我的。 :-)")
 pv.key_press(pv.KeyCode.Enter)
 
-'''
-Delay StringDelay
-SayString "愿意了解我吗？如果愿意，请你按下键盘上的Y键，如果不喜欢我，那就按下键盘上的N键（等待按键...）"
-KeyPress "Enter", 1
+pv.sleep(StringDelay)
+pv.say_string("愿意了解我吗？如果愿意，请你按下键盘上的Y键，如果不喜欢我，那就按下键盘上的N键（等待按键...）")
+pv.key_press("Enter")
 
-Do
-    //等待按键
-    key=WaitKey()
-    KeyPress "Enter", 1
-    TracePrint "用户按下的键是：" & key
-    If key=78 Then
-        Call GuanBiChuangKou()
-        //按下n不保存，直接关闭
-        Delay 1000
-        KeyPress "N", 1
-        Delay 1000
-        Call 脚本结束()
-    ElseIf key=89 Then
-        Exit do
-    Else 
-        SayString "请按Y或者N，不要按其他键(等待按键...)"
-        KeyPress "Enter", 1
-    End If 
-loop
+
+while True:
+    # 等待按键
+    key = pv.KeyCode.NoneKey
+    if (pv.is_key_down(pv.KeyCode.Y)):
+        key = pv.KeyCode.Y
+
+    if (pv.is_key_down(pv.KeyCode.N)):
+        key = pv.KeyCode.N
+    
+    if (key != pv.KeyCode.NoneKey):
+        pv.key_press("Enter")
+        if key == pv.KeyCode.N:
+            # close_window()
+            # 按下n不保存，直接关闭
+            pv.sleep(1000)
+            pv.key_press("N")
+            pv.sleep(1000)
+            # exit_script()
+        elif key == pv.KeyCode.Y:
+            break
+        else:
+            pv.say_string("请按Y或者N，不要按其他键(等待按键...)")
+            pv.key_press("Enter")
+
+
+'''
 //结束等待
 SayString "哈哈，我太高兴了，又多了一个喜欢我的朋友，那我先来一个自我介绍吧。"
 KeyPress "Enter", 1

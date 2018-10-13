@@ -8,13 +8,15 @@ from pyvinyl.vinyl import (init, left_click, right_click, middle_click,
                     move, move_to, mouse_wheel,
                     trace_print)
 
-from pyvinyl.mouse import (left_double_click, middle_double_click, right_double_click)
+from pyvinyl.mouse import (is_button_up, is_button_down,
+                    left_double_click, middle_double_click, right_double_click)
 
 from pyvinyl.process import (sleep, cmd)
 
-from pyvinyl.keyboard import Code as KeyCode
+from pyvinyl.keyboard import KeyCode
 
-from pyvinyl.keyboard import (say_string, key_up, key_down, key_press)
+from pyvinyl.keyboard import (wait_key, is_key_up, is_key_down,
+                    say_string, key_up, key_down, key_press)
 
 from pyvinyl.screen import (screenshot, find_color)
 

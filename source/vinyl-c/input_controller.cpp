@@ -44,10 +44,10 @@ namespace vinyl
 		{
 			switch (event.event)
 			{
-			case InputEvent::GetFocus:
+			case InputEvent::ObtainCapture:
 				this->setActive(true);
 				break;
-			case InputEvent::LostFocus:
+			case InputEvent::LostCapture:
 				this->setActive(false);
 				break;
 			case InputEvent::Reset:
@@ -57,7 +57,8 @@ namespace vinyl
 				break;
 			}
 
-			this->onInputEvent(event);
+			if (this->getActive())
+				this->onInputEvent(event);
 		}
 
 		void

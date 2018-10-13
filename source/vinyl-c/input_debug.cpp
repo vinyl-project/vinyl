@@ -58,8 +58,8 @@ namespace vinyl
 				case InputEvent::Alert: std::cout << "Alert" << std::endl; break;
 				case InputEvent::TracePrint: std::cout << "TracePrint" << std::endl; break;
 				case InputEvent::Screenshot: std::cout << "Screenshot" << std::endl; break;
-				case InputEvent::GetFocus: std::cout << "GetFocus" << std::endl; break;
-				case InputEvent::LostFocus: std::cout << "LostFocus" << std::endl; break;
+				case InputEvent::ObtainCapture: std::cout << "ObtainCapture" << std::endl; break;
+				case InputEvent::LostCapture: std::cout << "LostCapture" << std::endl; break;
 				default:
 					break;
 				}

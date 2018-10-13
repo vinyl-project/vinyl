@@ -8,7 +8,7 @@ namespace vinyl
 		InputEvent::makeFocus(bool focus) noexcept
 		{
 			InputEvent event;
-			event.event = focus ? InputEvent::GetFocus : InputEvent::LostFocus;
+			event.event = focus ? InputEvent::ObtainCapture : InputEvent::LostCapture;
 			event.window.windowID = 0;
 			event.window.timestamp = 0;
 			return event;

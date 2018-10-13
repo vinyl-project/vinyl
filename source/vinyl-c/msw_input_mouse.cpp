@@ -185,13 +185,13 @@ namespace vinyl
 				}
 			}
 			break;
-			case InputEvent::GetFocus:
+			case InputEvent::ObtainCapture:
 			{
 				window_ = (WindHandle)event.window.windowID;
 				focusWindow_ = true;
 			}
 			break;
-			case InputEvent::LostFocus:
+			case InputEvent::LostCapture:
 			{
 				window_ = (WindHandle)event.window.windowID;
 				focusWindow_ = false;

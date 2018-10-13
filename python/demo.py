@@ -42,7 +42,9 @@ def find_color_test():
         i=i+1
 
 
-pyvinyl.message_box('你好')
+# pyvinyl.message_box('你好')
+
+pyvinyl.hotkey('LeftControl', 'C')
 
 
 '''

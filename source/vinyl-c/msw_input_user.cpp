@@ -29,11 +29,8 @@ namespace vinyl
 			{
 				if (event.size.w && event.size.h)
 				{
-					RECT rect;
-					GetClientRect(::GetDesktopWindow(), &rect);
-
-					*event.size.w = rect.right - rect.left;
-					*event.size.h = rect.bottom - rect.top;
+					*event.size.w = GetSystemMetrics(SM_CXFULLSCREEN);
+					*event.size.h = GetSystemMetrics(SM_CYFULLSCREEN);
 				}
 			}
 			break;

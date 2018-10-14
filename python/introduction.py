@@ -4,7 +4,7 @@ import time
 import math
 
 # 脚本结束
-def end_script():
+def exit_script():
     pv.message_box("脚本演示结束，最好的脚本永远是您自己制作的。 :-)")
 
 

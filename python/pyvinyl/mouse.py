@@ -106,25 +106,25 @@ def click(x=None, y=None, clicks=1, interval=0, button='Left'):
         clicks_num = clicks_num + 1
 
 
-def left_double_click():
+def left_double_click(interval=200):
     pyvinyl.auto_delay()
 
     pyvinyl.vinyl.left_click()
-    pyvinyl.vinyl.sleep(500)
+    pyvinyl.vinyl.sleep(interval)
     pyvinyl.vinyl.left_click()
 
-def middle_double_click():
+def middle_double_click(interval=200):
     pyvinyl.auto_delay()
 
     pyvinyl.vinyl.middle_click()
-    pyvinyl.vinyl.sleep(500)
+    pyvinyl.vinyl.sleep(interval)
     pyvinyl.vinyl.middle_click()
 
-def right_double_click():
+def right_double_click(interval=200):
     pyvinyl.auto_delay()
 
     pyvinyl.vinyl.right_click()
-    pyvinyl.vinyl.sleep(500)
+    pyvinyl.vinyl.sleep(interval)
     pyvinyl.vinyl.right_click()
 
 

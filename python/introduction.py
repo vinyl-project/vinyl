@@ -11,9 +11,9 @@ def end_script():
 # 例子:关闭当前窗口
 # 说明:Windows里面按下alt+f4即可关闭当前窗口,模拟这个操作
 def close_window():
-    pv.key_down("LeftAlt")
-    pv.key_press("F4")
-    pv.key_up("LeftAlt")
+    pv.key_down("alt")
+    pv.key_press("f4")
+    pv.key_up("alt")
 
 # 例子:用鼠标画一个圆
 def draw_circle():
@@ -64,12 +64,12 @@ while True:
     if (key != pv.KeyCode.NoneKey):
         pv.key_press("Enter")
         if key == pv.KeyCode.N:
-            # close_window()
+            close_window()
             # 按下n不保存，直接关闭
             pv.sleep(1000)
             pv.key_press("N")
             pv.sleep(1000)
-            # exit_script()
+            exit_script()
         elif key == pv.KeyCode.Y:
             break
         else:

@@ -21,6 +21,24 @@ class ButtonCode(Enum):
     MouseZ = 12
     MouseLast = 13
 
+    left = 0
+    right = 1
+    middle = 2
+    mouse0 = left
+    mouse1 = right
+    mouse2 = middle
+    mouse3 = 3
+    mouse4 = 4
+    mouse5 = 5
+    mouse6 = 6
+    mouse7 = 7
+    mouse8 = 8
+    mouse_wheel = 9
+    mouse_x = 10
+    mouse_y = 11
+    mouse_z = 12
+    mouse_last = 13
+
 def position():
     return pyvinyl.vinyl.get_mouse_pos()
 

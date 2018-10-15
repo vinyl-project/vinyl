@@ -398,7 +398,7 @@ PyObject* vinyl_message_box(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylMessageBox(msg);
+		VinylMessageBox(nullptr, msg);
 	}
 	catch (const std::exception& e)
 	{
@@ -536,7 +536,7 @@ PyObject* vinyl_get_desktop_size(PyObject* self, PyObject* args)
 	PyObject *size_tuple = nullptr;
 	try
 	{
-		VinylGetDesktopSize(w, h);
+		VinylGetWindowSize(nullptr, w, h);
 		size_tuple = PyTuple_New(2);
 		if (size_tuple)
 		{
@@ -650,7 +650,7 @@ PyObject* vinyl_say_string(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylSayString(text);
+		VinylSayString(nullptr, text);
 	}
 	catch (const std::exception& e)
 	{
@@ -674,7 +674,7 @@ PyObject* vinyl_screenshot(PyObject* self, PyObject* args)
 		npy_intp dims[3] = { h, w, 3 };
 
 		// TODO get w h
-		VinylScreenshot(x, y, w, h, data.get());
+		VinylScreenshot(nullptr, x, y, w, h, data.get());
 		PyObject* nd_array = PyArray_SimpleNew(3, dims, NPY_UINT8);
 		char * raw_data = PyArray_BYTES(nd_array);
 		std::memcpy(raw_data, data.get(), w * h * 3);

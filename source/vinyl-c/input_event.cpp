@@ -5,7 +5,7 @@ namespace vinyl
 	namespace input
 	{
 		InputEvent
-		InputEvent::makeFocus(bool focus) noexcept
+		InputEvent::makeSetFocus(bool focus) noexcept
 		{
 			InputEvent event;
 			event.event = focus ? InputEvent::ObtainCapture : InputEvent::LostCapture;
@@ -219,22 +219,22 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeGetWindowPos(std::uint16_t& x, std::uint16_t& y) noexcept
+		InputEvent::makeGetWindowPos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::GetWindowPos;
-			event.pos.windowID = 0;
+			event.pos.windowID = (std::uint64_t)win;
 			event.pos.x = &x;
 			event.pos.y = &y;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeGetWindowSize(std::uint16_t& w, std::uint16_t& h) noexcept
+		InputEvent::makeGetWindowSize(WindHandle win, std::uint16_t& w, std::uint16_t& h) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::GetWindowSize;
-			event.size.windowID = 0;
+			event.size.windowID = (std::uint64_t)win;
 			event.size.w = &w;
 			event.size.h = &h;
 			return event;
@@ -250,19 +250,21 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMessageBox(const char* message) noexcept
+		InputEvent::makeMessageBox(WindHandle win, const char* message) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::Alert;
+			event.message.windowID = (std::uint64_t)win;
 			event.message.message = message;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeSayString(const char* message) noexcept
+		InputEvent::makeSayString(WindHandle win, const char* message) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::SayString;
+			event.message.windowID = (std::uint64_t)win;
 			event.message.message = message;
 			return event;
 		}
@@ -338,11 +340,11 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept
+		InputEvent::makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::Screenshot;
-			event.shot.windowID = 0;
+			event.shot.windowID = (std::uint64_t)win;
 			event.shot.x = x;
 			event.shot.y = y;
 			event.shot.w = w;

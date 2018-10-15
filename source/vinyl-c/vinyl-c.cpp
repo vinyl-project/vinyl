@@ -210,10 +210,18 @@ void VINYL_C_CALL VinylGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept(
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylGetWindowSize(std::uint16_t& w, std::uint16_t& h) noexcept(false)
+void VINYL_C_CALL VinylGetWindowPos(vinyl::input::WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept(false)
 {
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeGetWindowSize(w, h));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeGetWindowSize(win, x, y));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
+void VINYL_C_CALL VinylGetWindowSize(vinyl::input::WindHandle win, std::uint16_t& w, std::uint16_t& h) noexcept(false)
+{
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeGetWindowSize(win, w, h));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -226,18 +234,18 @@ void VINYL_C_CALL VinylSleep(std::uint32_t milliseconds) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMessageBox(const char* message) noexcept(false)
+void VINYL_C_CALL VinylMessageBox(vinyl::input::WindHandle win, const char* message) noexcept(false)
 {
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeMessageBox(message));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeMessageBox(win, message));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylSayString(const char* message) noexcept(false)
+void VINYL_C_CALL VinylSayString(vinyl::input::WindHandle win, const char* message) noexcept(false)
 {
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeSayString(message));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeSayString(win, message));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -290,10 +298,10 @@ void VINYL_C_CALL VinylFindImage(std::uint8_t* image, std::uint16_t w, std::uint
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept(false)
+void VINYL_C_CALL VinylScreenshot(vinyl::input::WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept(false)
 {
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeScreenshot(x, y, w, h, data));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeScreenshot(win, x, y, w, h, data));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }

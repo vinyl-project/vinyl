@@ -20,7 +20,7 @@ namespace vinyl
 			virtual void onInputEvent(const InputEvent& event) noexcept override;
 
 		private:
-			void CaptureScreen(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* pixels) noexcept;
+			void CaptureScreen(HWND hwnd, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* pixels) noexcept;
 
 		private:
 			MSWInputImage(const MSWInputImage&) noexcept = delete;

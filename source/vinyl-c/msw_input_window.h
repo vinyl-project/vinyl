@@ -15,8 +15,13 @@ namespace vinyl
 
 			virtual IInputControllerPtr clone() const noexcept;
 
-		protected:
+		private:
 			virtual void onInputEvent(const InputEvent& event) noexcept override;
+
+			virtual void onGetWindowPos(const PosEvent& event) noexcept;
+			virtual void onGetWindowSize(const SizeEvent& event) noexcept;
+			virtual void onMessageBox(const MessageEvent& event) noexcept;
+			virtual void onSayString(const MessageEvent& event) noexcept;
 
 		private:
 			MSWInputWindow(const MSWInputWindow&) noexcept = delete;

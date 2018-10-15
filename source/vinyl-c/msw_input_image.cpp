@@ -28,7 +28,7 @@ namespace vinyl
 			{
 				if (event.color.x && event.color.y)
 				{
-					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+					this->CaptureScreen(0, 0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
 
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
@@ -57,7 +57,7 @@ namespace vinyl
 			{
 				if (event.color.x && event.color.y)
 				{
-					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+					this->CaptureScreen(0, 0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
 
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
@@ -85,7 +85,7 @@ namespace vinyl
 			{
 				if (event.color.x && event.color.y)
 				{
-					this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+					this->CaptureScreen(0, 0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
 
 					*event.color.x = std::numeric_limits<std::uint16_t>::max();
 					*event.color.y = std::numeric_limits<std::uint16_t>::max();
@@ -118,7 +118,7 @@ namespace vinyl
 
 					if (event.image.pixels)
 					{
-						this->CaptureScreen(0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
+						this->CaptureScreen(0, 0, 0, std::numeric_limits<std::uint16_t>::max(), std::numeric_limits<std::uint16_t>::max(), nullptr);
 
 						std::uint32_t dstGray = 0;
 
@@ -169,7 +169,7 @@ namespace vinyl
 			{
 				if (event.shot.pixels)
 				{
-					CaptureScreen(event.shot.x, event.shot.y, event.shot.w, event.shot.h, event.shot.pixels);
+					CaptureScreen((HWND)event.shot.windowID, event.shot.x, event.shot.y, event.shot.w, event.shot.h, event.shot.pixels);
 				}
 			}
 			break;
@@ -181,9 +181,9 @@ namespace vinyl
 		}
 
 		void
-		MSWInputImage::CaptureScreen(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* pixels) noexcept
+		MSWInputImage::CaptureScreen(HWND win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* pixels) noexcept
 		{
-			HWND hwnd = ::GetDesktopWindow();
+			HWND hwnd = win ? win : GetDesktopWindow();
 			HDC hdc1 = ::GetWindowDC(hwnd);
 			HDC hdc2 = CreateCompatibleDC(hdc1);
 

@@ -109,6 +109,7 @@ namespace vinyl
 
 		struct MessageEvent
 		{
+			std::uint64_t windowID;
 			const char* message;
 		};
 
@@ -212,8 +213,6 @@ namespace vinyl
 				ScreenshotEvent shot;
 			};
 
-			static InputEvent makeFocus(bool focus) noexcept;
-
 			static InputEvent makeKeyDown(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeKeyUp(InputKey::Code key, std::uint32_t delay = 10) noexcept;
 
@@ -234,12 +233,15 @@ namespace vinyl
 
 			static InputEvent makeGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept;
 
-			static InputEvent makeGetWindowPos(std::uint16_t& x, std::uint16_t& y) noexcept;
-			static InputEvent makeGetWindowSize(std::uint16_t& w, std::uint16_t& h) noexcept;
+			static InputEvent makeSetFocus(bool focus) noexcept;
+			static InputEvent makeGetFocus(bool& focus) noexcept;
+
+			static InputEvent makeGetWindowPos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeGetWindowSize(WindHandle win, std::uint16_t& w, std::uint16_t& h) noexcept;
 
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
-			static InputEvent makeMessageBox(const char* message) noexcept;
-			static InputEvent makeSayString(const char* message) noexcept;
+			static InputEvent makeMessageBox(WindHandle win, const char* message) noexcept;
+			static InputEvent makeSayString(WindHandle win, const char* message) noexcept;
 			static InputEvent makeTracePrint(std::uint8_t enable) noexcept;
 			static InputEvent makeCommand(const char* message) noexcept;
 
@@ -248,7 +250,7 @@ namespace vinyl
 			static InputEvent makeFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeFindImage(std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint16_t& x, std::uint16_t& y) noexcept;
 
-			static InputEvent makeScreenshot(std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept;
+			static InputEvent makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept;
 		};
 	}
 }

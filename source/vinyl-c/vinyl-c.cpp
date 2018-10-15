@@ -210,10 +210,10 @@ void VINYL_C_CALL VinylGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept(
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylGetDesktopSize(std::uint16_t& w, std::uint16_t& h) noexcept(false)
+void VINYL_C_CALL VinylGetWindowSize(std::uint16_t& w, std::uint16_t& h) noexcept(false)
 {
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeGetDesktopSize(w, h));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeGetWindowSize(w, h));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }

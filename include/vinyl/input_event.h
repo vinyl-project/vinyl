@@ -18,7 +18,6 @@ namespace vinyl
 
 		struct KeyboardEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint8_t* state;
 			std::uint32_t delay;
@@ -27,21 +26,18 @@ namespace vinyl
 
 		struct WaitKeyEvent
 		{
-			std::uint64_t timestamp;
 			std::uint32_t delay;
 			InputKey::Code* key;
 		};
 
 		struct WaitButtonEvent
 		{
-			std::uint64_t timestamp;
 			std::uint32_t delay;
 			InputButton::Code* button;
 		};
 
 		struct MouseMotionEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint8_t state;
 			std::uint32_t x;
@@ -51,7 +47,6 @@ namespace vinyl
 
 		struct MouseButtonEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint32_t which;
 			std::uint8_t button;
@@ -65,14 +60,12 @@ namespace vinyl
 
 		struct MouseWheelEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint32_t delay;
 		};
 
 		struct PosEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint16_t* x;
 			std::uint16_t* y;
@@ -80,7 +73,6 @@ namespace vinyl
 
 		struct SizeEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint16_t* w;
 			std::uint16_t* h;
@@ -88,13 +80,11 @@ namespace vinyl
 
 		struct WindowEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 		};
 
 		struct ColorEvent
 		{
-			std::uint64_t timestamp;
 			std::uint8_t r;
 			std::uint8_t g;
 			std::uint8_t b;
@@ -104,7 +94,6 @@ namespace vinyl
 
 		struct ImageEvent
 		{
-			std::uint64_t timestamp;
 			std::uint32_t color;
 			std::uint32_t w;
 			std::uint32_t h;
@@ -115,25 +104,21 @@ namespace vinyl
 
 		struct SleepEvent
 		{
-			std::uint64_t timestamp;
 			std::uint32_t milliseconds;
 		};
 
 		struct MessageEvent
 		{
-			std::uint64_t timestamp;
 			const char* message;
 		};
 
 		struct DebugEvent
 		{
-			std::uint64_t timestamp;
 			std::uint8_t trace;
 		};
 
 		struct ScreenshotEvent
 		{
-			std::uint64_t timestamp;
 			std::uint64_t windowID;
 			std::uint32_t x;
 			std::uint32_t y;
@@ -183,7 +168,9 @@ namespace vinyl
 				FindPic,
 
 				GetMousePos,
-				GetDesktopSize,
+
+				GetWindowPos,
+				GetWindowSize,
 
 				Sleep,
 				Alert,
@@ -246,7 +233,9 @@ namespace vinyl
 			static InputEvent makeIsMouseButtonUp(InputButton::Code key, std::uint8_t& state) noexcept;
 
 			static InputEvent makeGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept;
-			static InputEvent makeGetDesktopSize(std::uint16_t& x, std::uint16_t& y) noexcept;
+
+			static InputEvent makeGetWindowPos(std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeGetWindowSize(std::uint16_t& w, std::uint16_t& h) noexcept;
 
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
 			static InputEvent makeMessageBox(const char* message) noexcept;

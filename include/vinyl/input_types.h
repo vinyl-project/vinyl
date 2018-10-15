@@ -61,7 +61,7 @@ namespace vinyl
 		typedef std::shared_ptr<class IInputController> IInputControllerPtr;
 		typedef std::shared_ptr<class IInputKeyboard> IInputKeyboardPtr;
 		typedef std::shared_ptr<class IInputMouse> IInputMousePtr;
-		typedef std::shared_ptr<class IInputUser> IInputUserPtr;
+		typedef std::shared_ptr<class IInputWindow> IInputWindowPtr;
 		typedef std::shared_ptr<class IInputDebug> IInputDebugPtr;
 		typedef std::shared_ptr<class IInputImage> IInputImagePtr;
 		typedef std::shared_ptr<class IInputDevice> IInputDevicePtr;

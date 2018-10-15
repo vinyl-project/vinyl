@@ -1,4 +1,4 @@
-#include "msw_input_user.h"
+#include "msw_input_window.h"
 #include <cstring> // std::memset
 #include <thread>
 
@@ -6,26 +6,26 @@ namespace vinyl
 {
 	namespace input
 	{
-		MSWInputUser::MSWInputUser() noexcept
+		MSWInputWindow::MSWInputWindow() noexcept
 		{
 		}
 
-		MSWInputUser::~MSWInputUser() noexcept
+		MSWInputWindow::~MSWInputWindow() noexcept
 		{
 		}
 
 		IInputControllerPtr
-		MSWInputUser::clone() const noexcept
+		MSWInputWindow::clone() const noexcept
 		{
-			return std::make_shared<MSWInputUser>();
+			return std::make_shared<MSWInputWindow>();
 		}
 
 		void
-		MSWInputUser::onInputEvent(const InputEvent& event) noexcept
+		MSWInputWindow::onInputEvent(const InputEvent& event) noexcept
 		{
 			switch (event.event)
 			{
-			case InputEvent::GetDesktopSize:
+			case InputEvent::GetWindowSize:
 			{
 				if (event.size.w && event.size.h)
 				{

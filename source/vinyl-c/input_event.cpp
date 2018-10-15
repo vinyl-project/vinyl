@@ -10,7 +10,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = focus ? InputEvent::ObtainCapture : InputEvent::LostCapture;
 			event.window.windowID = 0;
-			event.window.timestamp = 0;
 			return event;
 		}
 
@@ -20,7 +19,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::KeyDown;
 			event.key.windowID = 0;
-			event.key.timestamp = 0;
 			event.key.state = nullptr;
 			event.key.delay = delay;
 			event.key.keysym.raw = 0;
@@ -36,7 +34,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::KeyUp;
 			event.key.windowID = 0;
-			event.key.timestamp = 0;
 			event.key.state = nullptr;
 			event.key.delay = delay;
 			event.key.keysym.raw = 0;
@@ -52,7 +49,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::IsKeyDown;
 			event.key.windowID = 0;
-			event.key.timestamp = 0;
 			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
@@ -68,7 +64,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::IsKeyUp;
 			event.key.windowID = 0;
-			event.key.timestamp = 0;
 			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
@@ -84,7 +79,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::WaitKey;
 			event.waitKey.delay = delay;
-			event.waitKey.timestamp = 0;
 			event.waitKey.key = &input_key;
 
 			return event;
@@ -99,7 +93,6 @@ namespace vinyl
 			event.button.clicks = true;
 			event.button.x = x;
 			event.button.y = y;
-			event.button.timestamp = 0;
 			event.button.windowID = 0;
 			event.button.padding1 = 0;
 			event.button.which = 0;
@@ -116,7 +109,6 @@ namespace vinyl
 			event.button.clicks = false;
 			event.button.x = x;
 			event.button.y = y;
-			event.button.timestamp = 0;
 			event.button.windowID = 0;
 			event.button.padding1 = 0;
 			event.button.which = 0;
@@ -134,7 +126,6 @@ namespace vinyl
 			event.button.state = &state;
 			event.button.x = 0;
 			event.button.y = 0;
-			event.button.timestamp = 0;
 			event.button.windowID = 0;
 			event.button.padding1 = 0;
 			event.button.which = 0;
@@ -152,7 +143,6 @@ namespace vinyl
 			event.button.state = &state;
 			event.button.x = 0;
 			event.button.y = 0;
-			event.button.timestamp = 0;
 			event.button.windowID = 0;
 			event.button.padding1 = 0;
 			event.button.which = 0;
@@ -166,7 +156,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::WaitButton;
 			event.waitButton.delay = delay;
-			event.waitButton.timestamp = 0;
 			event.waitButton.button = &input_button;
 
 			return event;
@@ -179,7 +168,6 @@ namespace vinyl
 			event.event = InputEvent::MouseMove;
 			event.motion.x = (std::uint32_t)x;
 			event.motion.y = (std::uint32_t)y;
-			event.motion.timestamp = 0;
 			event.motion.state = false;
 			event.motion.windowID = 0;
 			event.motion.delay = delay;
@@ -193,7 +181,6 @@ namespace vinyl
 			event.event = InputEvent::MouseMoveTo;
 			event.motion.x = (std::uint32_t)x;
 			event.motion.y = (std::uint32_t)y;
-			event.motion.timestamp = 0;
 			event.motion.state = false;
 			event.motion.windowID = 0;
 			event.motion.delay = delay;
@@ -205,7 +192,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseWheelUp;
-			event.wheel.timestamp = 0;
 			event.wheel.windowID = 0;
 			event.wheel.delay = delay;
 			return event;
@@ -216,7 +202,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseWheelDown;
-			event.wheel.timestamp = 0;
 			event.wheel.windowID = 0;
 			event.wheel.delay = delay;
 			return event;
@@ -227,7 +212,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::GetMousePos;
-			event.pos.timestamp = 0;
 			event.pos.windowID = 0;
 			event.pos.x = &x;
 			event.pos.y = &y;
@@ -235,11 +219,21 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeGetDesktopSize(std::uint16_t& w, std::uint16_t& h) noexcept
+		InputEvent::makeGetWindowPos(std::uint16_t& x, std::uint16_t& y) noexcept
 		{
 			InputEvent event;
-			event.event = InputEvent::GetDesktopSize;
-			event.size.timestamp = 0;
+			event.event = InputEvent::GetWindowPos;
+			event.pos.windowID = 0;
+			event.pos.x = &x;
+			event.pos.y = &y;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeGetWindowSize(std::uint16_t& w, std::uint16_t& h) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::GetWindowSize;
 			event.size.windowID = 0;
 			event.size.w = &w;
 			event.size.h = &h;
@@ -251,7 +245,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::Sleep;
-			event.sleep.timestamp = 0;
 			event.sleep.milliseconds = ms;
 			return event;
 		}
@@ -261,7 +254,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::Alert;
-			event.message.timestamp = 0;
 			event.message.message = message;
 			return event;
 		}
@@ -271,7 +263,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::SayString;
-			event.message.timestamp = 0;
 			event.message.message = message;
 			return event;
 		}
@@ -281,7 +272,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::TracePrint;
-			event.debug.timestamp = 0;
 			event.debug.trace = enable;
 			return event;
 		}
@@ -291,7 +281,6 @@ namespace vinyl
 		{
 			InputEvent event;
 			event.event = InputEvent::Command;
-			event.message.timestamp = 0;
 			event.message.message = cmd;
 			return event;
 		}
@@ -354,7 +343,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::Screenshot;
 			event.shot.windowID = 0;
-			event.shot.timestamp = 0;
 			event.shot.x = x;
 			event.shot.y = y;
 			event.shot.w = w;

@@ -23,7 +23,7 @@ SET(INPUT_INTERFACE_LIST
 	${HEADER_PATH}/iinput_debug.h
 	${HEADER_PATH}/iinput_keyboard.h
 	${HEADER_PATH}/iinput_mouse.h
-	${HEADER_PATH}/iinput_user.h
+	${HEADER_PATH}/iinput_window.h
 	${HEADER_PATH}/iinput_image.h
 	${HEADER_PATH}/iinput.h
 )
@@ -40,8 +40,8 @@ SET(INPUT_DEFAULT_LIST
 	${SOURCE_PATH}/input_keyboard.cpp
 	${HEADER_PATH}/input_mouse.h
 	${SOURCE_PATH}/input_mouse.cpp
-	${HEADER_PATH}/input_user.h
-	${SOURCE_PATH}/input_user.cpp
+	${HEADER_PATH}/input_window.h
+	${SOURCE_PATH}/input_window.cpp
 	${HEADER_PATH}/input_image.h
 	${SOURCE_PATH}/input_image.cpp
 	${HEADER_PATH}/input.h
@@ -56,8 +56,8 @@ SET(INPUT_MSW_LIST
 	${SOURCE_PATH}/msw_input_keyboard.cpp
 	${SOURCE_PATH}/msw_input_mouse.h
 	${SOURCE_PATH}/msw_input_mouse.cpp
-	${SOURCE_PATH}/msw_input_user.h
-	${SOURCE_PATH}/msw_input_user.cpp
+	${SOURCE_PATH}/msw_input_window.h
+	${SOURCE_PATH}/msw_input_window.cpp
 	${SOURCE_PATH}/msw_input_image.h
 	${SOURCE_PATH}/msw_input_image.cpp
 )

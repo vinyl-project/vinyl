@@ -6,7 +6,7 @@
 #	include "msw_input_device.h"
 #	include "msw_input_keyboard.h"
 #	include "msw_input_mouse.h"
-#	include "msw_input_user.h"
+#	include "msw_input_window.h"
 #	include "msw_input_image.h"
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
 #	include "ndk_input_device.h"
@@ -37,7 +37,7 @@ namespace vinyl
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
 			inputDevice_ = std::make_shared<MSWInputDevice>();
 
-			this->addInputListener(std::make_shared<MSWInputUser>());
+			this->addInputListener(std::make_shared<MSWInputWindow>());
 			this->addInputListener(std::make_shared<InputDebug>());
 			this->addInputListener(std::make_shared<MSWInputMouse>());
 			this->addInputListener(std::make_shared<MSWInputKeyboard>());

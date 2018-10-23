@@ -185,6 +185,7 @@ namespace vinyl
 
 				FindWindowFromPos,
 				FindWindowFromTile,
+				FindWindowFromClassName,
 
 				GetMousePos,
 
@@ -276,6 +277,7 @@ namespace vinyl
 
 			static InputEvent makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept;
 			static InputEvent makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept;
+			static InputEvent makeFindWindowFromClassName(const char* classname, WindHandle& win) noexcept;
 
 			static InputEvent makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept;
 

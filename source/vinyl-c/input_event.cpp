@@ -364,6 +364,18 @@ namespace vinyl
 			return event;
 		}
 
+		InputEvent 
+		InputEvent::makeFindWindowFromClassName(const char* tile, WindHandle& win) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindWindowFromClassName;
+			event.handle.x = 0;
+			event.handle.y = 0;
+			event.handle.tile = tile;
+			event.handle.windowID = &win;
+			return event;
+		}
+
 		InputEvent
 		InputEvent::makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept
 		{

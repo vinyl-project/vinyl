@@ -47,6 +47,19 @@ namespace vinyl
 				}				
 			}
 			break;
+			case InputEvent::FindWindowFromClassName:
+			{
+				constexpr std::size_t PATHLIMITS = 4096;
+
+				int size = MultiByteToWideChar(CP_UTF8, 0, event.handle.tile, -1, 0, 0) + 1;
+				if (size > 1 && size < PATHLIMITS)
+				{
+					wchar_t buffer[PATHLIMITS];
+					if (MultiByteToWideChar(CP_UTF8, 0, event.handle.tile, -1, buffer, size) > 0)
+						*event.handle.windowID = FindWindowW(buffer, nullptr);
+				}
+			}
+			break;
 			case InputEvent::GetWindowPos:
 				this->onGetWindowPos(event.pos);
 				break;

@@ -25,6 +25,28 @@ namespace vinyl
 		{
 			switch (event.event)
 			{
+			case InputEvent::FindWindowFromPos:
+			{
+				POINT pt;
+				pt.x = event.handle.x;
+				pt.y = event.handle.y;
+
+				*event.handle.windowID = WindowFromPoint(pt);
+			}
+			break;
+			case InputEvent::FindWindowFromTile:
+			{
+				constexpr std::size_t PATHLIMITS = 4096;
+
+				int size = MultiByteToWideChar(CP_UTF8, 0, event.handle.tile, -1, 0, 0) + 1;
+				if (size > 1 && size < PATHLIMITS)
+				{
+					wchar_t buffer[PATHLIMITS];
+					if (MultiByteToWideChar(CP_UTF8, 0, event.handle.tile, -1, buffer, size) > 0)
+						*event.handle.windowID = FindWindowW(nullptr, buffer);
+				}				
+			}
+			break;
 			case InputEvent::GetWindowPos:
 				this->onGetWindowPos(event.pos);
 				break;

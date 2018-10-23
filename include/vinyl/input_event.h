@@ -26,12 +26,14 @@ namespace vinyl
 
 		struct WaitKeyEvent
 		{
+			std::uint64_t windowID;
 			std::uint32_t delay;
 			InputKey::Code* key;
 		};
 
 		struct WaitButtonEvent
 		{
+			std::uint64_t windowID;
 			std::uint32_t delay;
 			InputButton::Code* button;
 		};
@@ -118,6 +120,19 @@ namespace vinyl
 			std::uint8_t trace;
 		};
 
+		struct FindWindowEvent
+		{
+			std::uint32_t x;
+			std::uint32_t y;
+			const char* tile;
+			WindHandle* windowID;
+		};
+
+		struct RecordEvent
+		{
+			const char* filepath;
+		};
+
 		struct ScreenshotEvent
 		{
 			std::uint64_t windowID;
@@ -168,6 +183,9 @@ namespace vinyl
 				FindCenterColor,
 				FindPic,
 
+				FindWindowFromPos,
+				FindWindowFromTile,
+
 				GetMousePos,
 
 				GetWindowPos,
@@ -180,6 +198,10 @@ namespace vinyl
 				SayString,
 
 				Screenshot,
+
+				StartRecord,
+				PauseRecord,
+				StopRecord,
 
 				ObtainCapture,
 				LostCapture,
@@ -207,31 +229,33 @@ namespace vinyl
 				ColorEvent color;
 				ImageEvent image;
 				SleepEvent sleep;
+				RecordEvent record;
 				MessageEvent message;
 				DebugEvent debug;
 				WindowEvent window;
+				FindWindowEvent handle;
 				ScreenshotEvent shot;
 			};
 
-			static InputEvent makeKeyDown(InputKey::Code key, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeKeyUp(InputKey::Code key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeKeyDown(WindHandle win, InputKey::Code key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeKeyUp(WindHandle win, InputKey::Code key, std::uint32_t delay = 10) noexcept;
 
-			static InputEvent makeMouseButtonDown(InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseButtonUp(InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseMove(std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseMoveTo(std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseWheelUp(std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseWheelDown(std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseButtonDown(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseButtonUp(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseMove(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseMoveTo(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseWheelUp(WindHandle win, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseWheelDown(WindHandle win, std::uint32_t delay = 10) noexcept;
 
-			static InputEvent makeWaitKey(InputKey::Code& key, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeWaitButton(InputButton::Code& key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeWaitKey(WindHandle win, InputKey::Code& key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeWaitButton(WindHandle win, InputButton::Code& key, std::uint32_t delay = 10) noexcept;
 
-			static InputEvent makeIsKeyDown(InputKey::Code key, std::uint8_t& state) noexcept;
-			static InputEvent makeIsKeyUp(InputKey::Code key, std::uint8_t& state) noexcept;
-			static InputEvent makeIsMouseButtonDown(InputButton::Code key, std::uint8_t& state) noexcept;
-			static InputEvent makeIsMouseButtonUp(InputButton::Code key, std::uint8_t& state) noexcept;
+			static InputEvent makeIsKeyDown(WindHandle win, InputKey::Code key, std::uint8_t& state) noexcept;
+			static InputEvent makeIsKeyUp(WindHandle win, InputKey::Code key, std::uint8_t& state) noexcept;
+			static InputEvent makeIsMouseButtonDown(WindHandle win, InputButton::Code key, std::uint8_t& state) noexcept;
+			static InputEvent makeIsMouseButtonUp(WindHandle win, InputButton::Code key, std::uint8_t& state) noexcept;
 
-			static InputEvent makeGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeGetMousePos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept;
 
 			static InputEvent makeSetFocus(bool focus) noexcept;
 			static InputEvent makeGetFocus(bool& focus) noexcept;
@@ -250,7 +274,14 @@ namespace vinyl
 			static InputEvent makeFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeFindImage(std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint16_t& x, std::uint16_t& y) noexcept;
 
+			static InputEvent makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept;
+			static InputEvent makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept;
+
 			static InputEvent makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept;
+
+			static InputEvent makeStartRecord(const char* filepath) noexcept;
+			static InputEvent makePauseRecord() noexcept;
+			static InputEvent makeStopRecord() noexcept;
 		};
 	}
 }

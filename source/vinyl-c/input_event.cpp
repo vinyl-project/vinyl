@@ -14,11 +14,11 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeKeyDown(InputKey::Code input_key, std::uint32_t delay) noexcept
+		InputEvent::makeKeyDown(WindHandle win, InputKey::Code input_key, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::KeyDown;
-			event.key.windowID = 0;
+			event.key.windowID = (std::uint64_t)win;
 			event.key.state = nullptr;
 			event.key.delay = delay;
 			event.key.keysym.raw = 0;
@@ -29,11 +29,11 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeKeyUp(InputKey::Code input_key, std::uint32_t delay) noexcept
+		InputEvent::makeKeyUp(WindHandle win, InputKey::Code input_key, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::KeyUp;
-			event.key.windowID = 0;
+			event.key.windowID = (std::uint64_t)win;
 			event.key.state = nullptr;
 			event.key.delay = delay;
 			event.key.keysym.raw = 0;
@@ -44,11 +44,11 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeIsKeyDown(InputKey::Code input_key, std::uint8_t& state) noexcept
+		InputEvent::makeIsKeyDown(WindHandle win, InputKey::Code input_key, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsKeyDown;
-			event.key.windowID = 0;
+			event.key.windowID = (std::uint64_t)win;
 			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
@@ -59,11 +59,11 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeIsKeyUp(InputKey::Code input_key, std::uint8_t& state) noexcept
+		InputEvent::makeIsKeyUp(WindHandle win, InputKey::Code input_key, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsKeyUp;
-			event.key.windowID = 0;
+			event.key.windowID = (std::uint64_t)win;
 			event.key.state = &state;
 			event.key.delay = 0;
 			event.key.keysym.raw = 0;
@@ -74,10 +74,11 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWaitKey(InputKey::Code& input_key, std::uint32_t delay) noexcept
+		InputEvent::makeWaitKey(WindHandle win, InputKey::Code& input_key, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::WaitKey;
+			event.waitKey.windowID = (std::uint64_t)win;
 			event.waitKey.delay = delay;
 			event.waitKey.key = &input_key;
 
@@ -85,7 +86,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseButtonDown(InputButton::Code input_button, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseButtonDown(WindHandle win, InputButton::Code input_button, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseButtonDown;
@@ -93,7 +94,7 @@ namespace vinyl
 			event.button.clicks = true;
 			event.button.x = x;
 			event.button.y = y;
-			event.button.windowID = 0;
+			event.button.windowID = (std::uint64_t)win;
 			event.button.padding1 = 0;
 			event.button.which = 0;
 			event.button.delay = delay;
@@ -101,7 +102,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseButtonUp(InputButton::Code input_button, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseButtonUp(WindHandle win, InputButton::Code input_button, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseButtonUp;
@@ -109,7 +110,7 @@ namespace vinyl
 			event.button.clicks = false;
 			event.button.x = x;
 			event.button.y = y;
-			event.button.windowID = 0;
+			event.button.windowID = (std::uint64_t)win;
 			event.button.padding1 = 0;
 			event.button.which = 0;
 			event.button.delay = delay;
@@ -117,7 +118,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeIsMouseButtonDown(InputButton::Code input_button, std::uint8_t& state) noexcept
+		InputEvent::makeIsMouseButtonDown(WindHandle win, InputButton::Code input_button, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsMouseButtonDown;
@@ -126,7 +127,7 @@ namespace vinyl
 			event.button.state = &state;
 			event.button.x = 0;
 			event.button.y = 0;
-			event.button.windowID = 0;
+			event.button.windowID = (std::uint64_t)win;
 			event.button.padding1 = 0;
 			event.button.which = 0;
 			event.button.delay = 0;
@@ -134,7 +135,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeIsMouseButtonUp(InputButton::Code input_button, std::uint8_t& state) noexcept
+		InputEvent::makeIsMouseButtonUp(WindHandle win, InputButton::Code input_button, std::uint8_t& state) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::IsMouseButtonUp;
@@ -143,7 +144,7 @@ namespace vinyl
 			event.button.state = &state;
 			event.button.x = 0;
 			event.button.y = 0;
-			event.button.windowID = 0;
+			event.button.windowID = (std::uint64_t)win;
 			event.button.padding1 = 0;
 			event.button.which = 0;
 			event.button.delay = 0;
@@ -151,10 +152,11 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeWaitButton(InputButton::Code& input_button, std::uint32_t delay) noexcept
+		InputEvent::makeWaitButton(WindHandle win, InputButton::Code& input_button, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::WaitButton;
+			event.waitButton.windowID = (std::uint64_t)win;
 			event.waitButton.delay = delay;
 			event.waitButton.button = &input_button;
 
@@ -162,57 +164,57 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseMove(std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseMove(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMove;
 			event.motion.x = (std::uint32_t)x;
 			event.motion.y = (std::uint32_t)y;
 			event.motion.state = false;
-			event.motion.windowID = 0;
+			event.motion.windowID = (std::uint64_t)win;
 			event.motion.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeMouseMoveTo(std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseMoveTo(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMoveTo;
 			event.motion.x = (std::uint32_t)x;
 			event.motion.y = (std::uint32_t)y;
 			event.motion.state = false;
-			event.motion.windowID = 0;
+			event.motion.windowID = (std::uint64_t)win;
 			event.motion.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeMouseWheelUp(std::uint32_t delay) noexcept
+		InputEvent::makeMouseWheelUp(WindHandle win, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseWheelUp;
-			event.wheel.windowID = 0;
+			event.wheel.windowID = (std::uint64_t)win;
 			event.wheel.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeMouseWheelDown(std::uint32_t delay) noexcept
+		InputEvent::makeMouseWheelDown(WindHandle win, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseWheelDown;
-			event.wheel.windowID = 0;
+			event.wheel.windowID = (std::uint64_t)win;
 			event.wheel.delay = delay;
 			return event;
 		}
 
 		InputEvent
-		InputEvent::makeGetMousePos(std::uint16_t& x, std::uint16_t& y) noexcept
+		InputEvent::makeGetMousePos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::GetMousePos;
-			event.pos.windowID = 0;
+			event.pos.windowID = (std::uint64_t)win;
 			event.pos.x = &x;
 			event.pos.y = &y;
 			return event;
@@ -339,6 +341,29 @@ namespace vinyl
 			return event;
 		}
 
+		InputEvent 
+		InputEvent::makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindWindowFromPos;
+			event.handle.x = x;
+			event.handle.y = y;
+			event.handle.windowID = &win;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindWindowFromTile;
+			event.handle.x = 0;
+			event.handle.y = 0;
+			event.handle.tile = tile;
+			event.handle.windowID = &win;
+			return event;
+		}
+
 		InputEvent
 		InputEvent::makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept
 		{
@@ -350,6 +375,33 @@ namespace vinyl
 			event.shot.w = w;
 			event.shot.h = h;
 			event.shot.pixels = data;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeStartRecord(const char* filepath) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::StartRecord;
+			event.record.filepath = filepath;
+			return event;
+		}
+		
+		InputEvent 
+		InputEvent::makePauseRecord() noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::PauseRecord;
+			event.record.filepath = nullptr;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeStopRecord() noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::StopRecord;
+			event.record.filepath = nullptr;
 			return event;
 		}
 	}

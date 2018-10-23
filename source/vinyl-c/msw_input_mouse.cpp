@@ -30,19 +30,24 @@ namespace vinyl
 			{
 			case InputEvent::MouseMove:
 			{
-				auto x = event.motion.x;
-				auto y = event.motion.y;
+				POINT pt;
+				pt.x = event.motion.x;
+				pt.y = event.motion.y;
 
-				mouse_event(MOUSEEVENTF_MOVE, x, y, 0, 0);
+				mouse_event(MOUSEEVENTF_MOVE, pt.x, pt.y, 0, 0);
 				Sleep(event.motion.delay);
 			}
 			break;
 			case InputEvent::MouseMoveTo:
 			{
-				auto x = event.motion.x;
-				auto y = event.motion.y;
+				POINT pt;
+				pt.x = event.motion.x;
+				pt.y = event.motion.y;
 
-				SetCursorPos(x, y);
+				if (event.motion.windowID)
+					ScreenToClient((HWND)event.motion.windowID, &pt);
+
+				SetCursorPos(pt.x, pt.y);
 				Sleep(event.motion.delay);
 			}
 			break;
@@ -130,14 +135,44 @@ namespace vinyl
 			break;
 			case InputEvent::MouseWheelUp:
 			{
-				mouse_event(MOUSEEVENTF_WHEEL, 0, 0, WHEEL_DELTA, 0);
-				Sleep(event.wheel.delay);
+				if (event.wheel.windowID > 0)
+				{
+					POINT pt = {0};
+					if (GetCursorPos(&pt))
+					{
+						*event.pos.x = pt.x;
+						*event.pos.y = pt.y;
+					}
+
+					PostMessage((HWND)event.wheel.windowID, WM_MOUSEWHEEL, MAKEWORD(0, 1), MAKEWORD(pt.x, pt.y));
+					Sleep(event.wheel.delay);
+				}
+				else
+				{
+					mouse_event(MOUSEEVENTF_WHEEL, 0, 0, WHEEL_DELTA, 0);
+					Sleep(event.wheel.delay);
+				}
 			}
 			break;
 			case InputEvent::MouseWheelDown:
 			{
-				mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -WHEEL_DELTA, 0);
-				Sleep(event.wheel.delay);
+				if (event.wheel.windowID > 0)
+				{
+					POINT pt = { 0 };
+					if (GetCursorPos(&pt))
+					{
+						*event.pos.x = pt.x;
+						*event.pos.y = pt.y;
+					}
+
+					PostMessage((HWND)event.wheel.windowID, WM_MOUSEWHEEL, MAKEWORD(0, 1), MAKEWORD(pt.x, pt.y));
+					Sleep(event.wheel.delay);
+				}
+				else
+				{
+					mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -WHEEL_DELTA, 0);
+					Sleep(event.wheel.delay);
+				}
 			}
 			break;
 			case InputEvent::WaitButton:
@@ -169,7 +204,17 @@ namespace vinyl
 								break;
 							}
 
-							break;
+							if (event.waitButton.windowID > 0)
+							{
+								if (event.waitButton.windowID == (std::uint64_t)GetForegroundWindow())
+									break;
+								else
+									*event.waitButton.button = InputButton::Code::NumButtonCodes;
+							}
+							else
+							{
+								break;
+							}
 						}
 					}
 
@@ -194,6 +239,15 @@ namespace vinyl
 					{
 						*event.pos.x = pt.x;
 						*event.pos.y = pt.y;
+
+						if (event.pos.windowID)
+						{
+							if (!ScreenToClient((HWND)event.pos.windowID, &pt))
+							{
+								*event.pos.x = std::numeric_limits<std::uint16_t>::max();
+								*event.pos.y = std::numeric_limits<std::uint16_t>::max();
+							}
+						}
 					}
 					else
 					{

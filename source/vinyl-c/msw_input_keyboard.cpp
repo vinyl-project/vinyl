@@ -346,7 +346,15 @@ namespace vinyl
 						if (GetAsyncKeyState(i) & 0x8000)
 						{
 							*event.waitKey.key = VirtualKeyToScanCode(i);
-							break;
+							if (event.waitKey.windowID > 0)
+							{
+								if (event.waitKey.windowID == (std::uint64_t)GetForegroundWindow())
+									break;
+							}
+							else
+							{
+								break;
+							}
 						}
 					}
 

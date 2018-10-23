@@ -163,7 +163,7 @@ PyObject* vinyl_left_click(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonClick(vinyl::input::InputButton::Code::Left, 0, 0);
+		VinylMouseButtonClick(nullptr, vinyl::input::InputButton::Code::Left, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -177,7 +177,7 @@ PyObject* vinyl_right_click(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonClick(vinyl::input::InputButton::Code::Right, 0, 0);
+		VinylMouseButtonClick(nullptr, vinyl::input::InputButton::Code::Right, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -191,7 +191,7 @@ PyObject* vinyl_middle_click(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonClick(vinyl::input::InputButton::Code::Right, 0, 0);
+		VinylMouseButtonClick(nullptr, vinyl::input::InputButton::Code::Right, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -205,7 +205,7 @@ PyObject* vinyl_left_up(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonUp(vinyl::input::InputButton::Code::Left, 0, 0);
+		VinylMouseButtonUp(nullptr, vinyl::input::InputButton::Code::Left, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -219,7 +219,7 @@ PyObject* vinyl_right_up(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonUp(vinyl::input::InputButton::Code::Right, 0, 0);
+		VinylMouseButtonUp(nullptr, vinyl::input::InputButton::Code::Right, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -233,7 +233,7 @@ PyObject* vinyl_middle_up(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonUp(vinyl::input::InputButton::Code::Middle, 0, 0);
+		VinylMouseButtonUp(nullptr, vinyl::input::InputButton::Code::Middle, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -247,7 +247,7 @@ PyObject* vinyl_left_down(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonDown(vinyl::input::InputButton::Code::Left, 0, 0);
+		VinylMouseButtonDown(nullptr, vinyl::input::InputButton::Code::Left, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -261,7 +261,7 @@ PyObject* vinyl_right_down(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonDown(vinyl::input::InputButton::Code::Right, 0, 0);
+		VinylMouseButtonDown(nullptr, vinyl::input::InputButton::Code::Right, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -275,7 +275,7 @@ PyObject* vinyl_middle_down(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonDown(vinyl::input::InputButton::Code::Middle, 0, 0);
+		VinylMouseButtonDown(nullptr, vinyl::input::InputButton::Code::Middle, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -289,7 +289,7 @@ PyObject* vinyl_left_double_click(PyObject* self, PyObject* args)
 {
 	try
 	{
-		VinylMouseButtonDoubleClick(vinyl::input::InputButton::Code::Left, 0, 0);
+		VinylMouseButtonDoubleClick(nullptr, vinyl::input::InputButton::Code::Left, 0, 0);
 	}
 	catch (const std::exception& e)
 	{
@@ -309,7 +309,7 @@ PyObject* vinyl_move_to(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylMouseMoveTo(x, y);
+		VinylMouseMoveTo(nullptr, x, y);
 	}
 	catch (const std::exception& e)
 	{
@@ -329,7 +329,7 @@ PyObject* vinyl_move(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylMouseMove(x, y);
+		VinylMouseMove(nullptr, x, y);
 	}
 	catch (const std::exception& e)
 	{
@@ -352,12 +352,12 @@ PyObject* vinyl_mouse_wheel(PyObject* self, PyObject* args)
 		if (delta > 0)
 		{
 			while(delta-->0)
-				VinylWheelUp();
+				VinylWheelUp(nullptr);
 		}
 		else
 		{
 			while (delta++<0)
-				VinylWheelDown();
+				VinylWheelDown(nullptr);
 		}
 	}
 	catch (const std::exception& e)
@@ -458,7 +458,7 @@ PyObject* vinyl_key_down(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylKeyDown(static_cast<vinyl::input::InputKey::Code>(code));
+		VinylKeyDown(nullptr, static_cast<vinyl::input::InputKey::Code>(code));
 	}
 	catch (const std::exception& e)
 	{
@@ -478,7 +478,7 @@ PyObject* vinyl_key_up(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylKeyUp(static_cast<vinyl::input::InputKey::Code>(code));
+		VinylKeyUp(nullptr, static_cast<vinyl::input::InputKey::Code>(code));
 	}
 	catch (const std::exception& e)
 	{
@@ -498,7 +498,7 @@ PyObject* vinyl_key_click(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylKeyClick(static_cast<vinyl::input::InputKey::Code>(code));
+		VinylKeyClick(nullptr, static_cast<vinyl::input::InputKey::Code>(code));
 	}
 	catch (const std::exception& e)
 	{
@@ -514,7 +514,7 @@ PyObject* vinyl_get_mouse_pos(PyObject* self, PyObject* args)
 	PyObject *pos_tuple = nullptr;
 	try
 	{
-		VinylGetMousePos(x, y);
+		VinylGetMousePos(nullptr, x, y);
 		pos_tuple = PyTuple_New(2);
 		if (pos_tuple)
 		{
@@ -564,7 +564,7 @@ PyObject* vinyl_is_key_down(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylIsKeyDown(static_cast<vinyl::input::InputKey::Code>(code), state);
+		VinylIsKeyDown(nullptr, static_cast<vinyl::input::InputKey::Code>(code), state);
 	}
 	catch (const std::exception& e)
 	{
@@ -586,7 +586,7 @@ PyObject* vinyl_is_key_up(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylIsKeyUp(static_cast<vinyl::input::InputKey::Code>(code), state);
+		VinylIsKeyUp(nullptr, static_cast<vinyl::input::InputKey::Code>(code), state);
 	}
 	catch (const std::exception& e)
 	{
@@ -608,7 +608,7 @@ PyObject* vinyl_is_mouse_button_down(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylIsMouseButtonDown(static_cast<vinyl::input::InputButton::Code>(code), state);
+		VinylIsMouseButtonDown(nullptr, static_cast<vinyl::input::InputButton::Code>(code), state);
 	}
 	catch (const std::exception& e)
 	{
@@ -630,7 +630,7 @@ PyObject* vinyl_is_mouse_button_up(PyObject* self, PyObject* args)
 
 	try
 	{
-		VinylIsMouseButtonUp(static_cast<vinyl::input::InputButton::Code>(code), state);
+		VinylIsMouseButtonUp(nullptr, static_cast<vinyl::input::InputButton::Code>(code), state);
 	}
 	catch (const std::exception& e)
 	{

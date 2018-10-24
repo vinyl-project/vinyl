@@ -255,5 +255,5 @@ pv.key_press("Enter")
 pv.key_press("Enter")
 pv.say_string("好了，基本的本领介绍完了，你可以使用我的编辑功能制作这些动作，全是界面操作，非常非常简单，快去试试吧！")
 pv.sleep(StringDelay)
-end_script()
+exit_script()
 

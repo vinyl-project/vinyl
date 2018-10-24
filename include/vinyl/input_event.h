@@ -130,7 +130,7 @@ namespace vinyl
 		{
 			std::uint32_t x;
 			std::uint32_t y;
-			const char* tile;
+			const char* str;
 			WindHandle* windowID;
 		};
 
@@ -189,6 +189,8 @@ namespace vinyl
 				FindCenterColor,
 				FindPic,
 
+				NewWindow,
+
 				FindWindowFromPos,
 				FindWindowFromTile,
 				FindWindowFromClassName,
@@ -243,6 +245,8 @@ namespace vinyl
 				ScreenshotEvent shot;
 			};
 
+			static InputEvent makeNewWindow(const char* path, WindHandle& win) noexcept;
+
 			static InputEvent makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept;
 			static InputEvent makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept;
 			static InputEvent makeFindWindowFromClassName(const char* classname, WindHandle& win) noexcept;
@@ -275,8 +279,7 @@ namespace vinyl
 
 			static InputEvent makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* image) noexcept;
 
-			static InputEvent makeSetFocus(bool focus) noexcept;
-			static InputEvent makeGetFocus(bool& focus) noexcept;
+			static InputEvent makeSetCapture(bool enable) noexcept;
 			static InputEvent makeCommand(const char* message) noexcept;
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
 

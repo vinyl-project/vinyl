@@ -4,11 +4,58 @@ namespace vinyl
 {
 	namespace input
 	{
-		InputEvent
-		InputEvent::makeSetFocus(bool focus) noexcept
+		InputEvent 
+		InputEvent::makeNewWindow(const char* path, WindHandle& win) noexcept
 		{
 			InputEvent event;
-			event.event = focus ? InputEvent::ObtainCapture : InputEvent::LostCapture;
+			event.event = InputEvent::NewWindow;
+			event.handle.x = 0;
+			event.handle.y = 0;
+			event.handle.str = path;
+			event.handle.windowID = &win;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindWindowFromPos;
+			event.handle.x = x;
+			event.handle.y = y;
+			event.handle.windowID = &win;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindWindowFromTile;
+			event.handle.x = 0;
+			event.handle.y = 0;
+			event.handle.str = tile;
+			event.handle.windowID = &win;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeFindWindowFromClassName(const char* classname, WindHandle& win) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::FindWindowFromClassName;
+			event.handle.x = 0;
+			event.handle.y = 0;
+			event.handle.str = classname;
+			event.handle.windowID = &win;
+			return event;
+		}
+
+		InputEvent
+		InputEvent::makeSetCapture(bool enable) noexcept
+		{
+			InputEvent event;
+			event.event = enable ? InputEvent::ObtainCapture : InputEvent::LostCapture;
 			event.window.windowID = 0;
 			return event;
 		}
@@ -277,41 +324,6 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::Command;
 			event.message.message = cmd;
-			return event;
-		}
-
-		InputEvent 
-		InputEvent::makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::FindWindowFromPos;
-			event.handle.x = x;
-			event.handle.y = y;
-			event.handle.windowID = &win;
-			return event;
-		}
-
-		InputEvent 
-		InputEvent::makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::FindWindowFromTile;
-			event.handle.x = 0;
-			event.handle.y = 0;
-			event.handle.tile = tile;
-			event.handle.windowID = &win;
-			return event;
-		}
-
-		InputEvent 
-		InputEvent::makeFindWindowFromClassName(const char* tile, WindHandle& win) noexcept
-		{
-			InputEvent event;
-			event.event = InputEvent::FindWindowFromClassName;
-			event.handle.x = 0;
-			event.handle.y = 0;
-			event.handle.tile = tile;
-			event.handle.windowID = &win;
 			return event;
 		}
 

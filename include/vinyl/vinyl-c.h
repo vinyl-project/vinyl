@@ -68,15 +68,15 @@ VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetWindowSize(vinyl::input
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMessageBox(vinyl::input::WindHandle win, const char* message) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylSayString(vinyl::input::WindHandle win, const char* string) noexcept(false);
 
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylSleep(std::uint32_t milliseconds) noexcept(false);
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylCommand(const char* cmd) noexcept(false);
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylScreenshot(vinyl::input::WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept(false);
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindColor(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindColorEx(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindCenterColor(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindImage(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, const std::uint8_t* pattern, std::uint16_t w_, std::uint16_t h_, std::uint16_t& x, std::uint16_t& y) noexcept(false);
 
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylScreenshot(vinyl::input::WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept(false);
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylSleep(std::uint32_t milliseconds) noexcept(false);
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylCommand(const char* cmd) noexcept(false);
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylStartRecord(const char* filepath) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylPauseRecord() noexcept(false);

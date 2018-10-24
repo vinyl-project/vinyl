@@ -279,14 +279,14 @@ namespace vinyl
 
 			static InputEvent makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* image) noexcept;
 
-			static InputEvent makeSetCapture(bool enable) noexcept;
-			static InputEvent makeCommand(const char* message) noexcept;
-			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
-
 			static InputEvent makeFindColor(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeFindColorEx(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeFindCenterColor(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeFindImage(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, const std::uint8_t* pattern, std::uint16_t w_, std::uint16_t h_, std::uint16_t& x, std::uint16_t& y) noexcept;
+
+			static InputEvent makeSetCapture(bool enable) noexcept;
+			static InputEvent makeCommand(const char* message) noexcept;
+			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
 
 			static InputEvent makeStartRecord(const char* filepath) noexcept;
 			static InputEvent makePauseRecord() noexcept;

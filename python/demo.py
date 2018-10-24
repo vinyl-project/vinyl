@@ -46,7 +46,7 @@ def screenshot_test():
     s = pyvinyl.size()
     screen = pyvinyl.screenshot(0,0,s[0],s[1])
     scipy.misc.imsave('lenagray.jpg',screen)
-    print(pyvinyl.position())
+    print(s)
 
 # pyvinyl.message_box('你好')
 

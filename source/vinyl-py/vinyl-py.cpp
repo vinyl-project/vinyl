@@ -36,7 +36,6 @@ PyObject* vinyl_get_desktop_size(PyObject* self, PyObject* args);
 
 PyObject* vinyl_sleep(PyObject* self, PyObject* args);
 PyObject* vinyl_message_box(PyObject* self, PyObject* args);
-PyObject* vinyl_trace_print(PyObject* self, PyObject* args);
 PyObject* vinyl_command(PyObject* self, PyObject* args);
 PyObject* vinyl_say_string(PyObject* self, PyObject* args);
 
@@ -93,8 +92,6 @@ static PyMethodDef VinylMethods[] = {
 	"A function that hangs up the thread." },
 	{ "message_box", vinyl_message_box, METH_VARARGS,
 	"A function that opens a message box." },
-	{ "trace_print", vinyl_trace_print, METH_VARARGS,
-	"A function that prints information in console." },
 	{ "cmd", vinyl_command, METH_VARARGS,
 	"A function that executes a command." },
 	{ "say_string", vinyl_say_string, METH_VARARGS,
@@ -399,26 +396,6 @@ PyObject* vinyl_message_box(PyObject* self, PyObject* args)
 	try
 	{
 		VinylMessageBox(nullptr, msg);
-	}
-	catch (const std::exception& e)
-	{
-		PyErr_SetString(StdErrorObj, e.what());
-	}
-
-	Py_RETURN_NONE;
-}
-
-PyObject* vinyl_trace_print(PyObject* self, PyObject* args)
-{
-	std::uint8_t enable;
-	if (!(PyArg_ParseTuple(args, "b", &enable)))
-	{
-		Py_RETURN_NONE;
-	}
-
-	try
-	{
-		VinylTracePrint(enable);
 	}
 	catch (const std::exception& e)
 	{

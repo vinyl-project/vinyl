@@ -136,8 +136,8 @@ namespace vinyl
 				}
 				else
 				{
-					*event.w = GetSystemMetrics(SM_CXFULLSCREEN);
-					*event.h = GetSystemMetrics(SM_CYFULLSCREEN);
+					*event.w = GetSystemMetrics(SM_CXSCREEN);
+					*event.h = GetSystemMetrics(SM_CYSCREEN);
 				}
 			}
 		}

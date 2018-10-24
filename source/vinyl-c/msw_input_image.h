@@ -19,17 +19,15 @@ namespace vinyl
 		protected:
 			virtual void onInputEvent(const InputEvent& event) noexcept override;
 
-		private:
-			void CaptureScreen(HWND hwnd, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* pixels) noexcept;
+			virtual void onFindColor(const ColorEvent& event) noexcept;
+			virtual void onFindColorEx(const ColorEvent& event) noexcept;
+			virtual void onFindCenterColor(const ColorEvent& event) noexcept;
+			virtual void onFindImage(const ImageEvent& event) noexcept;
+			virtual void onScreenshot(const ScreenshotEvent& event) noexcept;
 
 		private:
 			MSWInputImage(const MSWInputImage&) noexcept = delete;
 			MSWInputImage& operator=(const MSWInputImage&) noexcept = delete;
-
-		private:
-			std::uint32_t width_;
-			std::uint32_t height_;
-			std::vector<std::uint8_t> pixels_;
 		};
 	}
 }

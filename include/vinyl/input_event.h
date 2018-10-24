@@ -92,6 +92,9 @@ namespace vinyl
 			std::uint8_t b;
 			std::uint16_t* x;
 			std::uint16_t* y;
+			std::uint16_t w;
+			std::uint16_t h;
+			const std::uint8_t* pixels;
 		};
 
 		struct ImageEvent
@@ -99,9 +102,12 @@ namespace vinyl
 			std::uint32_t color;
 			std::uint32_t w;
 			std::uint32_t h;
+			std::uint32_t w2;
+			std::uint32_t h2;
 			std::uint16_t* x;
 			std::uint16_t* y;
 			const std::uint8_t* pixels;
+			const std::uint8_t* pattern;
 		};
 
 		struct SleepEvent
@@ -194,7 +200,6 @@ namespace vinyl
 
 				Sleep,
 				Alert,
-				TracePrint,
 				Command,
 				SayString,
 
@@ -267,19 +272,18 @@ namespace vinyl
 			static InputEvent makeSleep(std::uint32_t milliseconds) noexcept;
 			static InputEvent makeMessageBox(WindHandle win, const char* message) noexcept;
 			static InputEvent makeSayString(WindHandle win, const char* message) noexcept;
-			static InputEvent makeTracePrint(std::uint8_t enable) noexcept;
 			static InputEvent makeCommand(const char* message) noexcept;
-
-			static InputEvent makeFindColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
-			static InputEvent makeFindColorEx(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
-			static InputEvent makeFindCenterColor(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
-			static InputEvent makeFindImage(std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint16_t& x, std::uint16_t& y) noexcept;
 
 			static InputEvent makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept;
 			static InputEvent makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept;
 			static InputEvent makeFindWindowFromClassName(const char* classname, WindHandle& win) noexcept;
 
-			static InputEvent makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* data) noexcept;
+			static InputEvent makeScreenshot(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t w, std::uint32_t h, std::uint8_t* image) noexcept;
+
+			static InputEvent makeFindColor(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeFindColorEx(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeFindCenterColor(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeFindImage(const std::uint8_t* image, std::uint16_t w, std::uint16_t h, const std::uint8_t* pattern, std::uint16_t w_, std::uint16_t h_, std::uint16_t& x, std::uint16_t& y) noexcept;
 
 			static InputEvent makeStartRecord(const char* filepath) noexcept;
 			static InputEvent makePauseRecord() noexcept;

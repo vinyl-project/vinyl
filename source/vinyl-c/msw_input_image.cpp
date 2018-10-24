@@ -19,43 +19,6 @@ namespace vinyl
 			return std::make_shared<MSWInputImage>();
 		}
 
-		void
-		MSWInputImage::onInputEvent(const InputEvent& event) noexcept
-		{
-			switch (event.event)
-			{
-			case InputEvent::FindColor:
-			{
-				this->onFindColor(event.color);
-			}
-			break;
-			case InputEvent::FindColorEx:
-			{
-				this->onFindColorEx(event.color);
-			}
-			break;
-			case InputEvent::FindCenterColor:
-			{
-				this->onFindCenterColor(event.color);
-			}
-			break;
-			case InputEvent::FindPic:
-			{
-				this->onFindImage(event.image);
-			}
-			break;
-			case InputEvent::Screenshot:
-			{
-				this->onScreenshot(event.shot);
-			}
-			break;
-			default:
-				break;
-			}
-
-			return;
-		}
-
 		void 
 		MSWInputImage::onFindColor(const ColorEvent& event) noexcept
 		{
@@ -125,9 +88,9 @@ namespace vinyl
 					}
 				}
 
-				for (std::int16_t x = 0; x < event.w - event.w2; x++)
+				for (std::uint16_t x = 0; x < event.w - event.w2; x++)
 				{
-					for (std::int16_t y = 0; y < event.h - event.h2; y++)
+					for (std::uint16_t y = 0; y < event.h - event.h2; y++)
 					{
 						std::uint32_t srcGray = 0;
 

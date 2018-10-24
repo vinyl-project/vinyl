@@ -18,5 +18,93 @@ namespace vinyl
 		{
 			return std::make_shared<InputWindow>();
 		}
+
+		void
+		InputWindow::onInputEvent(const InputEvent& event) noexcept
+		{
+			switch (event.event)
+			{
+			case InputEvent::NewWindow:
+				this->onNewWindow(event.handle);
+				break;
+			case InputEvent::FindWindowFromPos:
+				this->onFindWindowFromPos(event.handle);
+				break;
+			case InputEvent::FindWindowFromTile:
+				this->onFindWindowFromTile(event.handle);
+				break;
+			case InputEvent::FindWindowFromClassName:
+				this->onFindWindowFromClassName(event.handle);
+				break;
+			case InputEvent::GetWindowPos:
+				this->onGetWindowPos(event.pos);
+				break;
+			case InputEvent::GetWindowSize:
+				this->onGetWindowSize(event.size);
+				break;
+			case InputEvent::Alert:
+				this->onMessageBox(event.message);
+				break;
+			case InputEvent::SayString:
+				this->onSayString(event.message);
+				break;
+			case InputEvent::Sleep:
+				this->onSleep(event.sleep);
+				break;
+			case InputEvent::Command:
+				this->onCommand(event.message);
+				break;
+			}
+		}
+
+		void
+		InputWindow::onNewWindow(const FindWindowEvent& event) noexcept
+		{			
+		}
+
+		void
+		InputWindow::onFindWindowFromPos(const FindWindowEvent& event) noexcept
+		{			
+		}
+
+		void
+		InputWindow::onFindWindowFromTile(const FindWindowEvent& event) noexcept
+		{			
+		}
+
+		void
+		InputWindow::onFindWindowFromClassName(const FindWindowEvent& event) noexcept
+		{			
+		}
+
+		void
+		InputWindow::onGetWindowPos(const PosEvent& event) noexcept
+		{			
+		}
+
+		void
+		InputWindow::onGetWindowSize(const SizeEvent& event) noexcept
+		{			
+		}
+
+		void
+		InputWindow::onMessageBox(const MessageEvent& event) noexcept
+		{			
+		}
+
+		void
+		InputWindow::onSayString(const MessageEvent& event) noexcept
+		{			
+		}
+
+		void 
+		InputWindow::onSleep(const SleepEvent& event) noexcept
+		{
+		}
+
+		void
+		InputWindow::onCommand(const MessageEvent& event) noexcept
+		{			
+		}
 	}
 }

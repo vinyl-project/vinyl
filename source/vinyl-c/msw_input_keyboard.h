@@ -17,10 +17,16 @@ namespace vinyl
 			virtual IInputControllerPtr clone() const noexcept override;
 
 		private:
-			virtual void onActivate() noexcept;
-			virtual void onDeactivate() noexcept;
+			virtual void onActivate() noexcept override;
+			virtual void onDeactivate() noexcept override;
 
-			virtual void onInputEvent(const InputEvent& event) noexcept;
+			virtual void onKeyDown(const KeyboardEvent& event) noexcept override;
+			virtual void onKeyUp(const KeyboardEvent& event) noexcept override;
+
+			virtual void onIsKeyDown(const KeyboardEvent& event) noexcept override;
+			virtual void onIsKeyUp(const KeyboardEvent& event) noexcept override;
+
+			virtual void onWaitKey(const WaitKeyEvent& event) noexcept override;
 
 		private:
 			static LRESULT KeybdProc(int code, WPARAM wParam, LPARAM lParam) noexcept;

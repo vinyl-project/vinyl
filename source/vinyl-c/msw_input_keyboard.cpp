@@ -298,75 +298,6 @@ namespace vinyl
 			}*/
 		}
 
-		void
-		MSWInputKeyboard::onInputEvent(const InputEvent& event) noexcept
-		{
-			switch (event.event)
-			{
-			case InputEvent::KeyDown:
-			{
-				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
-				keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), 0, 0);
-				Sleep(event.key.delay);
-			}
-			break;
-			case InputEvent::KeyUp:
-			{
-				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
-				keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), KEYEVENTF_KEYUP, 0);
-				Sleep(event.key.delay);
-			}
-			break;
-			case InputEvent::IsKeyDown:
-			{
-				if (event.key.state)
-				{
-					auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
-					*event.key.state = GetAsyncKeyState(vkey) & 0x8000 ? true : false;
-				}
-			}
-			break;
-			case InputEvent::IsKeyUp:
-			{
-				if (event.key.state)
-				{
-					auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.key.keysym.sym);
-					*event.key.state = GetAsyncKeyState(vkey) & 0x8000 ? false : true;
-				}
-			}
-			break;
-			case InputEvent::WaitKey:
-			{
-				*event.waitKey.key = InputKey::Code::None;
-
-				while (*event.waitKey.key == InputKey::Code::None)
-				{
-					for (std::size_t i = 0x08; i < 0xFF; i++)
-					{
-						if (GetAsyncKeyState(i) & 0x8000)
-						{
-							*event.waitKey.key = VirtualKeyToScanCode(i);
-							if (event.waitKey.windowID > 0)
-							{
-								if (event.waitKey.windowID == (std::uint64_t)GetForegroundWindow())
-									break;
-							}
-							else
-							{
-								break;
-							}
-						}
-					}
-
-					Sleep(event.waitKey.delay);
-				}
-			}
-			break;
-			default:
-				break;
-			}
-		}
-
 		IInputControllerPtr
 		MSWInputKeyboard::clone() const noexcept
 		{
@@ -392,6 +323,70 @@ namespace vinyl
 			}
 
 			return ::CallNextHookEx(hook_, code, wParam, lParam);
+		}
+
+		void
+		MSWInputKeyboard::onKeyDown(const KeyboardEvent& event) noexcept
+		{
+			auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.keysym.sym);
+			keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), 0, 0);
+			Sleep(event.delay);
+		}
+
+		void
+		MSWInputKeyboard::onKeyUp(const KeyboardEvent& event) noexcept
+		{
+			auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.keysym.sym);
+			keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), KEYEVENTF_KEYUP, 0);
+			Sleep(event.delay);
+		}
+
+		void
+		MSWInputKeyboard::onIsKeyDown(const KeyboardEvent& event) noexcept
+		{
+			if (event.state)
+			{
+				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.keysym.sym);
+				*event.state = GetAsyncKeyState(vkey) & 0x8000 ? true : false;
+			}
+		}
+
+		void
+		MSWInputKeyboard::onIsKeyUp(const KeyboardEvent& event) noexcept
+		{
+			if (event.state)
+			{
+				auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.keysym.sym);
+				*event.state = GetAsyncKeyState(vkey) & 0x8000 ? false : true;
+			}
+		}
+
+		void
+		MSWInputKeyboard::onWaitKey(const WaitKeyEvent& event) noexcept
+		{
+			*event.key = InputKey::Code::None;
+
+			while (*event.key == InputKey::Code::None)
+			{
+				for (std::size_t i = 0x08; i < 0xFF; i++)
+				{
+					if (GetAsyncKeyState(i) & 0x8000)
+					{
+						*event.key = VirtualKeyToScanCode(i);
+						if (event.windowID > 0)
+						{
+							if (event.windowID == (std::uint64_t)GetForegroundWindow())
+								break;
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+
+				Sleep(event.delay);
+			}
 		}
 	}
 }

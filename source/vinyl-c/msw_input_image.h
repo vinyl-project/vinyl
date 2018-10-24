@@ -2,7 +2,6 @@
 #define VINYL_MSW_INPUT_IMAGE_H_
 
 #include <vinyl/input_image.h>
-#include <vector>
 
 namespace vinyl
 {
@@ -17,13 +16,12 @@ namespace vinyl
 			virtual IInputControllerPtr clone() const noexcept;
 
 		protected:
-			virtual void onInputEvent(const InputEvent& event) noexcept override;
+			virtual void onFindColor(const ColorEvent& event) noexcept override;
+			virtual void onFindColorEx(const ColorEvent& event) noexcept override;
+			virtual void onFindCenterColor(const ColorEvent& event) noexcept override;
+			virtual void onFindImage(const ImageEvent& event) noexcept override;
 
-			virtual void onFindColor(const ColorEvent& event) noexcept;
-			virtual void onFindColorEx(const ColorEvent& event) noexcept;
-			virtual void onFindCenterColor(const ColorEvent& event) noexcept;
-			virtual void onFindImage(const ImageEvent& event) noexcept;
-			virtual void onScreenshot(const ScreenshotEvent& event) noexcept;
+			virtual void onScreenshot(const ScreenshotEvent& event) noexcept override;
 
 		private:
 			MSWInputImage(const MSWInputImage&) noexcept = delete;

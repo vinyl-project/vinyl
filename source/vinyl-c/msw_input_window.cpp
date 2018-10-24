@@ -20,110 +20,81 @@ namespace vinyl
 			return std::make_shared<MSWInputWindow>();
 		}
 
-		void
-		MSWInputWindow::onInputEvent(const InputEvent& event) noexcept
+		void 
+		MSWInputWindow::onNewWindow(const FindWindowEvent& event) noexcept
 		{
-			switch (event.event)
-			{
-			case InputEvent::NewWindow:
-			{
-				STARTUPINFO si;
-				PROCESS_INFORMATION pi;
-				ZeroMemory(&si, sizeof(si));
-				si.cb = sizeof(si);
+			STARTUPINFO si;
+			PROCESS_INFORMATION pi;
+			ZeroMemory(&si, sizeof(si));
+			si.cb = sizeof(si);
 
-				if (CreateProcess(0, (LPSTR)event.handle.str, 0, 0, 0, 0, 0, 0, &si, &pi))
+			if (CreateProcess(0, (LPSTR)event.str, 0, 0, 0, 0, 0, 0, &si, &pi))
+			{
+				auto EnumWindowsProc = [](HWND hwnd, LPARAM lParam) -> BOOL
 				{
-					auto EnumWindowsProc = [](HWND hwnd, LPARAM lParam) -> BOOL
+					DWORD dwCurProcessId = *((DWORD*)lParam);
+					DWORD dwProcessId = 0;
+					GetWindowThreadProcessId(hwnd, &dwProcessId);
+
+					if (dwProcessId == dwCurProcessId && GetParent(hwnd) == NULL)
 					{
-						DWORD dwCurProcessId = *((DWORD*)lParam);
-						DWORD dwProcessId = 0;
-						GetWindowThreadProcessId(hwnd, &dwProcessId);
-
-						if (dwProcessId == dwCurProcessId && GetParent(hwnd) == NULL)
-						{
-							*((HWND *)lParam) = hwnd;
-							return FALSE;
-						}
-
-						return TRUE;
-					};
-
-					for (int time = 0; time < 5000; time += 100)
-					{
-						if (!EnumWindows(EnumWindowsProc, (LPARAM)&pi.dwProcessId))
-							*event.handle.windowID = (WindHandle)pi.dwProcessId;
-						else
-							*event.handle.windowID = nullptr;
-
-						if (*event.handle.windowID)
-							break;
-
-						Sleep(100);
+						*((HWND *)lParam) = hwnd;
+						return FALSE;
 					}
+
+					return TRUE;
+				};
+
+				for (int time = 0; time < 5000; time += 100)
+				{
+					if (!EnumWindows(EnumWindowsProc, (LPARAM)&pi.dwProcessId))
+						*event.windowID = (WindHandle)pi.dwProcessId;
+					else
+						*event.windowID = nullptr;
+
+					if (*event.windowID)
+						break;
+
+					Sleep(100);
 				}
 			}
-			break;
-			case InputEvent::FindWindowFromPos:
-			{
-				POINT pt;
-				pt.x = event.handle.x;
-				pt.y = event.handle.y;
+		}
 
-				*event.handle.windowID = WindowFromPoint(pt);
-			}
-			break;
-			case InputEvent::FindWindowFromTile:
-			{
-				constexpr std::size_t PATHLIMITS = 4096;
+		void
+		MSWInputWindow::onFindWindowFromPos(const FindWindowEvent& event) noexcept
+		{			
+			POINT pt;
+			pt.x = event.x;
+			pt.y = event.y;
 
-				int size = MultiByteToWideChar(CP_UTF8, 0, event.handle.str, -1, 0, 0) + 1;
-				if (size > 1 && size < PATHLIMITS)
-				{
-					wchar_t buffer[PATHLIMITS];
-					if (MultiByteToWideChar(CP_UTF8, 0, event.handle.str, -1, buffer, size) > 0)
-						*event.handle.windowID = FindWindowW(nullptr, buffer);
-				}				
-			}
-			break;
-			case InputEvent::FindWindowFromClassName:
-			{
-				constexpr std::size_t PATHLIMITS = 4096;
+			*event.windowID = WindowFromPoint(pt);
+		}
 
-				int size = MultiByteToWideChar(CP_UTF8, 0, event.handle.str, -1, 0, 0) + 1;
-				if (size > 1 && size < PATHLIMITS)
-				{
-					wchar_t buffer[PATHLIMITS];
-					if (MultiByteToWideChar(CP_UTF8, 0, event.handle.str, -1, buffer, size) > 0)
-						*event.handle.windowID = FindWindowW(buffer, nullptr);
-				}
-			}
-			break;
-			case InputEvent::GetWindowPos:
-				this->onGetWindowPos(event.pos);
-				break;
-			case InputEvent::GetWindowSize:
-				this->onGetWindowSize(event.size);
-				break;
-			case InputEvent::Alert:
-				this->onMessageBox(event.message);
-				break;
-			case InputEvent::SayString:
-				this->onSayString(event.message);
-				break;
-			case InputEvent::Sleep:
-				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(event.sleep.milliseconds));
-				break;
-			case InputEvent::Command:
+		void
+		MSWInputWindow::onFindWindowFromTile(const FindWindowEvent& event) noexcept
+		{
+			constexpr std::size_t PATHLIMITS = 4096;
+
+			int size = MultiByteToWideChar(CP_UTF8, 0, event.str, -1, 0, 0) + 1;
+			if (size > 1 && size < PATHLIMITS)
 			{
-				if (event.message.message)
-				{
-					std::string str = event.message.message;
-					std::thread thread([=]() {std::system(str.c_str()); });
-					thread.detach();
-				}
+				wchar_t buffer[PATHLIMITS];
+				if (MultiByteToWideChar(CP_UTF8, 0, event.str, -1, buffer, size) > 0)
+					*event.windowID = FindWindowW(nullptr, buffer);
 			}
-			break;
+		}
+
+		void
+		MSWInputWindow::onFindWindowFromClassName(const FindWindowEvent& event) noexcept
+		{
+			constexpr std::size_t PATHLIMITS = 4096;
+
+			int size = MultiByteToWideChar(CP_UTF8, 0, event.str, -1, 0, 0) + 1;
+			if (size > 1 && size < PATHLIMITS)
+			{
+				wchar_t buffer[PATHLIMITS];
+				if (MultiByteToWideChar(CP_UTF8, 0, event.str, -1, buffer, size) > 0)
+					*event.windowID = FindWindowW(buffer, nullptr);
 			}
 		}
 
@@ -221,6 +192,23 @@ namespace vinyl
 						}
 					}
 				}
+			}
+		}
+
+		void 
+		MSWInputWindow::onSleep(const SleepEvent& event) noexcept
+		{
+			std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(event.milliseconds));
+		}
+
+		void 
+		MSWInputWindow::onCommand(const MessageEvent& event) noexcept
+		{
+			if (event.message)
+			{
+				std::string str = event.message;
+				std::thread thread([=]() {std::system(str.c_str()); });
+				thread.detach();
 			}
 		}
 	}

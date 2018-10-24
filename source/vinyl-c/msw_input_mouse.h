@@ -11,7 +11,6 @@ namespace vinyl
 		{
 		public:
 			MSWInputMouse() noexcept;
-			MSWInputMouse(WindHandle window) noexcept;
 			~MSWInputMouse() noexcept;
 
 			virtual IInputControllerPtr clone() const noexcept override;
@@ -22,10 +21,6 @@ namespace vinyl
 		private:
 			MSWInputMouse(const MSWInputMouse&) = delete;
 			MSWInputMouse& operator=(const MSWInputMouse&) = delete;
-
-		private:
-			bool focusWindow_;
-			WindHandle window_;
 		};
 	}
 }

@@ -8,14 +8,6 @@ namespace vinyl
 		#define KEYUP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
 
 		MSWInputMouse::MSWInputMouse() noexcept
-			: focusWindow_(false)
-			, window_(0)
-		{
-		}
-
-		MSWInputMouse::MSWInputMouse(WindHandle window) noexcept
-			: focusWindow_(false)
-			, window_(window)
 		{
 		}
 
@@ -255,18 +247,6 @@ namespace vinyl
 						*event.pos.y = std::numeric_limits<std::uint16_t>::max();
 					}
 				}
-			}
-			break;
-			case InputEvent::ObtainCapture:
-			{
-				window_ = (WindHandle)event.window.windowID;
-				focusWindow_ = true;
-			}
-			break;
-			case InputEvent::LostCapture:
-			{
-				window_ = (WindHandle)event.window.windowID;
-				focusWindow_ = false;
 			}
 			break;
 			default:

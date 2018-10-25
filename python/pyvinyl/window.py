@@ -1,5 +1,7 @@
 import pyvinyl
 import pyvinyl.vinyl
+from pyvinyl.mouse import ButtonCode
+from pyvinyl.keyboard import KeyCode
 
 class Window():
 	def __init__(self, handle):
@@ -47,8 +49,12 @@ class Window():
 		pyvinyl.vinyl.mouse_move_to(self.win, x, y)
 
 	def wait_key(self, code):
-		while(is_key_up(self.win, code)):
-			pass
+		if (type(code) == KeyCode):
+			while(pyvinyl.vinyl.is_key_up(self.win, code)):
+				pass
+		elif (type(code) == str):
+			while(pyvinyl.vinyl.is_key_up(self.win, KeyCode[code].value)):
+				pass
 
 	def is_key_up(self, code):
 		result = False

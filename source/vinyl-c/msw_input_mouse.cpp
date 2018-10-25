@@ -1,4 +1,5 @@
 #include "msw_input_mouse.h"
+#include <algorithm>
 
 namespace vinyl
 {
@@ -37,7 +38,12 @@ namespace vinyl
 				pt.y = event.motion.y;
 
 				if (event.motion.windowID)
-					ScreenToClient((HWND)event.motion.windowID, &pt);
+				{
+					RECT rc;
+					GetWindowRect((HWND)event.motion.windowID, &rc);
+					pt.x = std::min(rc.left + pt.x, rc.right);
+					pt.y = std::min(rc.top + pt.y, rc.bottom);
+				}
 
 				SetCursorPos(pt.x, pt.y);
 				Sleep(event.motion.delay);

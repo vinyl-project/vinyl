@@ -48,7 +48,7 @@ namespace vinyl
 				for (int time = 0; time < 5000; time += 100)
 				{
 					if (!EnumWindows(EnumWindowsProc, (LPARAM)&pi.dwProcessId))
-						*event.windowID = (WindHandle)pi.dwProcessId;
+						*event.windowID = (WindHandle)(*(HWND **)&pi.dwProcessId);
 					else
 						*event.windowID = nullptr;
 

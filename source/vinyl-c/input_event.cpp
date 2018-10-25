@@ -211,12 +211,12 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseMove(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseMove(WindHandle win, std::int32_t x, std::int32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMove;
-			event.motion.x = (std::uint32_t)x;
-			event.motion.y = (std::uint32_t)y;
+			event.motion.x = x;
+			event.motion.y = y;
 			event.motion.state = false;
 			event.motion.windowID = (std::uint64_t)win;
 			event.motion.delay = delay;

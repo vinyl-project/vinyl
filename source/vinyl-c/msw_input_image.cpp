@@ -130,7 +130,7 @@ namespace vinyl
 			HDC hdc2 = CreateCompatibleDC(hdc1);
 
 			RECT rect;
-			GetClientRect(hwnd, &rect);
+			GetWindowRect(hwnd, &rect);
 
 			rect.left = std::max<LONG>(event.x, rect.left);
 			rect.top = std::max<LONG>(event.y, rect.top);

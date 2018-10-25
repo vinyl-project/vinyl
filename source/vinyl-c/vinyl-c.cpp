@@ -123,7 +123,7 @@ void VINYL_C_CALL VinylIsKeyUp(vinyl::input::WindHandle win, vinyl::input::Input
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMouseMove(vinyl::input::WindHandle win, std::uint32_t x, std::uint32_t y) noexcept(false)
+void VINYL_C_CALL VinylMouseMove(vinyl::input::WindHandle win, std::int32_t x, std::int32_t y) noexcept(false)
 {
 	assert(input_);
 

@@ -42,8 +42,8 @@ namespace vinyl
 		{
 			std::uint64_t windowID;
 			std::uint8_t state;
-			std::uint32_t x;
-			std::uint32_t y;
+			std::int32_t x;
+			std::int32_t y;
 			std::uint32_t delay;
 		};
 
@@ -256,7 +256,7 @@ namespace vinyl
 
 			static InputEvent makeMouseButtonDown(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseButtonUp(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseMove(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseMove(WindHandle win, std::int32_t x, std::int32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseMoveTo(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelUp(WindHandle win, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelDown(WindHandle win, std::uint32_t delay = 10) noexcept;

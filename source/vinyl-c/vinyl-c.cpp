@@ -133,7 +133,7 @@ void VINYL_C_CALL VinylMouseMove(vinyl::input::WindHandle win, std::int32_t x, s
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylMouseMoveTo(vinyl::input::WindHandle win, std::uint32_t x, std::uint32_t y) noexcept(false)
+void VINYL_C_CALL VinylMouseMoveTo(vinyl::input::WindHandle win, std::int32_t x, std::int32_t y) noexcept(false)
 {
 	assert(input_);
 
@@ -234,7 +234,7 @@ void VINYL_C_CALL VinylWheelDown(vinyl::input::WindHandle win) noexcept(false)
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylGetMousePos(vinyl::input::WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept(false)
+void VINYL_C_CALL VinylGetMousePos(vinyl::input::WindHandle win, std::int16_t& x, std::int16_t& y) noexcept(false)
 {
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeGetMousePos(win, x, y));

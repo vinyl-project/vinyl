@@ -69,8 +69,8 @@ namespace vinyl
 		struct PosEvent
 		{
 			std::uint64_t windowID;
-			std::uint16_t* x;
-			std::uint16_t* y;
+			std::int16_t* x;
+			std::int16_t* y;
 		};
 
 		struct SizeEvent
@@ -257,7 +257,7 @@ namespace vinyl
 			static InputEvent makeMouseButtonDown(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseButtonUp(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseMove(WindHandle win, std::int32_t x, std::int32_t y, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeMouseMoveTo(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeMouseMoveTo(WindHandle win, std::int32_t x, std::int32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelUp(WindHandle win, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseWheelDown(WindHandle win, std::uint32_t delay = 10) noexcept;
 
@@ -269,7 +269,7 @@ namespace vinyl
 			static InputEvent makeIsMouseButtonDown(WindHandle win, InputButton::Code key, std::uint8_t& state) noexcept;
 			static InputEvent makeIsMouseButtonUp(WindHandle win, InputButton::Code key, std::uint8_t& state) noexcept;
 
-			static InputEvent makeGetMousePos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept;
+			static InputEvent makeGetMousePos(WindHandle win, std::int16_t& x, std::int16_t& y) noexcept;
 
 			static InputEvent makeGetWindowPos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeGetWindowSize(WindHandle win, std::uint16_t& w, std::uint16_t& h) noexcept;

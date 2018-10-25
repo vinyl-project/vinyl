@@ -224,12 +224,12 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeMouseMoveTo(WindHandle win, std::uint32_t x, std::uint32_t y, std::uint32_t delay) noexcept
+		InputEvent::makeMouseMoveTo(WindHandle win, std::int32_t x, std::int32_t y, std::uint32_t delay) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::MouseMoveTo;
-			event.motion.x = (std::uint32_t)x;
-			event.motion.y = (std::uint32_t)y;
+			event.motion.x = x;
+			event.motion.y = y;
 			event.motion.state = false;
 			event.motion.windowID = (std::uint64_t)win;
 			event.motion.delay = delay;
@@ -257,7 +257,7 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeGetMousePos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept
+		InputEvent::makeGetMousePos(WindHandle win, std::int16_t& x, std::int16_t& y) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::GetMousePos;
@@ -273,8 +273,8 @@ namespace vinyl
 			InputEvent event;
 			event.event = InputEvent::GetWindowPos;
 			event.pos.windowID = (std::uint64_t)win;
-			event.pos.x = &x;
-			event.pos.y = &y;
+			event.pos.x = (std::int16_t*)&x;
+			event.pos.y = (std::int16_t*)&y;
 			return event;
 		}
 

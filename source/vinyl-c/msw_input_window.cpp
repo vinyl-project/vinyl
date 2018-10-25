@@ -172,6 +172,8 @@ namespace vinyl
 				if (event.windowID)
 				{
 					wchar_t buffer[PATHLIMITS];
+					std::memset(buffer, 0, PATHLIMITS);
+
 					GetWindowTextW((HWND)event.windowID, buffer, PATHLIMITS);
 					WideCharToMultiByte(CP_UTF8, 0, buffer, std::wcslen(buffer), (LPSTR)event.output, PATHLIMITS, 0, 0);
 				}
@@ -186,6 +188,8 @@ namespace vinyl
 				if (event.windowID)
 				{
 					wchar_t buffer[PATHLIMITS];
+					std::memset(buffer, 0, PATHLIMITS);
+
 					GetClassNameW((HWND)event.windowID, buffer, PATHLIMITS);
 					WideCharToMultiByte(CP_UTF8, 0, buffer, std::wcslen(buffer), (LPSTR)event.output, PATHLIMITS, 0, 0);
 				}

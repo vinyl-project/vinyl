@@ -10,6 +10,12 @@ class Window():
 	def size(self):
 		return pyvinyl.vinyl.get_window_size(self.win)
 	
+	def title(self):
+		return pyvinyl.vinyl.get_window_title(self.win)
+
+	def classname(self):
+		return pyvinyl.vinyl.get_window_classname(self.win)
+
 	def screenshot(self, x, y, w, h):
 		image = pyvinyl.vinyl.screenshot(self.win, x, y, w, h)
 		return image[:,:,::-1]
@@ -312,8 +318,8 @@ def window_from_pos(x=None, y=None):
 
 	return pyvinyl.Window(win)
 
-def window_from_tile(tile):
-	win = pyvinyl.vinyl.find_window_from_tile(tile);
+def window_from_title(tile):
+	win = pyvinyl.vinyl.find_window_from_title(tile);
 	if win == None:
 		return None;
 

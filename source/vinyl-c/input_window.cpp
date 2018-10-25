@@ -30,8 +30,8 @@ namespace vinyl
 			case InputEvent::FindWindowFromPos:
 				this->onFindWindowFromPos(event.handle);
 				break;
-			case InputEvent::FindWindowFromTile:
-				this->onFindWindowFromTile(event.handle);
+			case InputEvent::FindWindowFromTitle:
+				this->onFindWindowFromTitle(event.handle);
 				break;
 			case InputEvent::FindWindowFromClassName:
 				this->onFindWindowFromClassName(event.handle);
@@ -41,6 +41,12 @@ namespace vinyl
 				break;
 			case InputEvent::GetWindowSize:
 				this->onGetWindowSize(event.size);
+				break;
+			case InputEvent::GetWindowTitle:
+				this->onGetWindowTitle(event.window);
+				break;
+			case InputEvent::GetWindowClassName:
+				this->onGetWindowClassName(event.window);
 				break;
 			case InputEvent::Alert:
 				this->onMessageBox(event.message);
@@ -68,7 +74,7 @@ namespace vinyl
 		}
 
 		void
-		InputWindow::onFindWindowFromTile(const FindWindowEvent& event) noexcept
+		InputWindow::onFindWindowFromTitle(const FindWindowEvent& event) noexcept
 		{			
 		}
 
@@ -85,6 +91,16 @@ namespace vinyl
 		void
 		InputWindow::onGetWindowSize(const SizeEvent& event) noexcept
 		{			
+		}
+
+		void 
+		InputWindow::onGetWindowTitle(const WindowEvent& event) noexcept
+		{
+		}
+
+		void 
+		InputWindow::onGetWindowClassName(const WindowEvent& event) noexcept
+		{
 		}
 
 		void

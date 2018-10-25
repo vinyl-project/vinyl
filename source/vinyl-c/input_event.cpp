@@ -28,10 +28,10 @@ namespace vinyl
 		}
 
 		InputEvent 
-		InputEvent::makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept
+		InputEvent::makeFindWindowFromTitle(const char* tile, WindHandle& win) noexcept
 		{
 			InputEvent event;
-			event.event = InputEvent::FindWindowFromTile;
+			event.event = InputEvent::FindWindowFromTitle;
 			event.handle.x = 0;
 			event.handle.y = 0;
 			event.handle.str = tile;
@@ -286,6 +286,26 @@ namespace vinyl
 			event.size.windowID = (std::uint64_t)win;
 			event.size.w = &w;
 			event.size.h = &h;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeGetWindowTitle(WindHandle win, char* output) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::GetWindowTitle;
+			event.window.windowID = (std::uint64_t)win;
+			event.window.output = output;
+			return event;
+		}
+
+		InputEvent 
+		InputEvent::makeGetWindowClassName(WindHandle win, char* output) noexcept
+		{
+			InputEvent event;
+			event.event = InputEvent::GetWindowClassName;
+			event.window.windowID = (std::uint64_t)win;
+			event.window.output = output;
 			return event;
 		}
 

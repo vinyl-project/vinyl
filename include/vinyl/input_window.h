@@ -21,11 +21,13 @@ namespace vinyl
 			virtual void onNewWindow(const FindWindowEvent& event) noexcept;
 
 			virtual void onFindWindowFromPos(const FindWindowEvent& event) noexcept;
-			virtual void onFindWindowFromTile(const FindWindowEvent& event) noexcept;
+			virtual void onFindWindowFromTitle(const FindWindowEvent& event) noexcept;
 			virtual void onFindWindowFromClassName(const FindWindowEvent& event) noexcept;
 
 			virtual void onGetWindowPos(const PosEvent& event) noexcept;
 			virtual void onGetWindowSize(const SizeEvent& event) noexcept;
+			virtual void onGetWindowTitle(const WindowEvent& event) noexcept;
+			virtual void onGetWindowClassName(const WindowEvent& event) noexcept;
 
 			virtual void onMessageBox(const MessageEvent& event) noexcept;
 			virtual void onSayString(const MessageEvent& event) noexcept;

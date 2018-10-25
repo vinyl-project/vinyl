@@ -36,10 +36,10 @@ void VINYL_C_CALL VinylFindWindowFromPos(std::uint16_t x, std::uint16_t y, vinyl
 		throw std::runtime_error("Vinyl does not initialized.");
 }
 
-void VINYL_C_CALL VinylFindWindowFromTile(const char* tile, vinyl::input::WindHandle& win) noexcept(false)
+void VINYL_C_CALL VinylFindWindowFromTitle(const char* tile, vinyl::input::WindHandle& win) noexcept(false)
 {
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeFindWindowFromTile(tile, win));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeFindWindowFromTitle(tile, win));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -254,6 +254,22 @@ void VINYL_C_CALL VinylGetWindowSize(vinyl::input::WindHandle win, std::uint16_t
 {
 	if (input_)
 		input_->sendInputEvent(vinyl::input::InputEvent::makeGetWindowSize(win, w, h));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
+void VINYL_C_CALL VinylGetWindowTitle(vinyl::input::WindHandle win, char* title) noexcept(false)
+{
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeGetWindowTitle(win, title));
+	else
+		throw std::runtime_error("Vinyl does not initialized.");
+}
+
+void VINYL_C_CALL VinylGetWindowClassName(vinyl::input::WindHandle win, char* classname) noexcept(false)
+{
+	if (input_)
+		input_->sendInputEvent(vinyl::input::InputEvent::makeGetWindowClassName(win, classname));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }

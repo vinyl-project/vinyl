@@ -38,6 +38,8 @@ PyObject* vinyl_is_mouse_button_up(PyObject* self, PyObject* args);
 
 PyObject* vinyl_get_mouse_pos(PyObject* self, PyObject* args);
 PyObject* vinyl_get_window_size(PyObject* self, PyObject* args);
+PyObject* vinyl_get_window_title(PyObject* self, PyObject* args);
+PyObject* vinyl_get_window_classname(PyObject* self, PyObject* args);
 
 PyObject* vinyl_message_box(PyObject* self, PyObject* args);
 PyObject* vinyl_say_string(PyObject* self, PyObject* args);
@@ -70,6 +72,8 @@ static PyMethodDef VinylMethods[] = {
 	{ "mouse_move", vinyl_mouse_move, METH_VARARGS, "A function that controls mouse to relative move." },
 	{ "mouse_wheel", vinyl_mouse_wheel, METH_VARARGS, "A function that controls mouse wheel." },
 	{ "get_window_size", vinyl_get_window_size, METH_VARARGS, "A function that gets size of desktop." },
+	{ "get_window_title", vinyl_get_window_title, METH_VARARGS, "A function that gets title of window." },
+	{ "get_window_classname", vinyl_get_window_classname, METH_VARARGS, "A function that gets class name of window." },
 	{ "get_mouse_pos", vinyl_get_mouse_pos, METH_VARARGS, "A function that gets position of mouse." },
 	{ "is_key_down", vinyl_is_key_down, METH_VARARGS, "A function that gets key state." },
 	{ "is_key_up", vinyl_is_key_up, METH_VARARGS, "A function that gets key state." },
@@ -192,7 +196,7 @@ PyObject* vinyl_find_window_from_tile(PyObject* self, PyObject* args)
 	try
 	{
 		vinyl::input::WindHandle win = nullptr;
-		VinylFindWindowFromTile(tile, win);
+		VinylFindWindowFromTitle(tile, win);
 
 		if (win)
 			return PyLong_FromVoidPtr(win);
@@ -589,6 +593,54 @@ PyObject* vinyl_get_window_size(PyObject* self, PyObject* args)
 			}
 
 			return size_tuple;
+		}
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_get_window_title(PyObject* self, PyObject* args)
+{
+	PyObject* win = nullptr;
+	if (!(PyArg_ParseTuple(args, "O", &win)))
+		Py_RETURN_NONE;
+
+	try
+	{
+		if (win)
+		{
+			char buffer[4096];
+			VinylGetWindowTitle(PyLong_AsVoidPtr(win), buffer);
+			
+			return PyUnicode_FromString(buffer);
+		}
+	}
+	catch (const std::exception& e)
+	{
+		PyErr_SetString(StdErrorObj, e.what());
+	}
+
+	Py_RETURN_NONE;
+}
+
+PyObject* vinyl_get_window_classname(PyObject* self, PyObject* args)
+{
+	PyObject* win = nullptr;
+	if (!(PyArg_ParseTuple(args, "O", &win)))
+		Py_RETURN_NONE;
+
+	try
+	{
+		if (win)
+		{
+			char buffer[4096];
+			VinylGetWindowClassName(PyLong_AsVoidPtr(win), buffer);
+
+			return PyUnicode_FromString(buffer);
 		}
 	}
 	catch (const std::exception& e)

@@ -19,11 +19,13 @@ namespace vinyl
 			virtual void onNewWindow(const FindWindowEvent& event) noexcept override;
 
 			virtual void onFindWindowFromPos(const FindWindowEvent& event) noexcept override;
-			virtual void onFindWindowFromTile(const FindWindowEvent& event) noexcept override;
+			virtual void onFindWindowFromTitle(const FindWindowEvent& event) noexcept override;
 			virtual void onFindWindowFromClassName(const FindWindowEvent& event) noexcept override;
 
 			virtual void onGetWindowPos(const PosEvent& event) noexcept override;
 			virtual void onGetWindowSize(const SizeEvent& event) noexcept override;
+			virtual void onGetWindowTitle(const WindowEvent& event) noexcept override;
+			virtual void onGetWindowClassName(const WindowEvent& event) noexcept override;
 
 			virtual void onMessageBox(const MessageEvent& event) noexcept override;
 			virtual void onSayString(const MessageEvent& event) noexcept override;

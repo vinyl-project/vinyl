@@ -83,6 +83,7 @@ namespace vinyl
 		struct WindowEvent
 		{
 			std::uint64_t windowID;
+			const char* output;
 		};
 
 		struct ColorEvent
@@ -192,13 +193,15 @@ namespace vinyl
 				NewWindow,
 
 				FindWindowFromPos,
-				FindWindowFromTile,
+				FindWindowFromTitle,
 				FindWindowFromClassName,
 
 				GetMousePos,
 
 				GetWindowPos,
 				GetWindowSize,
+				GetWindowTitle,
+				GetWindowClassName,
 
 				Sleep,
 				Alert,
@@ -248,7 +251,7 @@ namespace vinyl
 			static InputEvent makeNewWindow(const char* path, WindHandle& win) noexcept;
 
 			static InputEvent makeFindWindowFromPos(std::uint32_t x, std::uint32_t y, WindHandle& win) noexcept;
-			static InputEvent makeFindWindowFromTile(const char* tile, WindHandle& win) noexcept;
+			static InputEvent makeFindWindowFromTitle(const char* tile, WindHandle& win) noexcept;
 			static InputEvent makeFindWindowFromClassName(const char* classname, WindHandle& win) noexcept;
 
 			static InputEvent makeKeyDown(WindHandle win, InputKey::Code key, std::uint32_t delay = 10) noexcept;
@@ -273,6 +276,8 @@ namespace vinyl
 
 			static InputEvent makeGetWindowPos(WindHandle win, std::uint16_t& x, std::uint16_t& y) noexcept;
 			static InputEvent makeGetWindowSize(WindHandle win, std::uint16_t& w, std::uint16_t& h) noexcept;
+			static InputEvent makeGetWindowTitle(WindHandle win, char* output) noexcept;
+			static InputEvent makeGetWindowClassName(WindHandle win, char* output) noexcept;
 
 			static InputEvent makeMessageBox(WindHandle win, const char* message) noexcept;
 			static InputEvent makeSayString(WindHandle win, const char* message) noexcept;

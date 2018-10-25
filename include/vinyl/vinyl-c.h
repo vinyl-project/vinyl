@@ -33,7 +33,7 @@ VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylInit(const char* profile) 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylNewWindow(const char* path, vinyl::input::WindHandle& win) noexcept(false);
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindWindowFromPos(std::uint16_t x, std::uint16_t y, vinyl::input::WindHandle& win) noexcept(false);
-VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindWindowFromTile(const char* tile, vinyl::input::WindHandle& win) noexcept(false);
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindWindowFromTitle(const char* tile, vinyl::input::WindHandle& win) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylFindWindowFromClassName(const char* tile, vinyl::input::WindHandle& win) noexcept(false);
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylKeyDown(vinyl::input::WindHandle win, vinyl::input::InputKey::Code key) noexcept(false);
@@ -64,6 +64,8 @@ VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetMousePos(vinyl::input::
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetWindowPos(vinyl::input::WindHandle win, std::uint16_t& w, std::uint16_t& h) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetWindowSize(vinyl::input::WindHandle win, std::uint16_t& w, std::uint16_t& h) noexcept(false);
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetWindowTitle(vinyl::input::WindHandle win, char* title) noexcept(false);
+VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylGetWindowClassName(vinyl::input::WindHandle win, char* classname) noexcept(false);
 
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylMessageBox(vinyl::input::WindHandle win, const char* message) noexcept(false);
 VINYL_C_LINKAGE VINYL_C_EXPORT void VINYL_C_CALL VinylSayString(vinyl::input::WindHandle win, const char* string) noexcept(false);

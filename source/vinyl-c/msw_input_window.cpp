@@ -87,7 +87,7 @@ namespace vinyl
 		}
 
 		void
-		MSWInputWindow::onFindWindowFromTile(const FindWindowEvent& event) noexcept
+		MSWInputWindow::onFindWindowFromTitle(const FindWindowEvent& event) noexcept
 		{
 			int size = MultiByteToWideChar(CP_UTF8, 0, event.str, -1, 0, 0) + 1;
 			if (size > 1 && size < PATHLIMITS)
@@ -160,6 +160,34 @@ namespace vinyl
 				{
 					*event.w = GetSystemMetrics(SM_CXSCREEN);
 					*event.h = GetSystemMetrics(SM_CYSCREEN);
+				}
+			}
+		}
+
+		void 
+		MSWInputWindow::onGetWindowTitle(const WindowEvent& event) noexcept
+		{
+			if (event.output)
+			{
+				if (event.windowID)
+				{
+					wchar_t buffer[PATHLIMITS];
+					GetWindowTextW((HWND)event.windowID, buffer, PATHLIMITS);
+					WideCharToMultiByte(CP_UTF8, 0, buffer, std::wcslen(buffer), (LPSTR)event.output, PATHLIMITS, 0, 0);
+				}
+			}
+		}
+
+		void 
+		MSWInputWindow::onGetWindowClassName(const WindowEvent& event) noexcept
+		{
+			if (event.output)
+			{
+				if (event.windowID)
+				{
+					wchar_t buffer[PATHLIMITS];
+					GetClassNameW((HWND)event.windowID, buffer, PATHLIMITS);
+					WideCharToMultiByte(CP_UTF8, 0, buffer, std::wcslen(buffer), (LPSTR)event.output, PATHLIMITS, 0, 0);
 				}
 			}
 		}

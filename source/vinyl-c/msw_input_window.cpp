@@ -57,6 +57,9 @@ namespace vinyl
 
 					Sleep(100);
 				}
+
+				if (!*event.windowID)
+					TerminateProcess(pi.hProcess, 0);
 			}
 		}
 

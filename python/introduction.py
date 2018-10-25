@@ -73,7 +73,7 @@ while True:
 
 #结束等待
 win.say_string("\n哈哈，我太高兴了，又多了一个喜欢我的朋友，那我先来一个自我介绍吧。\n", StringDelay)
-win.say_string("我叫“按键精灵”，我的爸爸是伟大的兄弟工作组，我在网上有个家，地址是www.anjian.com，欢迎来做客哦\n", StringDelay)
+win.say_string("我叫“按键精灵”，我的爸爸是伟大的兄弟工作组，我在网上有个家，地址是www.vinyl.com，欢迎来做客哦\n", StringDelay)
 win.say_string("嗯，好像废话多了些，如果不希望我继续废话，请按一下空格（等待按空格...）\n")
 # TODO
 win.wait_key("Space")

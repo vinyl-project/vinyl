@@ -47,10 +47,6 @@ PyObject* vinyl_screenshot(PyObject* self, PyObject* args);
 PyObject* vinyl_sleep(PyObject* self, PyObject* args);
 PyObject* vinyl_command(PyObject* self, PyObject* args);
 
-PyObject* vinyl_start_record(PyObject* self, PyObject* args);
-PyObject* vinyl_pause_record(PyObject* self, PyObject* args);
-PyObject* vinyl_stop_record(PyObject* self, PyObject* args);
-
 static PyMethodDef VinylMethods[] = {
     { "init", vinyl_init, METH_VARARGS, "A function that inits vinyl."},
 	{ "new_window", vinyl_new_window, METH_VARARGS, "A function that new window by path" },
@@ -84,9 +80,6 @@ static PyMethodDef VinylMethods[] = {
 	{ "cmd", vinyl_command, METH_VARARGS, "A function that executes a command." },
 	{ "say_string", vinyl_say_string, METH_VARARGS, "A function that outputs a string." },
 	{ "screenshot", vinyl_screenshot, METH_VARARGS, "A function that captures screenshot." },
-	{ "start_record", vinyl_start_record, METH_VARARGS, "A function that start record." },
-	{ "pause_record", vinyl_pause_record, METH_VARARGS, "A function that pause record." },
-	{ "stop_record", vinyl_stop_record, METH_VARARGS, "A function that stop record." },
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
@@ -783,52 +776,6 @@ PyObject* vinyl_command(PyObject* self, PyObject* args)
 	try
 	{
 		VinylCommand(cmd);
-	}
-	catch (const std::exception& e)
-	{
-		PyErr_SetString(StdErrorObj, e.what());
-	}
-
-	Py_RETURN_NONE;
-}
-
-PyObject* vinyl_start_record(PyObject* self, PyObject* args)
-{
-	const char * path;
-	if (!(PyArg_ParseTuple(args, "s", &path)))
-		Py_RETURN_NONE;
-
-	try
-	{
-		VinylStartRecord(path);
-	}
-	catch (const std::exception& e)
-	{
-		PyErr_SetString(StdErrorObj, e.what());
-	}
-
-	Py_RETURN_NONE;
-}
-
-PyObject* vinyl_pause_record(PyObject* self, PyObject* args)
-{
-	try
-	{
-		VinylPauseRecord();
-	}
-	catch (const std::exception& e)
-	{
-		PyErr_SetString(StdErrorObj, e.what());
-	}
-
-	Py_RETURN_NONE;
-}
-
-PyObject* vinyl_stop_record(PyObject* self, PyObject* args)
-{
-	try
-	{
-		VinylStopRecord();
 	}
 	catch (const std::exception& e)
 	{

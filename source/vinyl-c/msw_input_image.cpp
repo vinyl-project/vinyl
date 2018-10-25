@@ -1,5 +1,6 @@
 #include "msw_input_image.h"
 #include <algorithm>
+#include <dxgi.h>
 
 namespace vinyl
 {

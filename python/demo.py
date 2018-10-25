@@ -4,27 +4,18 @@ import cv2
 import scipy.misc
 import time
 
-
-
-# pyvinyl.move_to(20, 20)
-
-# pyvinyl.left_double_click()
-
-# pyvinyl.message_box("123")
-
-
-def fps_test():
+def fps_test(win):
     time_start=time.time()
     frame = 0
 
     while(True):
-        screen = pyvinyl.screenshot(0,0,1024,768)
+        screen = win.screenshot(0,0,1024,768)
         frame= frame+1
         time_end=time.time()
         print(frame/(time_end - time_start))
 
-def find_color_test():
-    screen = pyvinyl.screenshot(0,0,600,600)
+def find_color_test(win):
+    screen = win.screenshot(0,0,600,600)
     print(screen.shape)
 
     numpy.savetxt('opt1.txt', screen, delimiter='\t', fmt='%s')
@@ -38,49 +29,49 @@ def find_color_test():
     len = pos[0].size
     print(len)
     while(i<len):
-        pyvinyl.move_to(pos[0][i], pos[1][i])
+        win.move_to(pos[0][i], pos[1][i])
         i=i+1
 
-
-def screenshot_test():
-    s = pyvinyl.size()
-    screen = pyvinyl.screenshot(0,0,s[0],s[1])
+def screenshot_test(win):
+    s = win.size()
+    screen = win.screenshot(0,0,s[0], s[1])
     scipy.misc.imsave('lenagray.jpg',screen)
     print(s)
 
 # pyvinyl.message_box('你好')
 
-# pyvinyl.hotkey('LeftControl', 'C')
 
-screenshot_test()
+win = pyvinyl.new_window("notepad")
+# screenshot_test(win)
+# win.hotkey('LeftControl', 'C')
 
 '''
-vinyl.left_click()
-vinyl.right_click()
-vinyl.middle_click()
+win.left_click()
+win.right_click()
+win.middle_click()
 
-vinyl.left_double_click()
+win.left_double_click()
 
-vinyl.left_down()
-vinyl.right_down()
-vinyl.middle_down()
+win.left_down()
+win.right_down()
+win.middle_down()
 
-vinyl.left_up()
-vinyl.right_up()
-vinyl.middle_up()
+win.left_up()
+win.right_up()
+win.middle_up()
 
 x = 1
 y = 1
 delta = 1
 
-vinyl.move_to(x, y)
+win.move_to(x, y)
 
-vinyl.move(x, y)
+win.move(x, y)
 
-vinyl.mouse_wheel(delta)
+win.mouse_wheel(delta)
 
 c='a'
-vinyl.key_press(c)
-vinyl.key_up(c)
-vinyl.key_down(c)
+win.key_press(c)
+win.key_up(c)
+win.key_down(c)
 '''

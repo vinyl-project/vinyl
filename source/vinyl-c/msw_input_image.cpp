@@ -125,17 +125,34 @@ namespace vinyl
 			if (!event.pixels)
 				return;
 
-			HWND hwnd = event.windowID ? (HWND)event.windowID : GetDesktopWindow();
-			HDC hdc1 = ::GetWindowDC(hwnd);
+			HDC hdc1 = ::GetWindowDC(GetDesktopWindow());
 			HDC hdc2 = CreateCompatibleDC(hdc1);
 
 			RECT rect;
-			GetWindowRect(hwnd, &rect);
+			GetWindowRect(GetDesktopWindow(), &rect);
 
-			rect.left = std::max<LONG>(event.x, rect.left);
-			rect.top = std::max<LONG>(event.y, rect.top);
-			rect.right = std::min<LONG>(event.x + event.w, rect.right);
-			rect.bottom = std::min<LONG>(event.y + event.h, rect.bottom);
+			if (event.windowID)
+			{
+				RECT rc;
+				GetWindowRect((HWND)event.windowID, &rc);
+
+				rect.left = std::max<LONG>(rc.left, rect.left);
+				rect.top = std::max<LONG>(rc.top, rect.top);
+				rect.right = std::min<LONG>(rc.right, rect.right);
+				rect.bottom = std::min<LONG>(rc.bottom, rect.bottom);
+
+				rect.left = std::max<LONG>(rc.left + event.x, rect.left);
+				rect.top = std::max<LONG>(rc.top + event.y, rect.top);
+				rect.right = std::min<LONG>(rc.left + event.x + event.w, rect.right);
+				rect.bottom = std::min<LONG>(rc.top + event.y + event.h, rect.bottom);
+			}
+			else
+			{
+				rect.left = std::max<LONG>(event.x, rect.left);
+				rect.top = std::max<LONG>(event.y, rect.top);
+				rect.right = std::min<LONG>(event.x + event.w, rect.right);
+				rect.bottom = std::min<LONG>(event.y + event.h, rect.bottom);
+			}
 
 			auto width = rect.right - rect.left;
 			auto height = rect.bottom - rect.top;
@@ -143,7 +160,7 @@ namespace vinyl
 			auto hBitmap = ::CreateCompatibleBitmap(hdc1, width, height);
 			SelectObject(hdc2, hBitmap);
 
-			BitBlt(hdc2, 0, 0, width, height, hdc1, rect.left, rect.top, SRCCOPY);
+			BitBlt(hdc2, 0, 0, width, height, hdc1, rect.left, rect.top, SRCCOPY);				
 
 			BITMAPINFOHEADER bihInfo;
 			bihInfo.biSize = sizeof(BITMAPINFOHEADER);
@@ -158,7 +175,8 @@ namespace vinyl
 			bihInfo.biClrUsed = 0;
 			bihInfo.biClrImportant = 0;
 
-			GetDIBits(hdc2, hBitmap, 0, height, event.pixels, (LPBITMAPINFO)&bihInfo, DIB_RGB_COLORS);
+			if (!GetDIBits(hdc2, hBitmap, 0, height, event.pixels, (LPBITMAPINFO)&bihInfo, DIB_RGB_COLORS))
+				std::memset(event.pixels, 0, event.w * event.h * 3);
 
 			DeleteDC(hdc2);
 		}

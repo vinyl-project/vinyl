@@ -16,9 +16,6 @@ namespace vinyl
 			virtual IInputControllerPtr clone() const noexcept override;
 
 		private:
-			virtual void onActivate() noexcept override;
-			virtual void onDeactivate() noexcept override;
-
 			virtual void onInputEvent(const InputEvent& event) noexcept(false) override;
 
 			virtual void onStartRecord(const RecordEvent& event) noexcept(false);
@@ -26,7 +23,7 @@ namespace vinyl
 			virtual void onStopRecord(const RecordEvent& event) noexcept(false);
 
 		private:
-			static LRESULT KeybdProc(int code, WPARAM wParam, LPARAM lParam) noexcept;
+			static LRESULT WindowProc(int code, WPARAM wParam, LPARAM lParam) noexcept;
 
 		private:
 			MSWInputRecord(const MSWInputRecord&) noexcept = delete;

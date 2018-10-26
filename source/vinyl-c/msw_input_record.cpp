@@ -20,25 +20,6 @@ namespace vinyl
 			return std::make_shared<MSWInputRecord>();
 		}
 
-		void
-		MSWInputRecord::onActivate() noexcept
-		{
-			/*if (!hook_)
-			{
-				hook_ = SetWindowsHookEx(WH_KEYBOARD, MSWInputKeyboard::KeybdProc, GetModuleHandle("user32"), 0);
-			}*/
-		}
-
-		void
-		MSWInputRecord::onDeactivate() noexcept
-		{
-			/*if (hook_)
-			{
-				UnhookWindowsHookEx(hook_);
-				hook_ = nullptr;
-			}*/
-		}
-
 		void 
 		MSWInputRecord::onInputEvent(const InputEvent& event) noexcept(false)
 		{
@@ -59,6 +40,8 @@ namespace vinyl
 		void 
 		MSWInputRecord::onStartRecord(const RecordEvent& event) noexcept(false)
 		{
+			if (!hook_)
+				hook_ = SetWindowsHookEx(WH_GETMESSAGE, MSWInputRecord::WindowProc, GetModuleHandle("user32"), 0);
 		}
 
 		void 
@@ -69,10 +52,15 @@ namespace vinyl
 		void 
 		MSWInputRecord::onStopRecord(const RecordEvent& event) noexcept(false)
 		{
+			if (hook_)
+			{
+				UnhookWindowsHookEx(hook_);
+				hook_ = nullptr;
+			}
 		}
 
 		LRESULT
-		MSWInputRecord::KeybdProc(int code, WPARAM wParam, LPARAM lParam) noexcept
+		MSWInputRecord::WindowProc(int code, WPARAM wParam, LPARAM lParam) noexcept
 		{
 			if (code < 0 || code == HC_NOREMOVE)
 				return ::CallNextHookEx(hook_, code, wParam, lParam);

@@ -114,7 +114,6 @@ win.key_up("LeftAlt", StringDelay)
 win.key_press("A", StringDelay)
 win.key_press("Delete", StringDelay)
 #第二步
-win.key_press("Enter")
 win.say_string("呼..... 整个世界清净了，下面我先介绍一下我的基本能力：模拟键盘和鼠标\n", StringDelay)
 win.say_string("先按下一下a键，注意了，这可不是我说出来的a，是我模拟按出来的哦\n", StringDelay)
 win.key_press("Enter")

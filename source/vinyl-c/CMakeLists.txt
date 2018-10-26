@@ -50,8 +50,8 @@ SET(INPUT_DEFAULT_LIST
 SOURCE_GROUP("input\\default" FILES ${INPUT_DEFAULT_LIST})
 
 SET(INPUT_MSW_LIST
-	${SOURCE_PATH}/msw_input_device.h
-	${SOURCE_PATH}/msw_input_device.cpp
+	${SOURCE_PATH}/msw_input_record.h
+	${SOURCE_PATH}/msw_input_record.cpp
 	${SOURCE_PATH}/msw_input_keyboard.h
 	${SOURCE_PATH}/msw_input_keyboard.cpp
 	${SOURCE_PATH}/msw_input_mouse.h

@@ -3,11 +3,11 @@
 #include <vinyl/input_debug.h>
 
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
-#	include "msw_input_device.h"
 #	include "msw_input_keyboard.h"
 #	include "msw_input_mouse.h"
 #	include "msw_input_window.h"
 #	include "msw_input_image.h"
+#	include "msw_input_record.h"
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
 #	include "ndk_input_device.h"
 #	include "ndk_input_keyboard.h"
@@ -35,13 +35,14 @@ namespace vinyl
 		Input::open() noexcept(false)
 		{
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
-			inputDevice_ = std::make_shared<MSWInputDevice>();
+			inputDevice_ = std::make_shared<InputDevice>();
 
 			this->addInputListener(std::make_shared<MSWInputWindow>());
 			this->addInputListener(std::make_shared<InputDebug>());
 			this->addInputListener(std::make_shared<MSWInputMouse>());
 			this->addInputListener(std::make_shared<MSWInputKeyboard>());
 			this->addInputListener(std::make_shared<MSWInputImage>());
+			this->addInputListener(std::make_shared<MSWInputRecord>());
 #elif defined(VINYL_FEATURE_INPUT_API_ANDROID)
 			inputDevice_ = std::make_shared<NDKInputDevice>();
 

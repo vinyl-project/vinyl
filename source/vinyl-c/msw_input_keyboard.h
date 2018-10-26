@@ -17,9 +17,6 @@ namespace vinyl
 			virtual IInputControllerPtr clone() const noexcept override;
 
 		private:
-			virtual void onActivate() noexcept override;
-			virtual void onDeactivate() noexcept override;
-
 			virtual void onKeyDown(const KeyboardEvent& event) noexcept override;
 			virtual void onKeyUp(const KeyboardEvent& event) noexcept override;
 
@@ -29,14 +26,8 @@ namespace vinyl
 			virtual void onWaitKey(const WaitKeyEvent& event) noexcept override;
 
 		private:
-			static LRESULT KeybdProc(int code, WPARAM wParam, LPARAM lParam) noexcept;
-
-		private:
 			MSWInputKeyboard(const MSWInputKeyboard&) noexcept = delete;
 			MSWInputKeyboard& operator=(const MSWInputKeyboard&) noexcept = delete;
-
-		private:
-			static HHOOK hook_;
 		};
 	}
 }

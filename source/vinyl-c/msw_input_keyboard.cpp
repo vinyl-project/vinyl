@@ -269,8 +269,6 @@ namespace vinyl
 			return 0;
 		}
 
-		HHOOK MSWInputKeyboard::hook_ = nullptr;
-
 		MSWInputKeyboard::MSWInputKeyboard() noexcept
 		{
 		}
@@ -279,50 +277,10 @@ namespace vinyl
 		{
 		}
 
-		void
-		MSWInputKeyboard::onActivate() noexcept
-		{
-			/*if (!hook_)
-			{
-				hook_ = SetWindowsHookEx(WH_KEYBOARD, MSWInputKeyboard::KeybdProc, GetModuleHandle("user32"), 0);
-			}*/
-		}
-
-		void
-		MSWInputKeyboard::onDeactivate() noexcept
-		{
-			/*if (hook_)
-			{
-				UnhookWindowsHookEx(hook_);
-				hook_ = nullptr;
-			}*/
-		}
-
 		IInputControllerPtr
 		MSWInputKeyboard::clone() const noexcept
 		{
 			return std::make_shared<MSWInputKeyboard>();
-		}
-
-		LRESULT
-		MSWInputKeyboard::KeybdProc(int code, WPARAM wParam, LPARAM lParam) noexcept
-		{
-			if (code < 0 || code == HC_NOREMOVE)
-				return ::CallNextHookEx(hook_, code, wParam, lParam);
-
-			switch (code)
-			{
-			case WM_KEYDOWN:
-			{
-			}
-			break;
-			case WM_KEYUP:
-			{
-			}
-			break;
-			}
-
-			return ::CallNextHookEx(hook_, code, wParam, lParam);
 		}
 
 		void

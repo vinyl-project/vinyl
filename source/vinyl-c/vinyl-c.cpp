@@ -57,7 +57,7 @@ void VINYL_C_CALL VinylKeyDown(vinyl::input::WindHandle win, vinyl::input::Input
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyDown(win, key, 10));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyDown(win, key));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -67,7 +67,7 @@ void VINYL_C_CALL VinylKeyUp(vinyl::input::WindHandle win, vinyl::input::InputKe
 	assert(input_);
 
 	if (input_)
-		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyUp(win, key, 10));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyUp(win, key));
 	else
 		throw std::runtime_error("Vinyl does not initialized.");
 }
@@ -78,8 +78,8 @@ void VINYL_C_CALL VinylKeyClick(vinyl::input::WindHandle win, vinyl::input::Inpu
 
 	if (input_)
 	{
-		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyDown(win, key, 10));
-		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyUp(win, key, 10));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyDown(win, key));
+		input_->sendInputEvent(vinyl::input::InputEvent::makeKeyUp(win, key));
 	}
 	else
 	{

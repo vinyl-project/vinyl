@@ -330,7 +330,6 @@ namespace vinyl
 		{
 			auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.keysym.sym);
 			keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), 0, 0);
-			Sleep(event.delay);
 		}
 
 		void
@@ -338,7 +337,6 @@ namespace vinyl
 		{
 			auto vkey = ScanCodeToVirtualKey((InputKey::Code)event.keysym.sym);
 			keybd_event(vkey, (BYTE)MapVirtualKey(vkey, 0), KEYEVENTF_KEYUP, 0);
-			Sleep(event.delay);
 		}
 
 		void

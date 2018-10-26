@@ -61,13 +61,12 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeKeyDown(WindHandle win, InputKey::Code input_key, std::uint32_t delay) noexcept
+		InputEvent::makeKeyDown(WindHandle win, InputKey::Code input_key) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::KeyDown;
 			event.key.windowID = (std::uint64_t)win;
 			event.key.state = nullptr;
-			event.key.delay = delay;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
 			event.key.keysym.mod = 0;
@@ -76,13 +75,12 @@ namespace vinyl
 		}
 
 		InputEvent
-		InputEvent::makeKeyUp(WindHandle win, InputKey::Code input_key, std::uint32_t delay) noexcept
+		InputEvent::makeKeyUp(WindHandle win, InputKey::Code input_key) noexcept
 		{
 			InputEvent event;
 			event.event = InputEvent::KeyUp;
 			event.key.windowID = (std::uint64_t)win;
 			event.key.state = nullptr;
-			event.key.delay = delay;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
 			event.key.keysym.mod = 0;
@@ -97,7 +95,6 @@ namespace vinyl
 			event.event = InputEvent::IsKeyDown;
 			event.key.windowID = (std::uint64_t)win;
 			event.key.state = &state;
-			event.key.delay = 0;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
 			event.key.keysym.mod = 0;
@@ -112,7 +109,6 @@ namespace vinyl
 			event.event = InputEvent::IsKeyUp;
 			event.key.windowID = (std::uint64_t)win;
 			event.key.state = &state;
-			event.key.delay = 0;
 			event.key.keysym.raw = 0;
 			event.key.keysym.sym = input_key;
 			event.key.keysym.mod = 0;

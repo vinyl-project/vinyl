@@ -20,7 +20,6 @@ namespace vinyl
 		{
 			std::uint64_t windowID;
 			std::uint8_t* state;
-			std::uint32_t delay;
 			InputKeysym keysym;
 		};
 
@@ -254,8 +253,8 @@ namespace vinyl
 			static InputEvent makeFindWindowFromTitle(const char* tile, WindHandle& win) noexcept;
 			static InputEvent makeFindWindowFromClassName(const char* classname, WindHandle& win) noexcept;
 
-			static InputEvent makeKeyDown(WindHandle win, InputKey::Code key, std::uint32_t delay = 10) noexcept;
-			static InputEvent makeKeyUp(WindHandle win, InputKey::Code key, std::uint32_t delay = 10) noexcept;
+			static InputEvent makeKeyDown(WindHandle win, InputKey::Code key) noexcept;
+			static InputEvent makeKeyUp(WindHandle win, InputKey::Code key) noexcept;
 
 			static InputEvent makeMouseButtonDown(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;
 			static InputEvent makeMouseButtonUp(WindHandle win, InputButton::Code button, std::uint32_t x, std::uint32_t y, std::uint32_t delay = 10) noexcept;

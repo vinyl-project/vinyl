@@ -1,2 +1,3 @@
 ADD_SUBDIRECTORY(vinyl-c)
 ADD_SUBDIRECTORY(vinyl-py)
+ADD_SUBDIRECTORY(vinyl-hook)

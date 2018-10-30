@@ -60,6 +60,8 @@ SET(INPUT_MSW_LIST
 	${SOURCE_PATH}/msw_input_window.cpp
 	${SOURCE_PATH}/msw_input_image.h
 	${SOURCE_PATH}/msw_input_image.cpp
+	${SOURCE_PATH}/msw_input_hook.h
+	${SOURCE_PATH}/msw_input_hook.cpp
 )
 SOURCE_GROUP("input\\msw" FILES ${INPUT_MSW_LIST})
 

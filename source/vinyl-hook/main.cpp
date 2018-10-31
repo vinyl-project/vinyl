@@ -172,36 +172,36 @@ BOOL WINAPI HookDX10Swapchain()
 	wc.cbSize = sizeof(wc);
 	wc.hInstance = ::GetModuleHandle(NULL);
 	wc.lpfnWndProc = ::DefWindowProc;
-	wc.lpszClassName = "GL33";
+	wc.lpszClassName = "HookDX10Swapchain";
 	if (!::RegisterClassEx(&wc))
 		return false;
 
-	HWND hwnd = CreateWindow("GL33", "This is my test ! ", WS_OVERLAPPEDWINDOW, 0, 0, 600, 400, NULL, NULL, 0, NULL);
+	HWND hwnd = CreateWindow("GL33", "HookDX10Swapchain", WS_OVERLAPPEDWINDOW, 0, 0, 600, 400, NULL, NULL, 0, NULL);
 
 	ID3D10Device* device;
 	IDXGISwapChain* swapchain;
-	DXGI_SWAP_CHAIN_DESC swap_chain_description = { 0 };
-	swap_chain_description.BufferDesc.Width = 600; // use window’s client area dims
-	swap_chain_description.BufferDesc.Height = 400;
-	swap_chain_description.BufferDesc.RefreshRate.Numerator = 60;
-	swap_chain_description.BufferDesc.RefreshRate.Denominator = 1;
-	swap_chain_description.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	swap_chain_description.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-	swap_chain_description.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-	swap_chain_description.SampleDesc.Count = 1;
-	swap_chain_description.SampleDesc.Quality = 0;
-	swap_chain_description.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	swap_chain_description.BufferCount = 1;
-	swap_chain_description.OutputWindow = hwnd;
-	swap_chain_description.Windowed = true;
-	swap_chain_description.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	swap_chain_description.Flags = 0;
+	DXGI_SWAP_CHAIN_DESC sd = { 0 };
+	sd.BufferDesc.Width = 600; // use window’s client area dims
+	sd.BufferDesc.Height = 400;
+	sd.BufferDesc.RefreshRate.Numerator = 60;
+	sd.BufferDesc.RefreshRate.Denominator = 1;
+	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	sd.SampleDesc.Count = 1;
+	sd.SampleDesc.Quality = 0;
+	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	sd.BufferCount = 1;
+	sd.OutputWindow = hwnd;
+	sd.Windowed = true;
+	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	sd.Flags = 0;
 
 	HMODULE d3d10 = LoadLibrary("d3d10.dll");
 	PFND3D10CREATEDEVICEANDSWAPCHAINPRCO __D3D10CreateDeviceAndSwapChain = (PFND3D10CREATEDEVICEANDSWAPCHAINPRCO)GetProcAddress(d3d10, "D3D10CreateDeviceAndSwapChain");
 
 	UINT createDeviceFlags = 0;
-	__D3D10CreateDeviceAndSwapChain(0, D3D10_DRIVER_TYPE_HARDWARE, 0, createDeviceFlags, D3D10_SDK_VERSION, &swap_chain_description, &swapchain, &device);
+	__D3D10CreateDeviceAndSwapChain(0, D3D10_DRIVER_TYPE_HARDWARE, 0, createDeviceFlags, D3D10_SDK_VERSION, &sd, &swapchain, &device);
 	__Present = (PFNPRESENTPROC)VtableHook(swapchain, 8, (FARPROC)HookPresent);
 
 	swapchain->Present(0, 0);

@@ -5,13 +5,13 @@
 #include <d3d11.h>
 
 typedef BOOL (WINAPI* PFNSWAPBUFFERSPRCO)(HDC);
+typedef HRESULT (WINAPI* PFND3D10CREATEDEVICEANDSWAPCHAINPRCO)(IDXGIAdapter *pAdapter, D3D10_DRIVER_TYPE DriverType, HMODULE Software,UINT Flags,UINT SDKVersion, DXGI_SWAP_CHAIN_DESC *pSwapChainDesc,IDXGISwapChain **ppSwapChain,ID3D10Device **ppDevice);
 
 HWND window = nullptr;
 PFNSWAPBUFFERSPRCO __SwapBuffers = nullptr;
 
 FARPROC IATGetProcAddress(const char* dllname, const char* method)
 {
-
 	PIMAGE_DOS_HEADER library = (PIMAGE_DOS_HEADER)GetModuleHandle(NULL);
 	if (library->e_magic != IMAGE_DOS_SIGNATURE)
 	{
@@ -149,7 +149,7 @@ HRESULT WINAPI HookPresent(IDXGISwapChain* This, UINT SyncInterval, UINT Flags)
 	return 0;
 }
 
-BOOL WINAPI HookSwapchain()
+BOOL WINAPI HookDX10Swapchain()
 {
 	WNDCLASSEXA wc;
 	std::memset(&wc, 0, sizeof(wc));
@@ -163,7 +163,6 @@ BOOL WINAPI HookSwapchain()
 	HWND hwnd = CreateWindow("GL33", "This is my test ! ", WS_OVERLAPPEDWINDOW, 0, 0, 600, 400, NULL, NULL, 0, NULL);
 
 	ID3D10Device* device;
-	ID3D11DeviceContext* context;
 	IDXGISwapChain* swapchain;
 	DXGI_SWAP_CHAIN_DESC swap_chain_description = { 0 };
 	swap_chain_description.BufferDesc.Width = 600; // use window’s client area dims
@@ -183,20 +182,38 @@ BOOL WINAPI HookSwapchain()
 	swap_chain_description.Flags = 0;
 
 	UINT createDeviceFlags = 0;
+	PFND3D10CREATEDEVICEANDSWAPCHAINPRCO D3D10CreateDeviceAndSwapChain = (PFND3D10CREATEDEVICEANDSWAPCHAINPRCO)GetProcAddress(GetModuleHandle("d3d10.dll"), "D3D10CreateDeviceAndSwapChain");
+
 	D3D10CreateDeviceAndSwapChain(0, D3D10_DRIVER_TYPE_HARDWARE, 0, createDeviceFlags, D3D10_SDK_VERSION, &swap_chain_description, &swapchain, &device);
 
 	VtableHook(swapchain, 8, (FARPROC)HookPresent);
+
+	swapchain->Release();
+	device->Release();
+}
+
+void initOpenGL()
+{
+	__SwapBuffers = (PFNSWAPBUFFERSPRCO)GetProcAddress(GetModuleHandle("gdi32.dll"), "SwapBuffers");
+
+	IATSetProcAddress("gdi32.dll", "SwapBuffers", (FARPROC)HookSwapBuffers);
+}
+
+void initD3D10()
+{
+	HookDX10Swapchain();
 }
 
 void InstallHook()
 {
-	HMODULE opengl = GetModuleHandle("opengl32.dll");
-	if (opengl)
-	{
-		__SwapBuffers = (PFNSWAPBUFFERSPRCO)GetProcAddress(GetModuleHandle("gdi32.dll"), "SwapBuffers");
+	bool isOpengl = IATGetProcAddress("opengl32.dll", "SwapBuffers") ? true : false;
+	if (isOpengl)
+		initOpenGL();
 
-		IATSetProcAddress("gdi32.dll", "SwapBuffers", (FARPROC)HookSwapBuffers);
-	}
+	bool hasD3D10CreateDevice = IATGetProcAddress("d3d10.dll", "D3D10CreateDevice") ? true : false;
+	bool hasD3D10CreateDeviceAndSwapChain = IATGetProcAddress("d3d10.dll", "D3D10CreateDeviceAndSwapChain") ? true : false;
+	if (hasD3D10CreateDevice || hasD3D10CreateDeviceAndSwapChain)
+		initD3D10();
 }
 
 extern "C" __declspec(dllexport) LRESULT _stdcall HookProc(int nCode, WPARAM wParam, LPARAM lParam)

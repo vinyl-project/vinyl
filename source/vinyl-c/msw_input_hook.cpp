@@ -38,7 +38,11 @@ namespace vinyl
 		void 
 		MSWInputHook::installHook(HWND window) noexcept(false)
 		{
-			auto dllname = _DEBUG ? "vinyl-hook_d.dll" : "vinyl-hook.dll";
+#if _DEBUG
+			auto dllname = "vinyl-hook_d.dll";
+#else
+			auto dllname = "vinyl-hook.dll";
+#endif
 			auto module = LoadLibrary(dllname);
 			if (module == NULL)
 				throw std::runtime_error("Error: The Dll could not be found.");

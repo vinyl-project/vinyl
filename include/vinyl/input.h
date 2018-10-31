@@ -13,7 +13,7 @@ namespace vinyl
 			Input() noexcept;
 			virtual ~Input() noexcept;
 
-			virtual void open() noexcept(false);
+			virtual void open(const char* profile) noexcept(false);
 			virtual void close() noexcept;
 
 			virtual void setCaptureObject(WindHandle window) noexcept;

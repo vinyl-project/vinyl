@@ -116,9 +116,6 @@ PyInit_vinyl(void)
 	// import third-party modules
 	import_array();
 
-	// vinyl init
-	VinylInit("");
-
     return m;
 }
 

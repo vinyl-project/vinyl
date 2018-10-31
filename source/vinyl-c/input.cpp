@@ -32,10 +32,13 @@ namespace vinyl
 		}
 
 		void
-		Input::open() noexcept(false)
+		Input::open(const char* profile) noexcept(false)
 		{
 #if defined(VINYL_FEATURE_INPUT_API_WINDOWS)
 			inputDevice_ = std::make_shared<InputDevice>();
+
+			if (profile)
+				SetCurrentDirectory(profile);
 
 			this->addInputListener(std::make_shared<MSWInputWindow>());
 			this->addInputListener(std::make_shared<InputDebug>());
@@ -121,7 +124,7 @@ namespace vinyl
 		Input::clone() const noexcept
 		{
 			auto input = std::make_shared<Input>();
-			input->open();
+			input->open(nullptr);
 
 			return input;
 		}

@@ -10,7 +10,7 @@ void VINYL_C_CALL VinylInit(const char* profile) noexcept(false)
 	if (!input_)
 	{
 		auto input = std::make_shared<vinyl::input::Input>();
-		input->open();
+		input->open(profile);
 
 		input_ = std::move(input);
 	}

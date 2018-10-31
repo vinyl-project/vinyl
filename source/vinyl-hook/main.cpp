@@ -242,7 +242,7 @@ extern "C" __declspec(dllexport) LRESULT _stdcall HookProc(int nCode, WPARAM wPa
 	if (msg->message == WM_NULL)
 	{
 		window = (HWND)wParam;
-		MessageBox(0, "安装成功", 0, 0);
+		MessageBox(0, "安装成功", "Success", 0);
 
 		InstallHook();
 	}

@@ -6,8 +6,11 @@
 
 typedef BOOL (WINAPI* PFNSWAPBUFFERSPRCO)(HDC);
 typedef HRESULT (WINAPI* PFND3D10CREATEDEVICEANDSWAPCHAINPRCO)(IDXGIAdapter *pAdapter, D3D10_DRIVER_TYPE DriverType, HMODULE Software,UINT Flags,UINT SDKVersion, DXGI_SWAP_CHAIN_DESC *pSwapChainDesc,IDXGISwapChain **ppSwapChain,ID3D10Device **ppDevice);
+typedef HRESULT (WINAPI* PFNPRESENTPROC)(IDXGISwapChain* This, UINT SyncInterval, UINT Flags);
 
 HWND window = nullptr;
+
+PFNPRESENTPROC __Present = nullptr;
 PFNSWAPBUFFERSPRCO __SwapBuffers = nullptr;
 
 FARPROC IATGetProcAddress(const char* dllname, const char* method)
@@ -120,23 +123,36 @@ BOOL IATSetProcAddress(const char* dllname, const char* method, FARPROC function
 	return TRUE;
 }
 
-BOOL VtableHook(void* instance, std::size_t method, FARPROC function)
+FARPROC VtableHook(void* This, std::size_t method, FARPROC function)
 {
-	FARPROC* vtable;
-	vtable = reinterpret_cast<FARPROC*>(instance);
-	vtable = reinterpret_cast<FARPROC*>(vtable[0]);
-	vtable = reinterpret_cast<FARPROC*>(vtable[method]);
+	MEMORY_BASIC_INFORMATION mbi = {0};
 
-	MEMORY_BASIC_INFORMATION mbi;
-	VirtualQuery(vtable, &mbi, sizeof(MEMORY_BASIC_INFORMATION));
-	VirtualProtect(mbi.BaseAddress, mbi.RegionSize, PAGE_READWRITE, &mbi.Protect);
+	try
+	{
+		FARPROC* vtbl;
+		vtbl = reinterpret_cast<FARPROC*>(This);
+		vtbl = reinterpret_cast<FARPROC*>(vtbl[0]);
 
-	*vtable = function;
+		VirtualQuery(vtbl, &mbi, sizeof(MEMORY_BASIC_INFORMATION));
 
-	DWORD protect;
-	VirtualProtect(mbi.BaseAddress, mbi.RegionSize, mbi.Protect, &protect);
+		if (VirtualProtect(mbi.BaseAddress, mbi.RegionSize, PAGE_READWRITE, &mbi.Protect))
+		{
+			FARPROC old = vtbl[method];
+			vtbl[method] = function;
 
-	return TRUE;
+			DWORD protect;
+			VirtualProtect(mbi.BaseAddress, mbi.RegionSize, mbi.Protect, &protect);
+
+			return old;
+		}
+	}
+	catch (...)
+	{
+		DWORD protect;
+		VirtualProtect(mbi.BaseAddress, mbi.RegionSize, mbi.Protect, &protect);
+	}
+
+	return nullptr;
 }
 
 BOOL WINAPI HookSwapBuffers(HDC hdc)
@@ -146,7 +162,7 @@ BOOL WINAPI HookSwapBuffers(HDC hdc)
 
 HRESULT WINAPI HookPresent(IDXGISwapChain* This, UINT SyncInterval, UINT Flags)
 {
-	return 0;
+	return __Present(This, SyncInterval, Flags);
 }
 
 BOOL WINAPI HookDX10Swapchain()
@@ -181,15 +197,19 @@ BOOL WINAPI HookDX10Swapchain()
 	swap_chain_description.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swap_chain_description.Flags = 0;
 
+	HMODULE d3d10 = LoadLibrary("d3d10.dll");
+	PFND3D10CREATEDEVICEANDSWAPCHAINPRCO __D3D10CreateDeviceAndSwapChain = (PFND3D10CREATEDEVICEANDSWAPCHAINPRCO)GetProcAddress(d3d10, "D3D10CreateDeviceAndSwapChain");
+
 	UINT createDeviceFlags = 0;
-	PFND3D10CREATEDEVICEANDSWAPCHAINPRCO D3D10CreateDeviceAndSwapChain = (PFND3D10CREATEDEVICEANDSWAPCHAINPRCO)GetProcAddress(GetModuleHandle("d3d10.dll"), "D3D10CreateDeviceAndSwapChain");
+	__D3D10CreateDeviceAndSwapChain(0, D3D10_DRIVER_TYPE_HARDWARE, 0, createDeviceFlags, D3D10_SDK_VERSION, &swap_chain_description, &swapchain, &device);
+	__Present = (PFNPRESENTPROC)VtableHook(swapchain, 8, (FARPROC)HookPresent);
 
-	D3D10CreateDeviceAndSwapChain(0, D3D10_DRIVER_TYPE_HARDWARE, 0, createDeviceFlags, D3D10_SDK_VERSION, &swap_chain_description, &swapchain, &device);
-
-	VtableHook(swapchain, 8, (FARPROC)HookPresent);
+	swapchain->Present(0, 0);
 
 	swapchain->Release();
 	device->Release();
+
+	return true;
 }
 
 void initOpenGL()

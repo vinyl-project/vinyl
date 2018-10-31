@@ -123,11 +123,8 @@ PyObject* vinyl_init(PyObject* self, PyObject* args)
 {
     char *profile;
     if (!(PyArg_ParseTuple(args, "s", &profile))) 
-	{
-        return NULL;
-    }
+		Py_RETURN_NONE;
 
-    // init input
 	try
 	{
 		VinylInit(profile);

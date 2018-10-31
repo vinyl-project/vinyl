@@ -1,4 +1,6 @@
 #include "msw_input_image.h"
+#include "msw_input_hook.h"
+
 #include <algorithm>
 #include <dxgi.h>
 
@@ -134,6 +136,8 @@ namespace vinyl
 
 			if (event.windowID)
 			{
+				MSWInputHook::getInstance().screenshot(event);
+
 				RECT rc;
 				GetWindowRect((HWND)event.windowID, &rc);
 

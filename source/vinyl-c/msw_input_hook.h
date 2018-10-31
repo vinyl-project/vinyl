@@ -14,7 +14,7 @@ namespace vinyl
 			MSWInputHook() noexcept;
 			virtual ~MSWInputHook() noexcept;
 
-			MSWInputHook& getInstance() const noexcept;
+			static MSWInputHook& getInstance() noexcept;
 
 			void screenshot(const ScreenshotEvent& event) noexcept;
 
@@ -22,7 +22,7 @@ namespace vinyl
 			virtual IInputControllerPtr clone() const noexcept;
 
 		private:
-			void installHook(HWND window) noexcept;
+			void installHook(HWND window) noexcept(false);
 			void uninstallHook(HWND window) noexcept;
 			void uninstallHooks() noexcept;
 

@@ -19,47 +19,44 @@ namespace vinyl
 		void 
 		MSWInputHook::screenshot(const ScreenshotEvent& event) noexcept
 		{
+			if (event.windowID)
+			{
+				auto hook = hook_[(HWND)event.windowID];
+				if (!hook)
+				{
+					installHook((HWND)event.windowID);
+				}
+			}
 		}
 
 		MSWInputHook&
-		MSWInputHook::getInstance() const noexcept
+		MSWInputHook::getInstance() noexcept
 		{
 			return instance_;
 		}
 
 		void 
-		MSWInputHook::installHook(HWND window) noexcept
+		MSWInputHook::installHook(HWND window) noexcept(false)
 		{
+			auto dllname = _DEBUG ? "vinyl-hook_d.dll" : "vinyl-hook.dll";
+			auto module = LoadLibrary(dllname);
+			if (module == NULL)
+				throw std::runtime_error("Error: The Dll could not be found.");
+
+			auto func = (HOOKPROC)GetProcAddress(module, "HookProc");
+			if (func == NULL)
+				throw std::runtime_error("Error: The DLL exported function was not found.");
+			
 			DWORD processid;
 			DWORD threadid = ::GetWindowThreadProcessId(window, &processid);
-				
-			HANDLE process = ::OpenProcess(PROCESS_ALL_ACCESS, 0, processid);
-			if (process)
+			if (func == NULL)
+				throw std::runtime_error("Error: The Thread ID was not found.");
+
+			HHOOK hook = ::SetWindowsHookEx(WH_GETMESSAGE, func, module, threadid);
+			if (hook)
 			{
-				BOOL wow64;
-				::IsWow64Process(process, &wow64);				
-				::CloseHandle(process);
-
-				auto dllname = wow64 ? "vinyl-hook.dll" : "vinyl-hook-86.dll";
-				auto HookProc = [](int nCode, WPARAM wParam, LPARAM lParam) -> LRESULT
-				{
-					MSG* msg = (MSG*)lParam;
-					if (msg->message == WM_NULL)
-					{
-						BOOL wow64;
-						::IsWow64Process(GetCurrentProcess(), &wow64);
-						::LoadLibrary(wow64 ? "vinyl-hook.dll" : "vinyl-hook-86.dll");
-					}
-						
-					return TRUE;
-				};
-
-				HHOOK hook = ::SetWindowsHookEx(WH_GETMESSAGE, HookProc, ::GetModuleHandleA(dllname), threadid);
-				if (hook)
-				{
-					PostThreadMessageW(threadid, WM_NULL, 0, 0);
-					hook_[window] = hook;
-				}
+				PostThreadMessageW(threadid, WM_NULL, (WPARAM)0, 0);
+				hook_[window] = hook;
 			}
 		}
 

@@ -50,18 +50,18 @@ namespace vinyl
 			auto func = (HOOKPROC)GetProcAddress(module, "HookProc");
 			if (func == NULL)
 				throw std::runtime_error("Error: The DLL exported function was not found.");
-			
+
 			DWORD processid;
 			DWORD threadid = ::GetWindowThreadProcessId(window, &processid);
 			if (func == NULL)
 				throw std::runtime_error("Error: The Thread ID was not found.");
 
 			HHOOK hook = ::SetWindowsHookEx(WH_GETMESSAGE, func, module, threadid);
-			if (hook)
-			{
-				PostThreadMessageW(threadid, WM_NULL, (WPARAM)0, 0);
-				hook_[window] = hook;
-			}
+			if (!hook)
+				throw std::runtime_error("Error: SetWindowsHookEx() failed.");
+			
+			PostThreadMessageW(threadid, WM_NULL, (WPARAM)window, (LPARAM)window);
+			hook_[window] = hook;
 		}
 
 		void 

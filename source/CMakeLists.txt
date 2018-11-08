@@ -1,3 +1,5 @@
 ADD_SUBDIRECTORY(vinyl-c)
 ADD_SUBDIRECTORY(vinyl-py)
 ADD_SUBDIRECTORY(vinyl-hook)
+ADD_SUBDIRECTORY(vinyl-d3d11)
+ADD_SUBDIRECTORY(vinyl-opengl)
